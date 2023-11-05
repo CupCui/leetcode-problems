@@ -1,4 +1,4 @@
-package top.cupcupcui.leetcodeproblems.newcoderproblems.JianzhiOffer;
+package top.cupcupcui.leetcodeproblems.nowcoderproblems.JianzhiOffer;
 
 import org.junit.Test;
 

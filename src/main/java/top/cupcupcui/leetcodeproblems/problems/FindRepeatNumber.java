@@ -1,4 +1,4 @@
-package com.onecup.springbootdemo.leetcode.problems;
+package top.cupcupcui.leetcodeproblems.problems;
 
 import org.junit.Test;
 
