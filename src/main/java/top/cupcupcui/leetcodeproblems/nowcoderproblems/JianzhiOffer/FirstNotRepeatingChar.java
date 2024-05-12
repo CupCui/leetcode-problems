@@ -16,7 +16,7 @@ public class FirstNotRepeatingChar {
      * 返回值：4
      */
     @Test
-    public void printMatrixTest() {
+    public void firstNotRepeatingCharTest() {
         //String str = "google";
         //String str = "aa";
         String str = "npLByfdfoU";
