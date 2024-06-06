@@ -3,6 +3,7 @@ package top.cupcupcui.leetcodeproblems.nowcoderproblems.JianzhiOffer;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author garre
@@ -25,9 +26,10 @@ public class Jz40GetLeastNumbers {
      */
     @Test
     public void getLeastNumbersTest() {
-        int[] input = {};
-        int k = 0;
-        getLeastNumbers(input, k);
+        int[] input = {4, 5, 1, 6, 2, 7, 3, 8};
+        int k = 7;
+        ArrayList<Integer> list = getLeastNumbers(input, k);
+        System.out.println(list.toString());
     }
 
     /**
@@ -39,7 +41,28 @@ public class Jz40GetLeastNumbers {
      */
     public ArrayList<Integer> getLeastNumbers(int[] input, int k) {
         // write code here
-        return new ArrayList<>();
+        int inputLen = input.length;
+
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < inputLen - i - 1; j++) {
+                if (input[j] < input[j + 1]) {
+                    // 交换
+                    int temp = input[j];
+                    input[j] = input[j + 1];
+                    input[j + 1] = temp;
+                }
+
+            }
+        }
+
+        System.out.println(Arrays.toString(input));
+
+        ArrayList list = new ArrayList<>();
+        for (int i = inputLen - 1; i >= inputLen - k; i--) {
+            list.add(input[i]);
+        }
+
+        return list;
     }
 
 
