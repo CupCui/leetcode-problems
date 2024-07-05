@@ -2,10 +2,31 @@ package top.cupcupcui.leetcodeproblems.nowcoderproblems.JianzhiOffer;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author garre
  */
 public class Jz41GetMedian {
+
+    private List<Integer> intArr = new ArrayList<>();
+
+    private static double getMediumNum(List<Integer> sortedArr) {
+        // [2,5]
+        int arrSize = sortedArr.size();
+        double mediumNum = 0D;
+        if (arrSize % 2 == 0) {
+            int mediumIndex = arrSize / 2;
+            Integer mediumFirstNum = sortedArr.get(mediumIndex - 1);
+            Integer mediumSecondNum = sortedArr.get(mediumIndex);
+            mediumNum = (mediumFirstNum + mediumSecondNum) / 2D;
+        } else {
+            int mediumIndex = arrSize / 2;
+            mediumNum = sortedArr.get(mediumIndex);
+        }
+        return mediumNum;
+    }
 
     /**
      * 描述
@@ -26,18 +47,71 @@ public class Jz41GetMedian {
      */
     @Test
     public void solution() {
-        insert(1);
-        Double median = getMedian();
-        System.out.println(median);
+        int[] insertArray = new int[]{5, 2, 3, 4, 1, 6, 7, 0, 8};
+        List<Double> medianNums = new ArrayList<>();
+        for (int i : insertArray) {
+            Insert(i);
+            Double median = GetMedian();
+            medianNums.add(median);
+
+        }
+        System.out.println(intArr);
+        System.out.println(medianNums);
     }
 
-    public void insert(Integer num) {
-
+    public void Insert(Integer num) {
+        intArr.add(num);
     }
 
-    public Double getMedian() {
+    /**
+     * 求集合的中位数，并将结果放入到结果集中
+     *
+     * @return
+     */
+    public Double GetMedian() {
+        List<Integer> integers = new ArrayList<>(intArr);
 
-        return (double) 0;
+        List<Integer> sortedArr = quickSort(integers);
+
+        double mediumNum = getMediumNum(sortedArr);
+
+        return mediumNum;
+    }
+
+    private List<Integer> quickSort(List<Integer> intArrDto) {
+        // [5,2]
+        List<Integer> intArr = new ArrayList<>(intArrDto);
+        // [5,2]
+        // 遍历 intArr
+        for (int i = 0; i < intArr.size(); i++) {
+            // 待插入的元素
+            Integer insertVal = intArr.get(i);
+            // 待插入的位置，初始位置为 i
+            int insertPosition = i;
+            if (i == 0) {
+                continue;
+            }
+            // 遍历已经排序的集合 [0, i - 1]
+            for (int j = 0; j < i; j++) {
+                // 遍历已经排序的集合，查找元素 intArr[i] 待插入的位置 insertPosition
+                if (insertVal < intArr.get(j)) {
+                    // 待插入的位置
+                    insertPosition = j;
+                    break;
+                }
+            }
+
+            Integer neededInsertVal = insertVal;
+            // 将 insertPosition 后元素平移
+            for (int j = insertPosition; j <= i; j++) {
+                Integer temp = intArr.get(j);
+                intArr.set(j, neededInsertVal);
+                neededInsertVal = temp;
+            }
+        }
+
+        System.out.println("intArr: " + intArr);
+        return intArr;
     }
 
 
