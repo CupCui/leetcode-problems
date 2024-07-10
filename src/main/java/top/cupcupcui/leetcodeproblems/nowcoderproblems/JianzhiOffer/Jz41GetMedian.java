@@ -12,22 +12,6 @@ public class Jz41GetMedian {
 
     private List<Integer> intArr = new ArrayList<>();
 
-    private static double getMediumNum(List<Integer> sortedArr) {
-        // [2,5]
-        int arrSize = sortedArr.size();
-        double mediumNum = 0D;
-        if (arrSize % 2 == 0) {
-            int mediumIndex = arrSize / 2;
-            Integer mediumFirstNum = sortedArr.get(mediumIndex - 1);
-            Integer mediumSecondNum = sortedArr.get(mediumIndex);
-            mediumNum = (mediumFirstNum + mediumSecondNum) / 2D;
-        } else {
-            int mediumIndex = arrSize / 2;
-            mediumNum = sortedArr.get(mediumIndex);
-        }
-        return mediumNum;
-    }
-
     /**
      * 描述
      * 如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。
@@ -59,6 +43,29 @@ public class Jz41GetMedian {
         System.out.println(medianNums);
     }
 
+    private double getMediumNum(List<Integer> sortedArr) {
+        // [2,5]
+        int arrSize = sortedArr.size();
+        double mediumNum = 0D;
+        if (arrSize % 2 == 0) {
+            int mediumIndex = arrSize / 2;
+            Integer mediumFirstNum = sortedArr.get(mediumIndex - 1);
+            Integer mediumSecondNum = sortedArr.get(mediumIndex);
+            mediumNum = (mediumFirstNum + mediumSecondNum) / 2D;
+        } else {
+            int mediumIndex = arrSize / 2;
+            mediumNum = sortedArr.get(mediumIndex);
+        }
+        return mediumNum;
+    }
+
+    /**
+     * 插入一个数
+     * 空间复杂度 O(1)
+     * 时间复杂度 O(1)
+     *
+     * @param num
+     */
     public void Insert(Integer num) {
         intArr.add(num);
     }
@@ -78,6 +85,14 @@ public class Jz41GetMedian {
         return mediumNum;
     }
 
+    /**
+     * 快速排序
+     * 空间复杂度 O(n)
+     * 时间复杂度 O(n2)
+     *
+     * @param intArrDto
+     * @return
+     */
     private List<Integer> quickSort(List<Integer> intArrDto) {
         // [5,2]
         List<Integer> intArr = new ArrayList<>(intArrDto);
@@ -110,7 +125,6 @@ public class Jz41GetMedian {
             }
         }
 
-        System.out.println("intArr: " + intArr);
         return intArr;
     }
 
