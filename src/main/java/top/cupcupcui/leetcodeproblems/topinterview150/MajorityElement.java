@@ -25,12 +25,14 @@ public class MajorityElement {
      * <p>
      * 进阶：尝试设计时间复杂度为 O(n)、空间复杂度为 O(1) 的算法解决此问题。
      * <p>
-     * 思路: 1.循环遍历删除数组中元素，标记删除的元素为-1；2.移动数组中元素，将值为-1的元素移动到末尾
+     * 思路:
+     * -［x」遍历元素，统计当前元素在数组中出现的次数，如果大于n/2，则返回
+     * -［x］遍历元素，放入mapskey，count>中，遍历map，获取多数元素。
      * 知识点：数组 / 字符串
      * 测试:
      * 结果:
-     * 时间复杂度: O()
-     * 空间复杂度: O()
+     * 时间复杂度: O(n)
+     * 空间复杂度: O(n)
      * 优化建议：
      * 核心思路是：
      * 空间优化：
@@ -59,7 +61,15 @@ public class MajorityElement {
         return majorityElement;
     }
 
-
+    /**
+     * 思路
+     * -［x］ 遍历元素，统计当前元素在数組中出现的次数，如果大于n/2，则返回
+     * 时间复杂度：0（n2）
+     * 空间负责度：0（1）
+     *
+     * @param nums
+     * @return
+     */
     public int majorityElementV1(int[] nums) {
         for (int i = 0; i < nums.length; i++) {
             int count = 0;
