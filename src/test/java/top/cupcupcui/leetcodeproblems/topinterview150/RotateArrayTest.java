@@ -15,6 +15,24 @@ public class RotateArrayTest {
      * <p>
      * 示例 1:
      * <p>
+     * 输入: nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], k = 3
+     * 输出: [8, 9, 10, 1, 2, 3, 4, 5, 6, 7]
+     */
+    @Test
+    public void rotateArray_PositiveCase0() {
+        RotateArray rotateArray = new RotateArray();
+        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int k = 3;
+        int[] expected = {8, 9, 10, 1, 2, 3, 4, 5, 6, 7};
+        int[] response = rotateArray.rotateArray(nums, k);
+        Assert.assertArrayEquals(expected, response);
+    }
+
+    /**
+     * 正例
+     * <p>
+     * 示例 1:
+     * <p>
      * 输入: nums = [1,2,3,4,5,6,7], k = 3
      * 输出: [5,6,7,1,2,3,4]
      * 解释:

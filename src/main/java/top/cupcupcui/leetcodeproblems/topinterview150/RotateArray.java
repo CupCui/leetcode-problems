@@ -41,6 +41,54 @@ public class RotateArray {
      * 输入: nums = [1,2,3,4,5,6,7], k = 3
      * 输出: [5,6,7,1,2,3,4]
      * <p>
+     * 思路：**不可行**
+     * -[] 遍历nums·将第K个元素放入新数组中n-k位置
+     * 时间复杂度：0(n)
+     * 空间负责度：0(1)
+     * 知识点：数组 / 字符串
+     * 测试:
+     * 结果:
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] rotateArray(int[] nums, int k) {
+        if (k == 0 || nums.length == 0) {
+            return nums;
+        }
+        k = k % nums.length;
+
+        /**
+         * 给定一个整数数组 nums，将数组中的元素向右轮转 k 个位置，其中 k 是非负数。
+         * 输入: nums = [1,2,3,4,5,6,7], k = 3
+         * 输出:        [5,6,7,1,2,3,4]
+         * 输入: nums = [1,2,3], k = 1
+         * 输出:        [2,1,2]
+         * 输入: nums = [1,2,3,4], k = 3
+         * 输出:        [2,3,4,1]
+         * 输入: nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], k = 3
+         * 输出:        [8, 9, 10, 1, 2, 3, 4, 5, 6, 7]
+         * 解释:
+         * 向右轮转 1 步: [8, 9, 10,   4, 5, 6, 7, 1, 2, 3]
+         * 向右轮转 2 步: [8, 9, 10,   1, 2, 3,   7, 4, 5, 6]
+         * 向右轮转 3 步: [8, 9, 10,   1, 2, 3,   7, 4, 5, 6]
+         * 思路：
+         * -[x] 递归，遍历nums·将第K个元素放入新数组中n-k位置
+         * 将 n - k + i 位置元素放到 i 位置
+         */
+        for (int i = 0; i < k; i++) {
+            int temp = nums[i];
+            nums[i] = nums[nums.length - k + i];
+            nums[nums.length - k + i] = temp;
+        }
+        return nums;
+    }
+
+    /**
      * 思路：
      * -[x] 遍历nums·将最后K个元素放入新数组中;再次遍历nums,将前n-k个元素放人新数组中
      * 时间复杂度：0(n)
@@ -56,7 +104,7 @@ public class RotateArray {
      * @param k
      * @return
      */
-    public int[] rotateArray(int[] nums, int k) {
+    public int[] rotateArrayV2(int[] nums, int k) {
         if (k == 0 || nums.length == 0) {
             return nums;
         }
