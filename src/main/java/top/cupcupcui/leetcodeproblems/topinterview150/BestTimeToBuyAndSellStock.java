@@ -28,6 +28,105 @@ public class BestTimeToBuyAndSellStock {
      * 0 <= prices[i] <= 104
      * <p>
      * 思路：
+     * -[] 贪心，每一天都考虑，获取之前几天最小购入价，获取之后几天最大售出价
+     * 时间复杂度：0()
+     * 空间负责度：0()
+     * 知识点：数组 / 字符串
+     * 测试:
+     * 结果: 超时
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @return
+     */
+    public int bestTimeToBuyAndSellStock(int[] prices) {
+
+        // 最大收益
+        int maxMargin = 0;
+
+        /**
+         * 输入：prices = [2,4,1]
+         * 输出：2
+         */
+
+        // 每一天都考虑
+        for (int i = 0; i < prices.length; i++) {
+            int leftMinPrice = prices[0];
+            int leftMinPriceIndex = 0;
+
+            // 获取之前几天最小购入价
+            for (int j = 0; j < i; j++) {
+                int leftPrice = prices[j];
+                if (leftPrice < leftMinPrice) {
+                    leftMinPrice = leftPrice;
+                    leftMinPriceIndex = j;
+                }
+            }
+
+            // 获取之后几天最大售出价
+            for (int j = leftMinPriceIndex; j < prices.length; j++) {
+                int currPrice = prices[j];
+                int currMargin = currPrice - leftMinPrice;
+                if (currMargin > maxMargin) {
+                    maxMargin = currMargin;
+                }
+            }
+        }
+
+        return maxMargin;
+    }
+
+    /**
+     * 输入：prices = [2,4,1]
+     * 输出：2
+     * <p>
+     * 思路：
+     * -[] 贪心，从左边找一个最小的，从右边找一个最大的
+     * 时间复杂度：0()
+     * 空间负责度：0()
+     * 知识点：数组 / 字符串
+     * 测试:
+     * 结果: 不通过
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param prices
+     * @return
+     */
+    public int bestTimeToBuyAndSellStock2(int[] prices) {
+
+        // 最大收益
+        int maxMargin = 0;
+        int leftMinPrice = prices[0];
+        int leftMinPriceIndex = 0;
+
+        /**
+         * 输入：prices = [2,4,1]
+         * 输出：2
+         */
+        for (int i = 0; i < prices.length; i++) {
+            int leftPrice = prices[i];
+            if (leftPrice < leftMinPrice) {
+                leftMinPrice = leftPrice;
+                leftMinPriceIndex = i;
+            }
+        }
+
+        for (int i = leftMinPriceIndex; i < prices.length; i++) {
+            int currPrice = prices[i];
+            int currMargin = currPrice - leftMinPrice;
+            if (currMargin > maxMargin) {
+                maxMargin = currMargin;
+            }
+        }
+
+        return maxMargin;
+    }
+
+    /**
+     * 思路：
      * -[] 贪心算法，遍历，每次获取最大收益
      * 时间复杂度：0(n2)
      * 空间负责度：0(1)
@@ -38,10 +137,10 @@ public class BestTimeToBuyAndSellStock {
      * 核心思路是：
      * 空间优化：
      *
+     * @param prices
      * @return
      */
-
-    public int bestTimeToBuyAndSellStock(int[] prices) {
+    public int bestTimeToBuyAndSellStock1(int[] prices) {
 
         // 最大收益
         int maxMargin = 0;

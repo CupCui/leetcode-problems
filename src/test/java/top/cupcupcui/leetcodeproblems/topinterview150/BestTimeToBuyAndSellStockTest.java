@@ -92,6 +92,24 @@ public class BestTimeToBuyAndSellStockTest {
         Assert.assertEquals(expected, response);
     }
 
+
+    // ------ 反例 -------
+
+    /**
+     * 反例
+     * <p>
+     * 输入：prices = [2,4,1]
+     * 输出：2
+     */
+    @Test
+    public void jumpGame_NegativeCase1() {
+        BestTimeToBuyAndSellStock service = new BestTimeToBuyAndSellStock();
+        int[] nums = {2, 4, 1};
+        int expected = 2;
+        int response = service.bestTimeToBuyAndSellStock(nums);
+        Assert.assertEquals(expected, response);
+    }
+
     // ------- 临界条件 ------
 
     /**
