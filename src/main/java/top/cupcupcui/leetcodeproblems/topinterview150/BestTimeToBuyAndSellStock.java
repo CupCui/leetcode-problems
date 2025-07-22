@@ -28,12 +28,15 @@ public class BestTimeToBuyAndSellStock {
      * 0 <= prices[i] <= 104
      * <p>
      * 思路：
-     * -[] 贪心，每一天都考虑，获取之前几天最小购入价，获取之后几天最大售出价
-     * 时间复杂度：0()
-     * 空间负责度：0()
+     * -[]
+     * 在题目中，我们只要用一个变量记录一个历史最低价格 minprice，我们就可以假设自己的股票是在那天买的。那么我们在第 i 天卖出股票能得到的利润就是 prices[i] - minprice。
+     * 因此，我们只需要遍历价格数组一遍，记录历史最低点，然后在每一天考虑这么一个问题：如果我是在历史最低点买进的，那么我今天卖出能赚多少钱？当考虑完所有天数之时，我们就得到了最好的答案。
+     * <p>
+     * 时间复杂度：0(n)
+     * 空间负责度：0(n)
      * 知识点：数组 / 字符串
      * 测试:
-     * 结果: 超时
+     * 结果: 通过
      * 优化建议：
      * 核心思路是：
      * 空间优化：
@@ -53,21 +56,23 @@ public class BestTimeToBuyAndSellStock {
 
         // 最大收益
         int maxMargin = 0;
-        int historyMinPrice = prices[0];
-        int historyMinPriceIndex = 0;
+        int[] historyMinPriceArray = new int[prices.length];
+        historyMinPriceArray[0] = prices[0];
+
+        // 遍历，获取当天之前几天最小购入价
+        for (int i = 1; i < prices.length; i++) {
+            int price = prices[i];
+            // 当前价格小于前一天最小价格
+            if (price < historyMinPriceArray[i - 1]) {
+                historyMinPriceArray[i] = price;
+            } else {
+                historyMinPriceArray[i] = historyMinPriceArray[i - 1];
+            }
+        }
 
         // 每一天都考虑，今天要卖出
         for (int i = 0; i < prices.length; i++) {
-            // 获取之前几天最小购入价
-            for (int j = historyMinPriceIndex; j < i; j++) {
-                int price = prices[j];
-                if (price < historyMinPrice) {
-                    historyMinPrice = price;
-                    historyMinPriceIndex = i;
-                }
-            }
-
-            int curMaxMargin = prices[i] - historyMinPrice;
+            int curMaxMargin = prices[i] - historyMinPriceArray[i];
             if (curMaxMargin > maxMargin) {
                 maxMargin = curMaxMargin;
             }
@@ -79,8 +84,8 @@ public class BestTimeToBuyAndSellStock {
     /**
      * 思路：
      * -[]
-     * 时间复杂度：0()
-     * 空间负责度：0()
+     * 时间复杂度：0(n)
+     * 空间负责度：0(n)
      * 知识点：数组 / 字符串
      * 测试:
      * 结果: 超时
