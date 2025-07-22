@@ -41,6 +41,108 @@ public class BestTimeToBuyAndSellStock {
      * @return
      */
     public int bestTimeToBuyAndSellStock(int[] prices) {
+        /**
+         * 假设给定的数组为：[7, 1, 5, 3, 6, 4]
+         * 如果我们在图表上绘制给定数组中的数字，我们将会得到：
+         *
+         * 我们来假设自己来购买股票。随着时间的推移，每天我们都可以选择出售股票与否。那么，假设在第 i 天，如果我们要在今天卖股票，那么我们能赚多少钱呢？
+         * 显然，如果我们真的在买卖股票，我们肯定会想：如果我是在历史最低点买的股票就好了！太好了，
+         * 在题目中，我们只要用一个变量记录一个历史最低价格 minprice，我们就可以假设自己的股票是在那天买的。那么我们在第 i 天卖出股票能得到的利润就是 prices[i] - minprice。
+         * 因此，我们只需要遍历价格数组一遍，记录历史最低点，然后在每一天考虑这么一个问题：如果我是在历史最低点买进的，那么我今天卖出能赚多少钱？当考虑完所有天数之时，我们就得到了最好的答案。
+         */
+
+        // 最大收益
+        int maxMargin = 0;
+        int historyMinPrice = prices[0];
+        int historyMinPriceIndex = 0;
+
+        // 每一天都考虑，今天要卖出
+        for (int i = 0; i < prices.length; i++) {
+            // 获取之前几天最小购入价
+            for (int j = historyMinPriceIndex; j < i; j++) {
+                int price = prices[j];
+                if (price < historyMinPrice) {
+                    historyMinPrice = price;
+                    historyMinPriceIndex = i;
+                }
+            }
+
+            int curMaxMargin = prices[i] - historyMinPrice;
+            if (curMaxMargin > maxMargin) {
+                maxMargin = curMaxMargin;
+            }
+        }
+
+        return maxMargin;
+    }
+
+    /**
+     * 思路：
+     * -[]
+     * 时间复杂度：0()
+     * 空间负责度：0()
+     * 知识点：数组 / 字符串
+     * 测试:
+     * 结果: 超时
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param prices
+     * @return
+     */
+    public int bestTimeToBuyAndSellStock4(int[] prices) {
+        /**
+         * 假设给定的数组为：[7, 1, 5, 3, 6, 4]
+         * 如果我们在图表上绘制给定数组中的数字，我们将会得到：
+         *
+         * 我们来假设自己来购买股票。随着时间的推移，每天我们都可以选择出售股票与否。那么，假设在第 i 天，如果我们要在今天卖股票，那么我们能赚多少钱呢？
+         * 显然，如果我们真的在买卖股票，我们肯定会想：如果我是在历史最低点买的股票就好了！太好了，
+         * 在题目中，我们只要用一个变量记录一个历史最低价格 minprice，我们就可以假设自己的股票是在那天买的。那么我们在第 i 天卖出股票能得到的利润就是 prices[i] - minprice。
+         * 因此，我们只需要遍历价格数组一遍，记录历史最低点，然后在每一天考虑这么一个问题：如果我是在历史最低点买进的，那么我今天卖出能赚多少钱？当考虑完所有天数之时，我们就得到了最好的答案。
+         */
+
+        // 最大收益
+        int maxMargin = 0;
+        int historyMinPrice = prices[0];
+        int historyMinPriceIndex = 0;
+
+        // 每一天都考虑，今天要卖出
+        for (int i = 0; i < prices.length; i++) {
+            // 获取之前几天最小购入价
+            for (int j = historyMinPriceIndex; j < i; j++) {
+                int price = prices[j];
+                if (price < historyMinPrice) {
+                    historyMinPrice = price;
+                    historyMinPriceIndex = i;
+                }
+            }
+
+            int curMaxMargin = prices[i] - historyMinPrice;
+            if (curMaxMargin > maxMargin) {
+                maxMargin = curMaxMargin;
+            }
+        }
+
+        return maxMargin;
+    }
+
+    /**
+     * 思路：
+     * -[] 贪心，每一天都考虑，获取之前几天最小购入价，获取之后几天最大售出价
+     * 时间复杂度：0(n2)
+     * 空间负责度：0(1)
+     * 知识点：数组 / 字符串
+     * 测试:
+     * 结果: 超时
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param prices
+     * @return
+     */
+    public int bestTimeToBuyAndSellStock3(int[] prices) {
 
         // 最大收益
         int maxMargin = 0;
@@ -83,8 +185,8 @@ public class BestTimeToBuyAndSellStock {
      * <p>
      * 思路：
      * -[] 贪心，从左边找一个最小的，从右边找一个最大的
-     * 时间复杂度：0()
-     * 空间负责度：0()
+     * 时间复杂度：0(n)
+     * 空间负责度：0(1)
      * 知识点：数组 / 字符串
      * 测试:
      * 结果: 不通过
