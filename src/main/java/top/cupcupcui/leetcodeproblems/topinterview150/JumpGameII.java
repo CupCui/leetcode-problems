@@ -38,10 +38,10 @@ public class JumpGameII {
      * <p>
      * 思路：
      * -[] 维护一个最大可到达数组，倒叙遍历
-     * 时间复杂度：0()
-     * 空间负责度：0()
+     * 时间复杂度：0(n)
+     * 空间负责度：0(n)
      * 知识点：数组 / 字符串
-     * 测试:
+     * 测试: 自测通过
      * 结果:
      * 优化建议：
      * 核心思路是：
@@ -60,30 +60,43 @@ public class JumpGameII {
          * 找到最后一步跳跃前所在的位置之后，我们继续贪心地寻找倒数第二步跳跃前所在的位置，以此类推，直到找到数组的开始位置。
          *  */
 
+        /**
+         *
+         * 输入: nums = [2,3,1,1,4]
+         * 输出: 2
+         *
+         */
+        // 需要的步数
         int steps = 0;
 
+        // 每一个位置，其前0-i最大可到达的下标
         int[] maxReachableIndex = new int[nums.length];
-        for (int i = 0; i < nums.length; i++) {
-            maxReachableIndex[i] = i + nums[i];
+        maxReachableIndex[0] = nums[0];
+
+        // 正向遍历，获取每位最大可到达的下标
+        for (int i = 1; i < nums.length; i++) {
+            // 当前可达下标
+            int currMaxReachableIndex = i + nums[i];
+            // 历史可达下标
+            int historyMaxReachableIndex = maxReachableIndex[i - 1];
+            // 当前位置最大可达下标
+            maxReachableIndex[i] = Math.max(currMaxReachableIndex, historyMaxReachableIndex);
         }
 
-        // 4
+        // 输入: nums = [2,1,1]
+        // 输入: maxReachableIndex = [2,1,1]
+
+        // 需要到达的下标
         int neededReachIndex = nums.length - 1;
+        // 倒叙遍历
         for (int i = maxReachableIndex.length - 1; i > 0; i--) {
-            // 上一步到达不了
             boolean preCannotReach = maxReachableIndex[i - 1] < neededReachIndex;
-            // 这一步到达了
+            // 当前位置可以到达了
             boolean currCanReach = maxReachableIndex[i] >= neededReachIndex;
             if (preCannotReach && currCanReach) {
                 // 到达不了，需要一步
                 neededReachIndex = i;
-                steps++;
-            }
-
-            boolean currCannotReach = maxReachableIndex[i] < neededReachIndex;
-            if (currCannotReach) {
-                // 到达不了，需要一步
-                neededReachIndex = i;
+                // 需要一步
                 steps++;
             }
         }

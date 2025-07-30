@@ -54,7 +54,7 @@ public class JumpGameIITest {
     @Test
     public void jumpGame_PositiveCase2() {
         JumpGameII jumpGameII = new JumpGameII();
-        int[] nums = {1, 1, 1, 1, 1};
+        int[] nums = {2, 0, 2, 0, 1};
         int expected = 2;
         int response = jumpGameII.jumpGameII(nums);
         Assert.assertEquals(expected, response);
@@ -125,7 +125,7 @@ public class JumpGameIITest {
     public void jumpGame_NegativeCase4() {
         JumpGameII jumpGameII = new JumpGameII();
         int[] nums = {2, 1};
-        int expected = 2;
+        int expected = 1;
         int response = jumpGameII.jumpGameII(nums);
         Assert.assertEquals(expected, response);
     }
