@@ -141,7 +141,7 @@ public class JumpGameIITest {
     public void jumpGame_PositiveCase5() {
         JumpGameII jumpGameII = new JumpGameII();
         int[] nums = {1};
-        int expected = 1;
+        int expected = 0;
         int response = jumpGameII.jumpGameII(nums);
         Assert.assertEquals(expected, response);
     }
@@ -158,6 +158,38 @@ public class JumpGameIITest {
         JumpGameII jumpGameII = new JumpGameII();
         int[] nums = {2, 0, 0};
         int expected = 1;
+        int response = jumpGameII.jumpGameII(nums);
+        Assert.assertEquals(expected, response);
+    }
+
+
+    /**
+     * 正例
+     * <p>
+     * 输入：nums = [0]
+     * 输出：0
+     */
+    @Test
+    public void jumpGame_PositiveCase7() {
+        JumpGameII jumpGameII = new JumpGameII();
+        int[] nums = {0};
+        int expected = 0;
+        int response = jumpGameII.jumpGameII(nums);
+        Assert.assertEquals(expected, response);
+    }
+
+
+    /**
+     * 正例
+     * <p>
+     * 输入：nums = [1]
+     * 输出：1
+     */
+    @Test
+    public void jumpGame_PositiveCase8() {
+        JumpGameII jumpGameII = new JumpGameII();
+        int[] nums = {1};
+        int expected = 0;
         int response = jumpGameII.jumpGameII(nums);
         Assert.assertEquals(expected, response);
     }
