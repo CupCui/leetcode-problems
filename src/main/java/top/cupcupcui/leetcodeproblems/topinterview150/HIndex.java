@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.topinterview150;
 
+import java.util.*;
+
 /**
  * @author cuiguanghao
  * @date 2025/7/30 16:27
@@ -30,29 +32,32 @@ public class HIndex {
      * n == citations.length
      * 1 <= n <= 5000
      * 0 <= citations[i] <= 1000
+     * <p>
+     * 思路：
+     * -[] 遍历每一个，求每一位的 h 值
+     * 时间复杂度：0(n2)
+     * 空间负责度：0(n)
+     * 知识点：数组 / 字符串
+     * 测试: 自测通过
+     * 结果: 通过
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
      */
     public int hIndex(int[] citations) {
 
         /**
          * 思路：遍历每一个，求每一位的 h 值
-         *
-         *
          * 输入：citations = [3,0,6,1,5]
          * 输出：3
-         *
          *
          * h 指数:
          * 至少发表了 h 篇论文，(length >= h)
          * 并且 至少 有 h 篇论文被引用次数大于等于 h 。
          * 如果 h 有多种可能的值，h 指数 是其中最大的那个。
-         *
-         *
-         *
-         * 输入：citations = [11,15]
-         * 输出：1
-         * 测试不通过
          */
 
+        // 特殊情况判断
         if (citations.length == 0) {
             return 0;
         }
@@ -65,11 +70,21 @@ public class HIndex {
             }
         }
 
-        // h 指数集合
-        int[] hIndexArray = new int[citations.length];
+        /**
+         * 输入：citations = [11,15]
+         * 输出：1
+         */
 
-        // 遍历每个 h 值
-        for (int currH = 0; currH < citations.length; currH++) {
+        // <h 指数, h 指数值>集合
+        Map<Integer, Integer> hIndex2ValueMap = new HashMap<>();
+        for (int i = 0; i < citations.length; i++) {
+            // h 指数值 初始为最大预测值
+            hIndex2ValueMap.put(citations[i], citations[i]);
+        }
+
+        // 遍历每个 h 指数
+        for (Integer currH : hIndex2ValueMap.keySet()) {
+            // 每个 h 指数被引用的总次数
             int currHIndexValue = 0;
             // 遍历 citations
             for (int j = 0; j < citations.length; j++) {
@@ -78,12 +93,14 @@ public class HIndex {
                     currHIndexValue++;
                 }
             }
-            hIndexArray[currH] = Math.min(currH, currHIndexValue);
+            // 更新 h 指数值
+            int minHIndex = Math.min(hIndex2ValueMap.get(currH), currHIndexValue);
+            hIndex2ValueMap.put(currH, minHIndex);
         }
 
         int maxHIndex = 0;
-        for (int i = 0; i < hIndexArray.length; i++) {
-            maxHIndex = Math.max(maxHIndex, hIndexArray[i]);
+        for (Map.Entry<Integer, Integer> entry : hIndex2ValueMap.entrySet()) {
+            maxHIndex = Math.max(maxHIndex, entry.getValue());
         }
 
         return maxHIndex;
