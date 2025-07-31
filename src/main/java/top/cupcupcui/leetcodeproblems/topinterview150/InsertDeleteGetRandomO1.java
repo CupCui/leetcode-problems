@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.topinterview150;
 
+import java.util.*;
+
 /**
  * @author cuiguanghao
  * @date 2025/7/31 14:05
@@ -50,10 +52,21 @@ public class InsertDeleteGetRandomO1 {
      */
 
     public int insertDeleteGetRandomO1() {
-        int val = -1;
-        boolean param_1 = insert(val);
-        boolean param_2 = remove(val);
-        int param_3 = getRandom();
+        /**
+         *
+         * 输入
+         * ["RandomizedSet", "insert", "remove", "insert", "getRandom", "remove", "insert", "getRandom"]
+         * [[], [1], [2], [2], [], [1], [2], []]
+         * 输出
+         * [null, true, false, true, 2, true, false, 2]
+         *
+         * 解释
+         * RandomizedSet randomizedSet = new RandomizedSet();
+         * randomizedSet.insert(1); // 向集合中插入 1 。返回 true 表示 1 被成功地插入。
+         * randomizedSet.remove(2); // 返回 false ，表示集合中不存在 2 。
+         * randomizedSet.insert(2); // 向集合中插入 2 。返回 true 。集合现在包含 [1,2] 。
+         * randomizedSet.getRandom(); // getRandom 应随机返回 1 或 2 。
+         */
 
 
         return -1;
@@ -67,18 +80,37 @@ public class InsertDeleteGetRandomO1 {
      * boolean param_2 = obj.remove(val);
      * int param_3 = obj.getRandom();
      */
+    static class RandomizedSet {
+        List<Integer> nums;
 
-    public boolean insert(int val) {
-        return false;
+        public RandomizedSet() {
+            nums = new ArrayList<Integer>();
+        }
+
+        public boolean insert(int val) {
+            nums.add(val);
+            return true;
+        }
+
+        public boolean remove(int val) {
+            Integer neededDeleteNum = null;
+            for (Integer num : nums) {
+                if (num == val) {
+                    neededDeleteNum = val;
+                }
+            }
+            if (neededDeleteNum != null) {
+                nums.remove(neededDeleteNum);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public int getRandom() {
+            int i = new Random().nextInt(nums.size());
+            return nums.get(i);
+        }
     }
-
-    public boolean remove(int val) {
-        return false;
-    }
-
-    public int getRandom() {
-        return -1;
-    }
-
 
 }
