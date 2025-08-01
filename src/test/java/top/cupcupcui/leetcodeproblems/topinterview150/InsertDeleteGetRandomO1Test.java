@@ -92,6 +92,79 @@ public class InsertDeleteGetRandomO1Test {
         Assert.assertTrue(Objects.equals(expected7_2, param_7));
     }
 
+    /**
+     * 输入
+     * ["RandomizedSet", "insert"]
+     * [[], [2]]
+     * 输出
+     * [null, true]
+     * <p>
+     */
+    @Test
+    public void jumpGame_PositiveCase2() {
+        InsertDeleteGetRandomO1.RandomizedSet obj = new InsertDeleteGetRandomO1.RandomizedSet();
+        boolean param_1 = obj.insert(1);
+
+        boolean expected1 = true;
+        Assert.assertEquals(expected1, param_1);
+    }
+
+    /**
+     * 输入
+     * ["RandomizedSet", "remove"]
+     * [[], [1]]
+     * 输出
+     * [null, false]
+     * <p>
+     */
+    @Test
+    public void jumpGame_PositiveCase4() {
+        InsertDeleteGetRandomO1.RandomizedSet obj = new InsertDeleteGetRandomO1.RandomizedSet();
+        boolean param_1 = obj.remove(1);
+
+        boolean expected1 = false;
+        Assert.assertEquals(expected1, param_1);
+    }
+
+
+    /**
+     * 输入
+     * ["RandomizedSet", "insert", "remove", "insert" "remove", "insert"]
+     * [[], [2], [2], [2], [1], [2]]
+     * 输出
+     * [null, true, false, true, 2, true, false, 2]
+     * <p>
+     * 解释
+     * RandomizedSet randomizedSet = new RandomizedSet();
+     * randomizedSet.insert(1); // 向集合中插入 1 。返回 true 表示 1 被成功地插入。
+     * randomizedSet.remove(2); // 返回 false ，表示集合中不存在 2 。
+     * randomizedSet.insert(2); // 向集合中插入 2 。返回 true 。集合现在包含 [1,2] 。
+     * randomizedSet.getRandom(); // getRandom 应随机返回 1 或 2 。
+     */
+    @Test
+    public void jumpGame_PositiveCase5() {
+        InsertDeleteGetRandomO1.RandomizedSet obj = new InsertDeleteGetRandomO1.RandomizedSet();
+        boolean param_1 = obj.insert(2);
+        boolean param_2 = obj.remove(2);
+        boolean param_3 = obj.insert(2);
+        boolean param_5 = obj.remove(1);
+        boolean param_6 = obj.insert(2);
+        int param_7 = obj.getRandom();
+
+        boolean expected1 = true;
+        boolean expected2 = true;
+        boolean expected3 = true;
+        boolean expected5 = false;
+        boolean expected6 = false;
+        Assert.assertEquals(expected1, param_1);
+        Assert.assertEquals(expected2, param_2);
+        Assert.assertEquals(expected3, param_3);
+        Assert.assertEquals(expected5, param_5);
+        Assert.assertEquals(expected6, param_6);
+    }
+
+    // ---------------------------
+
 
     /**
      * leet 官方题解
@@ -135,6 +208,5 @@ public class InsertDeleteGetRandomO1Test {
             return nums.get(randomIndex);
         }
     }
-
 
 }

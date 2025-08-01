@@ -48,6 +48,17 @@ public class InsertDeleteGetRandomO1 {
      * -231 <= val <= 231 - 1
      * 最多调用 insert、remove 和 getRandom 函数 2 * 105 次
      * 在调用 getRandom 方法时，数据结构中 至少存在一个 元素。
+     * <p>
+     * 思路：
+     * -[]
+     * 时间复杂度：0()
+     * 空间负责度：0()
+     * 知识点：数组 / 字符串
+     * 测试:
+     * 结果: 通过
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
      *
      * @return
      */
@@ -98,8 +109,8 @@ public class InsertDeleteGetRandomO1 {
                 nums.add(val);
                 result = true;
             }
-            String numsString = Arrays.toString(nums.toArray());
-            System.out.println(numsString);
+            // String numsString = Arrays.toString(nums.toArray());
+            // System.out.println(numsString);
             return result;
         }
 
@@ -113,8 +124,8 @@ public class InsertDeleteGetRandomO1 {
             } else {
                 result = false;
             }
-            String numsString = Arrays.toString(nums.toArray());
-            System.out.println(numsString);
+            // String numsString = Arrays.toString(nums.toArray());
+            // System.out.println(numsString);
             return result;
         }
 
