@@ -71,6 +71,17 @@ public class GasStation {
      */
     public int canCompleteCircuit(int[] gas, int[] cost) {
 
+        /**
+         * 输入: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
+         * 输出: 3
+         * 解释: 从 3 号加油站(索引为 3 处)出发，可获得 4 升汽油。此时油箱有 = 0 + 4 = 4 升汽油
+         */
+
+        // 遍历 gas 次
+        for (int i = 0; i < gas.length; i++) {
+            // 每个 gas[i] 处都加油，获取 remainingGas[i]
+        }
+
         return -1;
     }
 
