@@ -81,6 +81,16 @@ public class GasStation {
          * cost = [3,4,5,1,2]
          * cost = [-2,-2,-2,3,3]
          */
+        /**
+         *
+         * gas  = [2,3,4]
+         * cost = [3,4,3]
+         * cost = [-1,-1,1]
+         * x能到达y但不能到达y+1，
+         * 实际上说明了：x与y之间的任意一个点（设为k）的不可能比x还“富裕”，
+         * 因为x能到达k，则一定说明x到达k的时候一定油量是有余或者刚好的，不能是亏欠的；
+         * 那么如果x都到达不了，“白手起家”的k就更不可能了。
+         */
 
         // 每个 station 剩余 gas
         int[] remainingGasPerStation = new int[gas.length];
@@ -91,47 +101,66 @@ public class GasStation {
             remainingGasPerStation[i] = gas[i] - cost[i];
         }
 
-        // 遍历每个 station
-        for (int i = 0; i < gas.length; i++) {
+        // 遍历到终点了
+        boolean endStationFound = false;
+
+        // 遍历每个 station，从每个 station 出发
+        for (int startStation = 0; startStation < gas.length; startStation++) {
+
+            if (endStationFound) {
+                break;
+            }
 
             int remainingGas = 0;
 
-            int currIndex = i;
-            // 从当前位置向后遍历
-            for (; i <= currIndex && currIndex < gas.length; currIndex++) {
-                remainingGas = remainingGas + remainingGasPerStation[currIndex];
+            int currStation = startStation;
+            // 从当前位置向后遍历遍历到最后一个 station
+            for (; startStation <= currStation && currStation < gas.length; currStation++) {
+
+                // 每移动一个单位，剩余的 gas
+                remainingGas = remainingGas + remainingGasPerStation[currStation];
+
                 if (remainingGas < 0) {
-                    // 说明 station i 出发不可行
+                    // 说明 startStation 出发不可行，并且 startStation 与 currStation 之间的任意一个点 出发都不可行
+                    startStation = currStation;
                     break;
                 }
             }
-            if (currIndex == gas.length) {
-                currIndex = 0;
+            if (currStation == gas.length) {
+                // 已经到达 end station，从头开始
+                currStation = 0;
             } else {
                 continue;
             }
             // 从0位置向后遍历
-            for (; 0 <= currIndex && currIndex < i; currIndex++) {
-                remainingGas = remainingGas + remainingGasPerStation[currIndex];
+            for (; 0 <= currStation && currStation < startStation; currStation++) {
+                // 每移动一个单位，剩余的 gas
+                remainingGas = remainingGas + remainingGasPerStation[currStation];
+
                 if (remainingGas < 0) {
-                    // 说明 station i 出发不可行
+                    // 说明 startStation 出发不可行，并且 startStation 与 currStation 之间的任意一个点 出发都不可行
+                    // startStation = startStation + currStation;
+                    // 手动跳出循环
+                    // startStation = gas.length;
+                    endStationFound = true;
                     break;
                 }
             }
 
             if (remainingGas >= 0) {
-                return i;
+                return startStation;
             }
         }
 
         return -1;
+
     }
 
     /**
      * 思路：
      * -[] 获取每一个位置移动一个单元剩余的 gas；获取每一个位置从当前位置出发，剩余的 gas
-     * 时间复杂度：0()
-     * 空间负责度：0()
+     * 时间复杂度：0(n2)
+     * 空间负责度：0(n)
      * 知识点：数组 / 字符串
      * 测试:
      * 结果: 超出时间限制

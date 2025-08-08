@@ -142,6 +142,20 @@ public class GasStationTest {
     }
 
     /**
+     * 输入: gas = [104,0,0], cost = [1,1,1]
+     * 输出: 0
+     */
+    @Test
+    public void test_PositiveCase9() {
+        GasStation gasStation = new GasStation();
+        int[] gas = {104, 0, 0};
+        int[] cost = {1, 1, 1};
+        int expected = 0;
+        int response = gasStation.canCompleteCircuit(gas, cost);
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
      * 官方题目
      */
     class Solution {
