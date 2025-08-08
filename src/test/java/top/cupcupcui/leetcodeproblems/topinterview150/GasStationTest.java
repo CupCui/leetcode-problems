@@ -76,7 +76,7 @@ public class GasStationTest {
         GasStation gasStation = new GasStation();
         int[] gas = {0};
         int[] cost = {0};
-        int expected = -1;
+        int expected = 0;
         int response = gasStation.canCompleteCircuit(gas, cost);
         Assert.assertEquals(expected, response);
     }
@@ -122,7 +122,7 @@ public class GasStationTest {
         GasStation gasStation = new GasStation();
         int[] gas = {1};
         int[] cost = {2};
-        int expected = 0;
+        int expected = -1;
         int response = gasStation.canCompleteCircuit(gas, cost);
         Assert.assertEquals(expected, response);
     }
