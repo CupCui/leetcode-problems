@@ -55,7 +55,7 @@ public class GasStation {
 
     /**
      * 思路：
-     * -[]
+     * -[] 获取每一个位置移动一个单元剩余的 gas；获取每一个位置从当前位置出发，剩余的 gas
      * 时间复杂度：0()
      * 空间负责度：0()
      * 知识点：数组 / 字符串
@@ -101,7 +101,76 @@ public class GasStation {
                     break;
                 }
             }
-            if (currIndex == gas.length - 1) {
+            if (currIndex == gas.length) {
+                currIndex = 0;
+            } else {
+                continue;
+            }
+            // 从0位置向后遍历
+            for (; 0 <= currIndex && currIndex < i; currIndex++) {
+                remainingGas = remainingGas + remainingGasPerStation[currIndex];
+                if (remainingGas < 0) {
+                    break;
+                }
+            }
+
+            if (remainingGas >= 0) {
+                return remainingGas;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 思路：
+     * -[] 获取每一个位置移动一个单元剩余的 gas；获取每一个位置从当前位置出发，剩余的 gas
+     * 时间复杂度：0()
+     * 空间负责度：0()
+     * 知识点：数组 / 字符串
+     * 测试: 不通过
+     * 结果:
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param gas
+     * @param cost
+     * @return
+     */
+    public int canCompleteCircuitV1(int[] gas, int[] cost) {
+
+        /**
+         * 输入: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
+         * 输出: 3
+         * 解释: 从 3 号加油站(索引为 3 处)出发，可获得 4 升汽油。此时油箱有 = 0 + 4 = 4 升汽油
+         */
+        /**
+         * gas =  [1,2,3,4,5]
+         * cost = [3,4,5,1,2]
+         * cost = [-2,-2,-2,3,3]
+         */
+
+        // 每个 station 剩余 gas
+        int[] remainingGasPerStation = new int[gas.length];
+        // 遍历每个 gas
+        for (int i = 0; i < gas.length; i++) {
+            // 遍历 gas 次，每个 gas[i] 处都加油，获取 remainingGas[i]
+            remainingGasPerStation[i] = gas[i] - cost[i];
+        }
+
+        int remainingGas = 0;
+        // 遍历每个 gas
+        for (int i = 0; i < gas.length; i++) {
+            int currIndex = i;
+            // 从当前位置向后遍历
+            for (; i <= currIndex && currIndex < gas.length; currIndex++) {
+                remainingGas = remainingGas + remainingGasPerStation[currIndex];
+                if (remainingGas < 0) {
+                    break;
+                }
+            }
+            if (currIndex == gas.length) {
                 currIndex = 0;
             } else {
                 continue;
