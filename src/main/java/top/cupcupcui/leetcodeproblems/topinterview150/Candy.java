@@ -31,11 +31,8 @@ public class Candy {
      * 解释：你可以分别给第一个、第二个、第三个孩子分发 1、2、1 颗糖果。
      *      第三个孩子只得到 1 颗糖果，这满足题面中的两个条件。
      *
-     * 输入：ratings = [1,9,2]
-     * 输出：4
-     * 解释：你可以分别给第一个、第二个、第三个孩子分发 1、2、1 颗糖果。
-     *      第三个孩子只得到 1 颗糖果，这满足题面中的两个条件。
-     *
+     * 输入：ratings = [1,9,2,1]
+     * 输出：7
      *
      * 提示：
      *
@@ -47,7 +44,7 @@ public class Candy {
 
     /**
      * 思路：
-     * -[]
+     * -[] 两次遍历，left[] 和 right[]
      * 时间复杂度：0()
      * 空间负责度：0()
      * 知识点：数组 / 字符串
@@ -60,10 +57,61 @@ public class Candy {
      * @param ratings
      * @return
      */
-    public int candy(int[] ratings) {
+    public int candy01(int[] ratings) {
+
+        // int[] candy
+
+        /**
+         * 输入：ratings = [1,2,2]
+         * 输入：leftCandy = [1,2,3]
+         * 输入：rightCandy = [1,2,1]
+         * 输出：4
+         *
+         * 输入：ratings = [1,9,2]
+         * 输入：leftCandy =  [1,2,1]
+         * 输入：rightCandy = [1,2,1]
+         * 输出：4
+         *
+         * 输入：ratings = [1,9,2,1]
+         * 输入：leftCandy =  [1, 2, 1, 1]
+         * 输入：rightCandy = [1, 3, 2, 1]
+         * 输出：7
+         */
+
 
         return -1;
 
     }
+
+
+    /**
+     * 作者：力扣官方题解
+     */
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+        int[] left = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (i > 0 && ratings[i] > ratings[i - 1]) {
+                left[i] = left[i - 1] + 1;
+            } else {
+                left[i] = 1;
+            }
+        }
+
+        int[] rightCandy = new int[n];
+
+        int right = 0, ret = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            if (i < n - 1 && ratings[i] > ratings[i + 1]) {
+                right++;
+            } else {
+                right = 1;
+            }
+            rightCandy[i] = right;
+            ret += Math.max(left[i], right);
+        }
+        return ret;
+    }
+
 
 }
