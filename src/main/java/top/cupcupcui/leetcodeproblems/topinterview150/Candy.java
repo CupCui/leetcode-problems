@@ -13,9 +13,7 @@ public class Candy {
      * 困难
      *
      * n 个孩子站成一排。给你一个整数数组 ratings 表示每个孩子的评分。
-     *
      * 你需要按照以下要求，给这些孩子分发糖果：
-     *
      * 每个孩子至少分配到 1 个糖果。
      * 相邻两个孩子中，评分更高的那个会获得更多的糖果。
      * 请你给每个孩子分发糖果，计算并返回需要准备的 最少糖果数目 。
@@ -44,10 +42,14 @@ public class Candy {
 
     /**
      * 思路：
-     * -[] 两次遍历，left[] 和 right[]
-     * 时间复杂度：0()
-     * 空间负责度：0()
+     * -[] 两次遍历，left[] 和 right[]，取 left 和 right 中最大的
+     * 复杂度分析
+     * 时间复杂度：O(n)，其中 n 是孩子的数量。我们需要遍历两次数组以分别计算满足左规则或右规则的最少糖果数量。
+     * 空间复杂度：O(n)，其中 n 是孩子的数量。我们需要保存所有的左规则对应的糖果数量。
+     * 时间复杂度：0(n)
+     * 空间负责度：0(n)
      * 知识点：数组 / 字符串
+     * 相关标签: 贪心、数组
      * 测试:
      * 结果:
      * 优化建议：
@@ -57,13 +59,11 @@ public class Candy {
      * @param ratings
      * @return
      */
-    public int candy01(int[] ratings) {
-
-        // int[] candy
+    public int candy(int[] ratings) {
 
         /**
          * 输入：ratings = [1,2,2]
-         * 输入：leftCandy = [1,2,3]
+         * 输入：leftCandy = [1,2,1]
          * 输入：rightCandy = [1,2,1]
          * 输出：4
          *
@@ -78,16 +78,40 @@ public class Candy {
          * 输出：7
          */
 
+        int[] leftCandy = new int[ratings.length];
 
-        return -1;
+        leftCandy[0] = 1;
+        for (int i = 1; i < ratings.length; i++) {
+            if (ratings[i - 1] < ratings[i]) {
+                leftCandy[i] = leftCandy[i - 1] + 1;
+            } else {
+                leftCandy[i] = 1;
+            }
+        }
 
+        int[] rightCandy = new int[ratings.length];
+        rightCandy[ratings.length - 1] = 1;
+        for (int i = ratings.length - 2; i >= 0; i--) {
+            if (ratings[i] > ratings[i + 1]) {
+                rightCandy[i] = rightCandy[i + 1] + 1;
+            } else {
+                rightCandy[i] = 1;
+            }
+        }
+
+        int candyNum = 0;
+        for (int i = 0; i < ratings.length; i++) {
+            candyNum += Math.max(leftCandy[i], rightCandy[i]);
+        }
+
+        return candyNum;
     }
 
 
     /**
      * 作者：力扣官方题解
      */
-    public int candy(int[] ratings) {
+    public int candy1(int[] ratings) {
         int n = ratings.length;
         int[] left = new int[n];
         for (int i = 0; i < n; i++) {
