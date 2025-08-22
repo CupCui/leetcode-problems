@@ -34,6 +34,65 @@ public class TrappingRainWater {
 
     /**
      * 思路：
+     * -[]
+     * 复杂度分析
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     * 相关标签:
+     * 测试: 通过
+     * 结果: 通过
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param height
+     * @return
+     */
+    public int trap(int[] height) {
+
+        /**
+         * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
+         * 输出：6
+         * 解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。
+         *
+         * 输入：height =            [0,1,0,2,1,0,3,1,0]
+         * 输入：relativeMaxHeight = [0,1,1,2,2,2,3,0,0]
+         * 输入：relativeMaxMargin = [0,0,1,0,2,2,0,0,0]
+         * 输出：4
+         */
+
+        // 右侧最大高度集合
+        int[] rightMaxHeightArray = new int[height.length];
+        rightMaxHeightArray[height.length - 1] = height[height.length - 1];
+        for (int i = height.length - 2; i >= 0; i--) {
+            rightMaxHeightArray[i] = Math.max(rightMaxHeightArray[i + 1], height[i]);
+        }
+
+        // 左侧最大高度
+        int leftMaxHeight = height[0];
+        int[] relativeMaxHeight = new int[height.length];
+        for (int i = 0; i < height.length; i++) {
+
+            // 当前位置的右侧最大高度
+            int rightMaxHeight = rightMaxHeightArray[i];
+            leftMaxHeight = Math.max(leftMaxHeight, height[i]);
+            rightMaxHeight = Math.max(rightMaxHeight, height[i]);
+            relativeMaxHeight[i] = Math.min(leftMaxHeight, rightMaxHeight);
+        }
+
+        int trapped = 0;
+        for (int i = 0; i < height.length; i++) {
+            int relativeHeight = relativeMaxHeight[i] - height[i];
+            relativeHeight = Math.max(relativeHeight, 0);
+            trapped += relativeHeight;
+        }
+
+        return trapped;
+    }
+
+
+    /**
+     * 思路：
      * -[] 遍历，找到左边的最大值和右边的最大值
      * 复杂度分析
      * 时间复杂度：O(n2)
@@ -48,7 +107,7 @@ public class TrappingRainWater {
      * @param height
      * @return
      */
-    public int trap(int[] height) {
+    public int trap2(int[] height) {
 
         /**
          * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
