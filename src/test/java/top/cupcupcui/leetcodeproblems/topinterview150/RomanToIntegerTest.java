@@ -72,4 +72,30 @@ public class RomanToIntegerTest {
         Assert.assertEquals(expected, response);
     }
 
+    /**
+     * 输入: s = "I"
+     * 输出: 1
+     */
+    @Test
+    public void test_PositiveCase5() {
+        RomanToInteger romanToInteger = new RomanToInteger();
+        String nums = "I";
+        int expected = 1;
+        int response = romanToInteger.romanToInt(nums);
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入: s = "M"
+     * 输出: 1000
+     */
+    @Test
+    public void test_PositiveCase6() {
+        RomanToInteger romanToInteger = new RomanToInteger();
+        String nums = "M";
+        int expected = 1000;
+        int response = romanToInteger.romanToInt(nums);
+        Assert.assertEquals(expected, response);
+    }
+
 }

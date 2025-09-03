@@ -1,5 +1,8 @@
 package top.cupcupcui.leetcodeproblems.topinterview150;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author cuiguanghao
  * @date 2025/8/22 13:33
@@ -73,8 +76,8 @@ public class RomanToInteger {
      * 思路：
      * -[]
      * 复杂度分析
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
      * 相关标签:
      * 测试:
      * 结果:
@@ -82,12 +85,114 @@ public class RomanToInteger {
      * 核心思路是：
      * 空间优化：
      *
-     * @param s
+     * @param romanStr
      * @return
      */
-    public int romanToInt(String s) {
+    public int romanToInt(String romanStr) {
+        /**
+         *
+         * 示例 4:
+         * 输入: s = "LVIII"
+         * 输出: 58
+         * 解释: L = 50, V= 5, III = 3.
+         *
+         * 字符          数值
+         * I             1
+         * V             5
+         * X             10
+         * L             50
+         * C             100
+         * D             500
+         * M             1000
+         *
+         * I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。
+         * X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。
+         * C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
+         *
+         * IV 4
+         * XL 40
+         * CD 400
+         * IX 9
+         * XC 90
+         * CM 900
+         */
+        int romanInt = 0;
 
-        return -1;
+        for (int i = 0; i < romanStr.length(); i++) {
+            String romanChar = String.valueOf(romanStr.charAt(i));
+            String neighborRomanChar = "";
+            if (i != romanStr.length() - 1) {
+                neighborRomanChar = romanChar + romanStr.charAt(i + 1);
+            }
+            int romanValue = 0;
+            List<String> neighborList = Arrays.asList("IV", "XL", "CD", "IX", "XC", "CM");
+
+            if (neighborList.contains(neighborRomanChar)) {
+                switch (neighborRomanChar) {
+                    case "IV": {
+                        romanValue = 4;
+                        i++;
+                        break;
+                    }
+                    case "XL": {
+                        romanValue = 40;
+                        i++;
+                        break;
+                    }
+                    case "CD": {
+                        romanValue = 400;
+                        i++;
+                        break;
+                    }
+                    case "IX": {
+                        romanValue = 9;
+                        i++;
+                        break;
+                    }
+                    case "XC": {
+                        romanValue = 90;
+                        i++;
+                        break;
+                    }
+                    case "CM": {
+                        romanValue = 900;
+                        i++;
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            } else {
+                switch (romanChar) {
+                    case "I":
+                        romanValue = 1;
+                        break;
+                    case "V":
+                        romanValue = 5;
+                        break;
+                    case "X":
+                        romanValue = 10;
+                        break;
+                    case "L":
+                        romanValue = 50;
+                        break;
+                    case "C":
+                        romanValue = 100;
+                        break;
+                    case "D":
+                        romanValue = 500;
+                        break;
+                    case "M":
+                        romanValue = 1000;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            romanInt += romanValue;
+        }
+
+        return romanInt;
     }
 
 }
