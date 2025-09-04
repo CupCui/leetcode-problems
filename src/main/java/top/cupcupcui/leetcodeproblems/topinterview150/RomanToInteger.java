@@ -1,6 +1,7 @@
 package top.cupcupcui.leetcodeproblems.topinterview150;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -74,7 +75,7 @@ public class RomanToInteger {
 
     /**
      * 思路：
-     * -[]
+     * -[] 使用 Map，等值比较替换
      * 复杂度分析
      * 时间复杂度：O(n)
      * 空间复杂度：O(1)
@@ -89,6 +90,87 @@ public class RomanToInteger {
      * @return
      */
     public int romanToInt(String romanStr) {
+        /**
+         *
+         * 示例 4:
+         * 输入: s = "LVIII"
+         * 输出: 58
+         * 解释: L = 50, V= 5, III = 3.
+         *
+         * 字符          数值
+         * I             1
+         * V             5
+         * X             10
+         * L             50
+         * C             100
+         * D             500
+         * M             1000
+         *
+         * I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。
+         * X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。
+         * C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
+         *
+         * IV 4
+         * XL 40
+         * CD 400
+         * IX 9
+         * XC 90
+         * CM 900
+         */
+
+        HashMap<String, Integer> romanStr2ValueMap = new HashMap<>();
+        romanStr2ValueMap.put("IV", 4);
+        romanStr2ValueMap.put("XL", 40);
+        romanStr2ValueMap.put("CD", 400);
+        romanStr2ValueMap.put("IX", 9);
+        romanStr2ValueMap.put("XC", 90);
+        romanStr2ValueMap.put("CM", 900);
+        romanStr2ValueMap.put("I", 1);
+        romanStr2ValueMap.put("V", 5);
+        romanStr2ValueMap.put("X", 10);
+        romanStr2ValueMap.put("L", 50);
+        romanStr2ValueMap.put("C", 100);
+        romanStr2ValueMap.put("D", 500);
+        romanStr2ValueMap.put("M", 1000);
+
+        int romanInt = 0;
+
+        for (int i = 0; i < romanStr.length(); i++) {
+            String romanCharStr = String.valueOf(romanStr.charAt(i));
+            String neighborRomanCharStr = "";
+            if (i != romanStr.length() - 1) {
+                neighborRomanCharStr = romanCharStr + romanStr.charAt(i + 1);
+            }
+            List<String> neighborList = Arrays.asList("IV", "XL", "CD", "IX", "XC", "CM");
+
+            if (neighborList.contains(neighborRomanCharStr)) {
+                romanInt += romanStr2ValueMap.get(neighborRomanCharStr);
+                i++;
+            } else {
+                romanInt += romanStr2ValueMap.get(romanCharStr);
+            }
+        }
+
+        return romanInt;
+    }
+
+    /**
+     * 思路：
+     * -[] 逐个判断，等值比较替换
+     * 复杂度分析
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     * 相关标签:
+     * 测试:
+     * 结果:
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param romanStr
+     * @return
+     */
+    public int romanToIntV1(String romanStr) {
         /**
          *
          * 示例 4:
