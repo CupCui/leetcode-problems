@@ -114,6 +114,15 @@ public class IntegerToRoman {
         integerStringHashMap.put(1000, "M");
 
 
+        int I = 1;
+        int V = 5;
+        int X = 10;
+        int L = 50;
+        int C = 100;
+        int D = 500;
+        int M = 1000;
+
+
         /**
          *
          * 输入：num = 58
@@ -127,48 +136,64 @@ public class IntegerToRoman {
         int thousandValue = num / 1000 * 1000;
         int hundredValue = num % 1000 / 100 * 100;
         int tenValue = num % 100 / 10 * 10;
-        int oneValue = num % 10 / 1 * 1;
+        int oneValue = num % 10;
 
-        String romanStr = "";
+        StringBuilder romanStrBuilder = new StringBuilder();
+
         if (thousandValue != 0) {
-            // 补充 thousand 拼接个数
-            for (int i = 0; i < thousandValue / 1000; i++) {
-                romanStr = romanStr + integerStringHashMap.get(1000);
+            if (integerStringHashMap.containsKey(thousandValue)) {
+                romanStrBuilder.append(integerStringHashMap.get(thousandValue));
+            } else {
+                int mNum = thousandValue / M;
+                for (int i = 0; i < mNum; i++) {
+                    romanStrBuilder.append("M");
+                }
             }
         }
         if (hundredValue != 0) {
-            for (int i = 0; i < hundredValue / 100; i++) {
-                romanStr = romanStr + integerStringHashMap.get(100);
+            if (integerStringHashMap.containsKey(hundredValue)) {
+                romanStrBuilder.append(integerStringHashMap.get(hundredValue));
+            } else {
+                if (hundredValue - D > 0) {
+                    romanStrBuilder.append("D");
+                    hundredValue = hundredValue - D;
+                }
+                int cNum = hundredValue / C;
+                for (int i = 0; i < cNum; i++) {
+                    romanStrBuilder.append("C");
+                }
             }
         }
         if (tenValue != 0) {
-            for (int i = 0; i < tenValue / 10; i++) {
-                romanStr = romanStr + integerStringHashMap.get(10);
+            if (integerStringHashMap.containsKey(tenValue)) {
+                romanStrBuilder.append(integerStringHashMap.get(tenValue));
+            } else {
+                if (tenValue - L > 0) {
+                    romanStrBuilder.append("L");
+                    tenValue = tenValue - L;
+                }
+                int xNum = tenValue / X;
+                for (int i = 0; i < xNum; i++) {
+                    romanStrBuilder.append("X");
+                }
             }
         }
-        /**
-         * 4, "IV"
-         * 9, "IX"
-         * 1, "I"
-         * 5, "V"
-         */
         if (oneValue != 0) {
             if (integerStringHashMap.containsKey(oneValue)) {
-                romanStr = romanStr + integerStringHashMap.get(oneValue);
+                romanStrBuilder.append(integerStringHashMap.get(oneValue));
             } else {
-                int vNum = oneValue / 5;
+                int vNum = oneValue / V;
                 for (int i = 0; i < vNum; i++) {
-                    romanStr = romanStr + "V";
+                    romanStrBuilder.append("V");
                 }
-
-                int iNum = (oneValue - vNum * 5) / 1;
+                int iNum = (oneValue - vNum * V);
                 for (int i = 0; i < iNum; i++) {
-                    romanStr = romanStr + "I";
+                    romanStrBuilder.append("I");
                 }
             }
         }
 
-        return romanStr;
+        return romanStrBuilder.toString();
     }
 
 
