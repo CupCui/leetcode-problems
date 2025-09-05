@@ -44,4 +44,43 @@ public class IntegerToRomanTest {
         Assert.assertEquals(expected, response);
     }
 
+    /**
+     * 输入：num = 1
+     * 输出："I"
+     */
+    @Test
+    public void test_PositiveCase3() {
+        IntegerToRoman integerToRoman = new IntegerToRoman();
+        int nums = 1994;
+        String expected = "MCMXCIV";
+        String response = integerToRoman.intToRoman(nums);
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：num = 1000
+     * 输出："M"
+     */
+    @Test
+    public void test_PositiveCase4() {
+        IntegerToRoman integerToRoman = new IntegerToRoman();
+        int nums = 1000;
+        String expected = "M";
+        String response = integerToRoman.intToRoman(nums);
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：num = 4
+     * 输出："IV"
+     */
+    @Test
+    public void test_PositiveCase5() {
+        IntegerToRoman integerToRoman = new IntegerToRoman();
+        int nums = 4;
+        String expected = "IV";
+        String response = integerToRoman.intToRoman(nums);
+        Assert.assertEquals(expected, response);
+    }
+
 }

@@ -1,5 +1,8 @@
 package top.cupcupcui.leetcodeproblems.topinterview150;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author cuiguanghao
  * @date 2025/9/4 10:04
@@ -11,9 +14,7 @@ public class IntegerToRoman {
      *
      * 12. 整数转罗马数字
      * 中等
-     * 相关标签
-     * premium lock icon
-     * 相关企业
+     *
      * 七个不同的符号代表罗马数字，其值如下：
      *
      * 符号	值
@@ -68,7 +69,7 @@ public class IntegerToRoman {
 
     /**
      * 思路：
-     * -[]
+     * -[] 先处理正向逻辑，特殊逻辑使用 map 做判断
      * 复杂度分析
      * 时间复杂度：O()
      * 空间复杂度：O()
@@ -83,7 +84,92 @@ public class IntegerToRoman {
      */
     public String intToRoman(int num) {
 
-        return "";
+        /**
+         *
+         * 示例 3：
+         * 输入：num = 1994
+         * 输出："MCMXCIV"
+         * 解释：
+         *
+         * 1000 = M
+         *  900 = CM
+         *   90 = XC
+         *    4 = IV
+         *
+         */
+        Map<Integer, String> integerStringHashMap = new HashMap<>();
+        integerStringHashMap.put(4, "IV");
+        integerStringHashMap.put(9, "IX");
+        integerStringHashMap.put(40, "XL");
+        integerStringHashMap.put(90, "XC");
+        integerStringHashMap.put(400, "CD");
+        integerStringHashMap.put(900, "CM");
+
+        integerStringHashMap.put(1, "I");
+        integerStringHashMap.put(5, "V");
+        integerStringHashMap.put(10, "X");
+        integerStringHashMap.put(50, "L");
+        integerStringHashMap.put(100, "C");
+        integerStringHashMap.put(500, "D");
+        integerStringHashMap.put(1000, "M");
+
+
+        /**
+         *
+         * 输入：num = 58
+         * 输出："LVIII"
+         *
+         * 解释：
+         * 50 = L
+         *  8 = VIII
+         */
+
+        int thousandValue = num / 1000 * 1000;
+        int hundredValue = num % 1000 / 100 * 100;
+        int tenValue = num % 100 / 10 * 10;
+        int oneValue = num % 10 / 1 * 1;
+
+        String romanStr = "";
+        if (thousandValue != 0) {
+            // 补充 thousand 拼接个数
+            for (int i = 0; i < thousandValue / 1000; i++) {
+                romanStr = romanStr + integerStringHashMap.get(1000);
+            }
+        }
+        if (hundredValue != 0) {
+            for (int i = 0; i < hundredValue / 100; i++) {
+                romanStr = romanStr + integerStringHashMap.get(100);
+            }
+        }
+        if (tenValue != 0) {
+            for (int i = 0; i < tenValue / 10; i++) {
+                romanStr = romanStr + integerStringHashMap.get(10);
+            }
+        }
+        /**
+         * 4, "IV"
+         * 9, "IX"
+         * 1, "I"
+         * 5, "V"
+         */
+        if (oneValue != 0) {
+            if (integerStringHashMap.containsKey(oneValue)) {
+                romanStr = romanStr + integerStringHashMap.get(oneValue);
+            } else {
+                int vNum = oneValue / 5;
+                for (int i = 0; i < vNum; i++) {
+                    romanStr = romanStr + "V";
+                }
+
+                int iNum = (oneValue - vNum * 5) / 1;
+                for (int i = 0; i < iNum; i++) {
+                    romanStr = romanStr + "I";
+                }
+            }
+        }
+
+        return romanStr;
     }
+
 
 }
