@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.topinterview150;
 
+import java.util.Objects;
+
 /**
  * @author cuiguanghao
  * @date 2025/9/5 18:15
@@ -40,10 +42,10 @@ public class LengthOfLastWord {
 
     /**
      * 思路：
-     * -[] 先处理正向逻辑，特殊逻辑使用 map 做判断
+     * -[] 根据空内容分隔，取最后一个不为空内容
      * 复杂度分析
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
      * 相关标签:
      * 测试:
      * 结果:
@@ -55,6 +57,12 @@ public class LengthOfLastWord {
      * @return
      */
     public int lengthOfLastWord(String s) {
+        String[] split = s.split(" ");
+        for (int i = split.length - 1; i >= 0; i++) {
+            if (!Objects.equals(split[i], " ")) {
+                return split[i].length();
+            }
+        }
 
         return -1;
     }

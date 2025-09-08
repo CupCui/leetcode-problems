@@ -44,4 +44,43 @@ public class LengthOfLastWordTest {
         Assert.assertEquals(expected, response);
     }
 
+    /**
+     * 输入：s = "    joyboy     "
+     * 输出：6
+     */
+    @Test
+    public void test_PositiveCase3() {
+        LengthOfLastWord lengthOfLastWord = new LengthOfLastWord();
+        String nums = "    joyboy     ";
+        int expected = 6;
+        int response = lengthOfLastWord.lengthOfLastWord(nums);
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：s = "a     "
+     * 输出：1
+     */
+    @Test
+    public void test_PositiveCase4() {
+        LengthOfLastWord lengthOfLastWord = new LengthOfLastWord();
+        String nums = "a     ";
+        int expected = 1;
+        int response = lengthOfLastWord.lengthOfLastWord(nums);
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：s = "     z"
+     * 输出：1
+     */
+    @Test
+    public void test_PositiveCase5() {
+        LengthOfLastWord lengthOfLastWord = new LengthOfLastWord();
+        String nums = "     z";
+        int expected = 1;
+        int response = lengthOfLastWord.lengthOfLastWord(nums);
+        Assert.assertEquals(expected, response);
+    }
+
 }
