@@ -1,0 +1,65 @@
+package top.cupcupcui.leetcodeproblems.topinterview150;
+
+/**
+ * @author cuiguanghao
+ * @date 2025/9/8 18:35
+ * @description 14. 最长公共前缀
+ */
+public class LongestCommonPrefix {
+
+    /**
+     * https://leetcode.cn/problems/longest-common-prefix/description/?envType=study-plan-v2&envId=top-interview-150
+     * longestCommonPrefix
+     * LongestCommonPrefix
+     *
+     * 14. 最长公共前缀
+     * 简单
+     *
+     * 编写一个函数来查找字符串数组中的最长公共前缀。
+     * 如果不存在公共前缀，返回空字符串 ""。
+     *
+     * 示例 1：
+     * 输入：strs = ["flower","flow","flight"]
+     * 输出："fl"
+     *
+     * 示例 2：
+     * 输入：strs = ["dog","racecar","car"]
+     * 输出：""
+     * 解释：输入不存在公共前缀。
+     *
+     * 提示：
+     * 1 <= strs.length <= 200
+     * 0 <= strs[i].length <= 200
+     * strs[i] 如果非空，则仅由小写英文字母组成
+     *
+     * 相关标签
+     * 字典树、数组、字符串
+     *
+     */
+
+
+    /**
+     * 思路：
+     * -[] 两次遍历，遍历数组中每个元素，根据前缀分组统计
+     * 复杂度分析
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 相关标签:
+     * 测试:
+     * 结果:
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param strs
+     * @return
+     */
+    public String longestCommonPrefix(String[] strs) {
+        for (int i = 0; i < strs.length; i++) {
+            
+        }
+
+        return null;
+    }
+
+}
