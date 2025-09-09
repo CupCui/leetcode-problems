@@ -80,7 +80,20 @@ public class LongestCommonPrefixTest {
     public void test_PositiveCase5() {
         LongestCommonPrefix longestCommonPrefix = new LongestCommonPrefix();
         String[] nums = {"a", "b"};
-        String expected = "a";
+        String expected = "";
+        String response = longestCommonPrefix.longestCommonPrefix(nums);
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：strs = ["cir","car"]
+     * 输出："c"
+     */
+    @Test
+    public void test_PositiveCase6() {
+        LongestCommonPrefix longestCommonPrefix = new LongestCommonPrefix();
+        String[] nums = {"cir", "car"};
+        String expected = "c";
         String response = longestCommonPrefix.longestCommonPrefix(nums);
         Assert.assertEquals(expected, response);
     }

@@ -42,8 +42,8 @@ public class LongestCommonPrefix {
      * 思路：
      * -[] 两次遍历，遍历数组中每个元素，根据前缀分组统计
      * 复杂度分析
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(n2)
+     * 空间复杂度：O(n)
      * 相关标签:
      * 测试:
      * 结果:
@@ -63,28 +63,21 @@ public class LongestCommonPrefix {
         }
 
         // 需要遍历的次数
-        for (int index = 0; index < strs.length; index++) {
+        for (int index = 0; index < commonLength; index++) {
 
-            /**
-             * 输入：strs = ["a","a"]
-             * 输出："a"
-             */
-            if (strs[0].length() - 1 > index || strs[0].isEmpty()) {
-                // 超过范围，退出循环
-                return longestCommonPrefix.toString();
-            }
+            boolean notMatch = false;
             // 遍历 strs 中每个元素
             char commonChar = strs[0].charAt(index);
-            // TODO：修改为遍历 strs 中最长的字符串长度
-            for (int j = 0; j < commonLength; j++) {
-                if (strs[j].length() - 1 > index) {
-                    // 超过范围
-                    return longestCommonPrefix.toString();
-                }
+            for (int j = 0; j < strs.length; j++) {
                 char currChar = strs[j].charAt(index);
-                if (commonChar == currChar) {
-                    longestCommonPrefix.append(commonChar);
+                if (commonChar != currChar) {
+                    notMatch = true;
                 }
+            }
+            if (notMatch) {
+                break;
+            } else {
+                longestCommonPrefix.append(commonChar);
             }
         }
 
