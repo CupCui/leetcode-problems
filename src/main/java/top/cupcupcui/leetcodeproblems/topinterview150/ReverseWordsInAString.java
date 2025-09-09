@@ -1,5 +1,8 @@
 package top.cupcupcui.leetcodeproblems.topinterview150;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author cuiguanghao
  * @date 2025/9/9 14:45
@@ -46,10 +49,10 @@ public class ReverseWordsInAString {
 
     /**
      * 思路：
-     * -[]
+     * -[] 遍历获取每个单词，倒序遍历输出结果
      * 复杂度分析
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
      * 相关标签:
      * 测试:
      * 结果:
@@ -62,6 +65,25 @@ public class ReverseWordsInAString {
      */
     public String reverseWords(String s) {
 
-        return null;
+        /**
+         * 输入：s = "a good   example"
+         * 输出："example good a"
+         */
+
+        String[] split = s.split(" ");
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < split.length; i++) {
+            if (!split[i].isEmpty()) {
+                result.add(split[i]);
+            }
+        }
+
+        String resultAA = result.get(result.size() - 1);
+        for (int i = result.size() - 2; i >= 0; i--) {
+            resultAA = resultAA + " " + result.get(i);
+        }
+        return resultAA;
     }
+
+
 }
