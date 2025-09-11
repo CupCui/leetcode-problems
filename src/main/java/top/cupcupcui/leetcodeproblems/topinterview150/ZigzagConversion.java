@@ -49,7 +49,7 @@ public class ZigzagConversion {
 
 
     /**
-     * 思路：
+     * 思路：三个数组，间隔填充数据
      * -[]
      * 复杂度分析
      * 时间复杂度：O()
@@ -66,6 +66,40 @@ public class ZigzagConversion {
      */
     public String convert(String s, int numRows) {
 
+        /**
+         * 比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
+         * P   A   H   N
+         * A P L S I I G
+         * Y   I   R
+         * [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+         *
+         * [1,  5,  9,    13]
+         * [2,4,6,8,10,12,14]
+         * [3,  7,  11,     ]
+         * 1 + 4n
+         * 2 + 2(n+1)
+         * 2(n+1)
+         *
+         *
+         * 输入：s = "PAYPALISHIRING", numRows = 4
+         * 输出："PINALSIGYAHRPI"
+         * 解释：
+         * P     I    N
+         * A   L S  I G
+         * Y A   H R
+         * P     I
+         * [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+         *
+         * [1,    7,       13]
+         * [2,  6,8,    12,14]
+         * [3,5,  9, 11,     ]
+         * [4,    10,        ]
+         *
+         */
+
         return null;
+
     }
+
+
 }
