@@ -74,6 +74,15 @@ public class ZigzagConversionTest {
      * 填写完成后，逐行扫描矩阵中的非空字符，组成答案。
      *
      */
+
+
+    /**
+     * 方法三：直接构造
+     * 我们来研究方法一中矩阵的每个非空字符会对应到 s 的哪个下标（记作 idx），从而直接构造出答案。
+     * 由于 Z 字形变换的周期为 t=2r−2，因此对于矩阵第一行的非空字符，其对应的 idx 均为 t 的倍数，即 idx≡0(modt)；同理，对于矩阵最后一行的非空字符，应满足 idx≡r−1(modt)。
+     * 对于矩阵的其余行（行号设为 i），每个周期内有两个字符，第一个字符满足 idx≡i(modt)，第二个字符满足 idx≡t−i(modt)。
+     *
+     */
     /**
      * 0             0+t                    0+2t                     0+3t
      * 1      t-1    1+t            0+2t-1  1+2t            0+3t-1   1+3t
@@ -85,7 +94,6 @@ public class ZigzagConversionTest {
      * [3,  7,  11,     ]
      * t = 2*3 - 2 = 4
      */
-
     public String convert(String s, int numRows) {
         int n = s.length();
         int r = numRows;
@@ -93,13 +101,12 @@ public class ZigzagConversionTest {
             return s;
         }
         int t = r * 2 - 2;
-        List<String> ans = new ArrayList<String>();
-
+        List<String> ans = new ArrayList<>();
         for (int i = 0; i < r; i++) { // 枚举矩阵的行
             for (int j = 0; j < n - i; j += t) { // 枚举每个周期的起始下标
-                ans.add(s.charAt(j + i) + ""); // 当前周期的第一个字符
+                ans.add(String.valueOf(s.charAt(j + i))); // 当前周期的第一个字符
                 if (0 < i && i < r - 1 && j + t - i < n) {
-                    ans.add(s.charAt(j + t - i) + ""); // 当前周期的第二个字符
+                    ans.add(String.valueOf(s.charAt(j + t - i))); // 当前周期的第二个字符
                 }
             }
         }
