@@ -119,33 +119,38 @@ public class TextJustification {
          *
          */
 
+        // 每行的单词集合
         List<String> rowWordList = new ArrayList<>();
 
         // 当前行
         String currRow = words[0];
 
-        // 遍历 words
-        for (int i = 1; i < words.length; i++) {
-            // 处理第二个及以后的单词
-            if ((currRow + " " + words[i]).length() <= maxWidth) {
-                // 每行总单词数不超过 maxWidth
-                currRow = currRow + " " + words[i];
-                if (i == words.length - 1) {
-                    // 最后一个单词，则添加到结果中
+        if (words.length == 1) {
+            // 只有一个单词，则添加到结果中
+            rowWordList.add(currRow);
+        } else {
+            // 遍历 words
+            for (int i = 1; i < words.length; i++) {
+                // 处理第二个及以后的单词
+                if ((currRow + " " + words[i]).length() <= maxWidth) {
+                    // 每行总单词数不超过 maxWidth
+                    currRow = currRow + " " + words[i];
+                    if (i == words.length - 1) {
+                        // 最后一个单词，则添加到结果中
+                        rowWordList.add(currRow);
+                    }
+                } else {
+                    // 每行总单词数超过 maxWidth，添加到结果中
                     rowWordList.add(currRow);
+                    currRow = words[i];
+                    if (i == words.length - 1) {
+                        // 最后一个单词，则添加到结果中
+                        rowWordList.add(currRow);
+                    }
                 }
-            } else {
-                // 每行总单词数超过 maxWidth，添加到结果中
-                rowWordList.add(currRow);
-                currRow = words[i];
-                if (i == words.length - 1) {
-                    // 最后一个单词，则添加到结果中
-                    rowWordList.add(currRow);
-                }
+
             }
-
         }
-
         System.out.println(rowWordList);
 
         List<String> resultRowWord = new ArrayList<>();
