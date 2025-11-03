@@ -81,4 +81,93 @@ public class TextJustificationTest {
 
         Assert.assertArrayEquals(expected.toArray(), response.toArray());
     }
+
+    /**
+     * 输入: words = ["aa", "bb", "cc", "dd"], maxWidth = 3
+     * 输出:
+     * [
+     * "aa ",
+     * "bb ",
+     * "cc ",
+     * "dd "
+     * ]
+     */
+    @Test
+    public void test_PositiveCase3() {
+        TextJustification service = new TextJustification();
+        String[] arg1 = {"aa", "bb", "cc", "dd"};
+        int arg2 = 3;
+        List<String> expected = Arrays.asList("aa ",
+                "bb ",
+                "cc ",
+                "dd ");
+        List<String> response = service.fullJustify(arg1, arg2);
+
+        Assert.assertArrayEquals(expected.toArray(), response.toArray());
+    }
+
+    /**
+     * 输入: words = ["a", "b", "c", "d"], maxWidth = 2
+     * 输出:
+     * [
+     * "ab",
+     * "cd"
+     * ]
+     */
+    @Test
+    public void test_PositiveCase4() {
+        TextJustification service = new TextJustification();
+        String[] arg1 = {"a", "b", "c", "d"};
+        int arg2 = 2;
+        List<String> expected = Arrays.asList("ab",
+                "cd");
+        List<String> response = service.fullJustify(arg1, arg2);
+
+        Assert.assertArrayEquals(expected.toArray(), response.toArray());
+    }
+
+    /**
+     * 输入: words = ["a", "b", "c", "d"], maxWidth = 3
+     * 输出:
+     * [
+     * "abc",
+     * "d  "
+     * ]
+     */
+    @Test
+    public void test_PositiveCase5() {
+        TextJustification service = new TextJustification();
+        String[] arg1 = {"a", "b", "c", "d"};
+        int arg2 = 3;
+        List<String> expected = Arrays.asList("abc",
+                "d  ");
+        List<String> response = service.fullJustify(arg1, arg2);
+
+        Assert.assertArrayEquals(expected.toArray(), response.toArray());
+    }
+
+
+    /**
+     * 输入: words = ["aa", "bb", "cc", "dd"], maxWidth = 1
+     * 输出:
+     * [
+     * "a",
+     * "b",
+     * "c",
+     * "d"
+     * ]
+     */
+    @Test
+    public void test_PositiveCase6() {
+        TextJustification service = new TextJustification();
+        String[] arg1 = {"a", "b", "c", "d"};
+        int arg2 = 1;
+        List<String> expected = Arrays.asList("a",
+                "b",
+                "c",
+                "d");
+        List<String> response = service.fullJustify(arg1, arg2);
+
+        Assert.assertArrayEquals(expected.toArray(), response.toArray());
+    }
 }

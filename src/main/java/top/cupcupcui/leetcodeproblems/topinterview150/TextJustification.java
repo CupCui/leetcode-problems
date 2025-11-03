@@ -1,5 +1,6 @@
 package top.cupcupcui.leetcodeproblems.topinterview150;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,7 +74,146 @@ public class TextJustification {
      * @return
      */
     public List<String> fullJustify(String[] words, int maxWidth) {
+        /**
+         *
+         * 输入: words = ["aa", "bb", "cc", "dd"], maxWidth = 3
+         * 输出:
+         * [
+         *    "aa ",
+         *    "bb ",
+         *    "cc "
+         *    "dd "
+         * ]
+         *
+         * 输入: words = ["a", "b", "c", "d"], maxWidth = 2
+         * 输出:
+         * [
+         *    "ab",
+         *    "cd"
+         * ]
+         * 输入: words = ["a", "b", "c", "d"], maxWidth = 3
+         * 输出:
+         * [
+         *    "abc",
+         *    "d  "
+         * ]
+         * 输入: words = ["a", "b", "c", "d"], maxWidth = 4
+         * 输出:
+         * [
+         *    "abcd",
+         * ]
+         * 输入: words = ["a", "b", "c", "d"], maxWidth = 5
+         * 输出:
+         * [
+         *    "abcd ",
+         * ]
+         *
+         * 1.遍历 words，根据 maxWidth 计算每行的单词数
+         * 2.除最后一行外，左右两端对齐，计算每行单词数间空格的个数
+         * 3.最后一行左对齐
+         *
+         * 给定一个单词数组 words 和一个长度 maxWidth ，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。
+         * 你应该使用 “贪心算法” 来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 ' ' 填充，使得每行恰好有 maxWidth 个字符。
+         * 要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。
+         * 文本的最后一行应为左对齐，且单词之间不插入额外的空格。
+         *
+         */
 
-        return null;
+        List<String> rowWordList = new ArrayList<>();
+
+        // 当前行
+        String currRow = words[0];
+
+        // 遍历 words
+        for (int i = 1; i < words.length; i++) {
+            // 处理第二个及以后的单词
+            if ((currRow + " " + words[i]).length() <= maxWidth) {
+                // 每行总单词数不超过 maxWidth
+                currRow = currRow + " " + words[i];
+                if (i == words.length - 1) {
+                    // 最后一个单词，则添加到结果中
+                    rowWordList.add(currRow);
+                }
+            } else {
+                // 每行总单词数超过 maxWidth，添加到结果中
+                rowWordList.add(currRow);
+                currRow = words[i];
+                if (i == words.length - 1) {
+                    // 最后一个单词，则添加到结果中
+                    rowWordList.add(currRow);
+                }
+            }
+
+        }
+
+        System.out.println(rowWordList);
+
+        List<String> resultRowWord = new ArrayList<>();
+        // 对结果格式化
+        // 遍历每一行单词
+        for (int rowIndex = 0; rowIndex < rowWordList.size(); rowIndex++) {
+            String currRowWord = "";
+            if (rowIndex == rowWordList.size() - 1) {
+                // 最后一行左对齐
+                currRowWord = rowWordList.get(rowIndex);
+
+                int rowWordLength = currRowWord.length();
+                int spaceTotal = maxWidth - rowWordLength;
+
+                for (int i = 0; i < spaceTotal; i++) {
+                    currRowWord += " ";
+                }
+
+                resultRowWord.add(currRowWord);
+                continue;
+            }
+
+            // 非最后一行左右两端对齐
+            String[] currRowWords = rowWordList.get(rowIndex).split(" ");
+            int rowWordLength = 0;
+            for (String word : currRowWords) {
+                rowWordLength += word.length();
+            }
+            int spaceTotal = maxWidth - rowWordLength;
+
+            int spaceCount = 0;
+            int spaceLeft = 0;
+            if (currRowWords.length == 1) {
+                // 本行只有一个单词
+                spaceCount = maxWidth - currRowWords[0].length();
+                spaceLeft = 0;
+            } else {
+                spaceCount = spaceTotal / (currRowWords.length - 1);
+                spaceLeft = spaceTotal % (currRowWords.length - 1);
+            }
+
+            for (int wordIndex = 0; wordIndex < currRowWords.length; wordIndex++) {
+                String spaceWord = "";
+                for (int i = 0; i < spaceCount; i++) {
+                    spaceWord += " ";
+                }
+                if (wordIndex < spaceLeft) {
+                    spaceWord += " ";
+                }
+
+                if (wordIndex != currRowWords.length - 1) {
+                    // 非本行的最后一个单词
+                    currRowWord = currRowWord + currRowWords[wordIndex] + spaceWord;
+                } else {
+                    if (currRowWords.length == 1) {
+                        // 本行只有一个单词
+                        currRowWord = currRowWord + currRowWords[wordIndex] + spaceWord;
+                    } else {
+                        // 本行的最后一个单词
+                        currRowWord = currRowWord + currRowWords[wordIndex];
+                    }
+                }
+            }
+            resultRowWord.add(currRowWord);
+
+        }
+
+        return resultRowWord;
     }
+
 }
