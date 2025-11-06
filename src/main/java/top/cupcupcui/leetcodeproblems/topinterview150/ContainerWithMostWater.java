@@ -34,14 +34,14 @@ public class ContainerWithMostWater {
      */
 
     /**
-     * 思路：
+     * 思路：贪心，获取每个线能盛的容量，取最大值
      * -[]
      * 复杂度分析
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(n2)
+     * 空间复杂度：O(n)
      * 相关标签:
      * 测试:
-     * 结果:
+     * 结果: 超出时间限制
      * 优化建议：
      * 核心思路是：
      * 空间优化：
@@ -50,8 +50,32 @@ public class ContainerWithMostWater {
      * @return
      */
     public int maxArea(int[] height) {
-
-        return -1;
+        int[] maxArea = new int[height.length];
+        for (int i = 0; i < height.length - 1; i++) {
+            /**
+             * 输入：height = [1,1]
+             * 输出：1
+             * 输入：height = [1,0]
+             * 输出：0
+             * 输入：height = [1,2,3,4]
+             * 输出：4
+             */
+            int left = i;
+            int leftMaxArea = 0;
+            for (int j = i + 1; j < height.length; j++) {
+                int right = j;
+                int currMaxArea = Math.min(height[left], height[right]) * (right - left);
+                if (currMaxArea > leftMaxArea) {
+                    leftMaxArea = currMaxArea;
+                }
+            }
+            maxArea[i] = leftMaxArea;
+        }
+        int result = maxArea[0];
+        for (int i = 0; i < maxArea.length; i++) {
+            result = Math.max(result, maxArea[i]);
+        }
+        return result;
     }
 
 }
