@@ -40,7 +40,7 @@ public class ValidPalindrome {
      */
 
     /**
-     * 思路：
+     * 思路：双指针；在原字符串上直接判断
      * -[]
      * 复杂度分析
      * 时间复杂度：O(n)
@@ -56,6 +56,55 @@ public class ValidPalindrome {
      * @return
      */
     public boolean isPalindrome(String s) {
+
+        /**
+         * 大写字符转换为小写字符、并移除所有非字母数字字符之后
+         *
+         */
+        s = s.toLowerCase();
+        StringBuilder newStr = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char currChar = s.charAt(i);
+            int currCharInt = s.charAt(i);
+            if ((97 <= currCharInt && currCharInt <= 122)
+                    || (48 <= currCharInt && currCharInt <= 57)
+                    || (65 <= currCharInt && currCharInt <= 90)) {
+                newStr.append(currChar);
+            }
+        }
+
+        int strLength = newStr.length();
+        if (strLength == 1 || strLength == 0) {
+            return true;
+        }
+        for (int i = 0; i < strLength / 2; i++) {
+            int left = i;
+            int right = strLength - i - 1;
+            if (newStr.charAt(left) != newStr.charAt(right)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * 思路：
+     * -[]
+     * 复杂度分析
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     * 相关标签:
+     * 测试:
+     * 结果:
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param s
+     * @return
+     */
+    public boolean isPalindrome1(String s) {
 
         /**
          * 大写字符转换为小写字符、并移除所有非字母数字字符之后
