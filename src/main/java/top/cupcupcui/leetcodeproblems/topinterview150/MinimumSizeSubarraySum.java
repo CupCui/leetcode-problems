@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.topinterview150;
 
+import java.util.Arrays;
+
 /**
  * @author cuiguanghao
  * @date 2025/11/6 17:23
@@ -39,11 +41,47 @@ public class MinimumSizeSubarraySum {
      */
 
     /**
+     * 思路：排序，贪心
+     * -[]
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 结果: 答案错误
+     * 优化建议：
+     *
      * @param target
      * @param nums
      * @return
      */
     public int minSubArrayLen(int target, int[] nums) {
+        // 冒泡排序
+        for (int i = 0; i < nums.length - 1; i++) {
+            int maxIndex = i;
+            // 找出当前最大值的索引，交换 currIndex 和 maxIndex
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] > nums[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+
+            // 交换
+            int temp = nums[i];
+            nums[i] = nums[maxIndex];
+            nums[maxIndex] = temp;
+        }
+
+        /**
+         * 输入：target = 213, nums = [12,28,83,4,25,26,25,2,25,25,25,12]
+         * 输出：8
+         */
+        System.out.println(Arrays.toString(nums));
+
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum >= target) {
+                return i + 1;
+            }
+        }
 
         return 0;
     }
