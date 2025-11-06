@@ -116,6 +116,21 @@ public class MinimumSizeSubarraySumTest {
     }
 
     /**
+     * 输入：target = 5, nums = [4,3,2,1]
+     * 输出：2
+     */
+    @Test
+    public void test_PositiveCase6_1() {
+        MinimumSizeSubarraySum service = new MinimumSizeSubarraySum();
+        int arg1 = 5;
+        int[] arg2 = {4, 3, 2, 1};
+        int expected = 2;
+        int response = service.minSubArrayLen(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
      * 输入：target = 7, nums = [1,2,3,4]
      * 输出：2
      */
@@ -176,7 +191,26 @@ public class MinimumSizeSubarraySumTest {
     }
 
     /**
+     * 输入：target = 10, nums = [9,1,3,8]
+     * 输出：2
+     */
+    @Test
+    public void test_PositiveCase11() {
+        MinimumSizeSubarraySum service = new MinimumSizeSubarraySum();
+        int arg1 = 10;
+        int[] arg2 = {9, 1, 3, 8};
+        int expected = 2;
+        int response = service.minSubArrayLen(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
      * 官方题解
+     * 暴力法是最直观的方法。初始化子数组的最小长度为无穷大，
+     * 枚举数组 nums 中的每个下标作为子数组的开始下标，
+     * 对于每个开始下标 i，需要找到大于或等于 i 的最小下标 j，
+     * 使得从 nums[i] 到 nums[j] 的元素和大于或等于 s，并更新子数组的最小长度（此时子数组的长度是 j−i+1）。
      */
     class Solution {
         public int minSubArrayLen(int s, int[] nums) {

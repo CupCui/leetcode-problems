@@ -14,7 +14,7 @@ public class MinimumSizeSubarraySum {
      * 中等
      * 给定一个含有 n 个正整数的数组和一个正整数 target 。
      * 找出该数组中满足其**总和大于等于 target** 的长度最小的 子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
-     *
+     * 子数组是指数组中连续的元素序列，必须保持原有顺序且位置连续。
      * 示例 1：
      * 输入：target = 7, nums = [2,3,1,2,4,3]
      * 输出：2
@@ -53,6 +53,52 @@ public class MinimumSizeSubarraySum {
      * @return
      */
     public int minSubArrayLen(int target, int[] nums) {
+        // 冒泡排序
+        for (int i = 0; i < nums.length - 1; i++) {
+            int maxIndex = i;
+            // 找出当前最大值的索引，交换 currIndex 和 maxIndex
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] > nums[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+
+            // 交换
+            int temp = nums[i];
+            nums[i] = nums[maxIndex];
+            nums[maxIndex] = temp;
+        }
+
+        /**
+         * 输入：target = 213, nums = [12,28,83,4,25,26,25,2,25,25,25,12]
+         * 输出：8
+         */
+        System.out.println(Arrays.toString(nums));
+
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum >= target) {
+                return i + 1;
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * 思路：排序，贪心（子数组概念不理解导致错误解答）
+     * -[]
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 结果: 答案错误
+     * 优化建议：
+     *
+     * @param target
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen1(int target, int[] nums) {
         // 冒泡排序
         for (int i = 0; i < nums.length - 1; i++) {
             int maxIndex = i;
