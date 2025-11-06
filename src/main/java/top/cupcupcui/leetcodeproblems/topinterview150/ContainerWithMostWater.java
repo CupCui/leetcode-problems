@@ -34,7 +34,41 @@ public class ContainerWithMostWater {
      */
 
     /**
-     * 思路：贪心，获取每个线能盛的容量，取最大值
+     * 思路：双指针
+     * 核心思想: 贪心策略，总是移动较短边的指针，以寻找可能的更优解
+     * -[]
+     * 复杂度分析
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     * 相关标签:
+     * 测试:
+     * 结果: 超出时间限制
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
+     * @param height
+     * @return
+     */
+    public int maxArea(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+
+        int result = 0;
+        while (left < right) {
+            int currMaxArea = Math.min(height[left], height[right]) * (right - left);
+            result = Math.max(result, currMaxArea);
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 思路：暴力解法，贪心，获取每个线能盛的容量，取最大值
      * -[]
      * 复杂度分析
      * 时间复杂度：O(n2)
@@ -49,7 +83,7 @@ public class ContainerWithMostWater {
      * @param height
      * @return
      */
-    public int maxArea(int[] height) {
+    public int maxArea1(int[] height) {
         int[] maxArea = new int[height.length];
         for (int i = 0; i < height.length - 1; i++) {
             /**

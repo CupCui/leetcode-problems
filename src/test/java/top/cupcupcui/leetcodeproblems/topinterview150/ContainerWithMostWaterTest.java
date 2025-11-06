@@ -119,4 +119,52 @@ public class ContainerWithMostWaterTest {
         Assert.assertEquals(expected, response);
     }
 
+    /**
+     * 输入：height = [1,1,9,9]
+     * 输出：9
+     */
+    @Test
+    public void test_PositiveCase8() {
+        ContainerWithMostWater service = new ContainerWithMostWater();
+        int[] arg1 = {1, 1, 9, 9};
+        int expected = 9;
+        int response = service.maxArea(arg1);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：height = [9,9,1,1]
+     * 输出：9
+     */
+    @Test
+    public void test_PositiveCase9() {
+        ContainerWithMostWater service = new ContainerWithMostWater();
+        int[] arg1 = {9, 9, 1, 1};
+        int expected = 9;
+        int response = service.maxArea(arg1);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 官方题解
+     */
+    public class Solution {
+        public int maxArea(int[] height) {
+            int l = 0, r = height.length - 1;
+            int ans = 0;
+            while (l < r) {
+                int area = Math.min(height[l], height[r]) * (r - l);
+                ans = Math.max(ans, area);
+                if (height[l] <= height[r]) {
+                    ++l;
+                } else {
+                    --r;
+                }
+            }
+            return ans;
+        }
+    }
+
 }
