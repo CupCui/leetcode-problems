@@ -33,11 +33,11 @@ public class IsSubsequence {
      */
 
     /**
-     * 思路：双指针；在原字符串上直接判断
+     * 思路：双指针
      * -[]
      * 复杂度分析
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
      * 相关标签:
      * 测试:
      * 结果:
@@ -50,6 +50,31 @@ public class IsSubsequence {
      * @return
      */
     public boolean isSubsequence(String s, String t) {
+
+        if (s.equals(t)) {
+            return true;
+        }
+        if (s.isEmpty() && !t.isEmpty()) {
+            return true;
+        }
+        if (t.length() < s.length()) {
+            return false;
+        }
+        /**
+         * 输入：s = "abc", t = "ahbgdc"
+         * 输出：true
+         */
+        int left = 0;
+        for (int i = 0; i < t.length(); i++) {
+            int right = i;
+
+            if (s.charAt(left) == t.charAt(right)) {
+                left++;
+            }
+            if (left >= s.length()) {
+                return true;
+            }
+        }
 
         return false;
     }

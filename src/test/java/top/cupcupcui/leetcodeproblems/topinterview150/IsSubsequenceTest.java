@@ -112,4 +112,94 @@ public class IsSubsequenceTest {
         Assert.assertEquals(expected, response);
     }
 
+    /**
+     * 输入：s = "ab", t = "aababbacbadb"
+     * 输出：true
+     */
+    @Test
+    public void test_PositiveCase7() {
+        IsSubsequence service = new IsSubsequence();
+        String arg1 = "ab";
+        String arg2 = "aababbacbadb";
+        boolean expected = true;
+        boolean response = service.isSubsequence(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：s = "abc", t = "aababbacbadbabbbbbac"
+     * 输出：true
+     */
+    @Test
+    public void test_PositiveCase8() {
+        IsSubsequence service = new IsSubsequence();
+        String arg1 = "ab";
+        String arg2 = "aababbacbadbabbbbbac";
+        boolean expected = true;
+        boolean response = service.isSubsequence(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：s = "abc", t = "adcaababbacbadbabbbbba"
+     * 输出：true
+     */
+    @Test
+    public void test_PositiveCase9() {
+        IsSubsequence service = new IsSubsequence();
+        String arg1 = "ab";
+        String arg2 = "adcaababbacbadbabbbbba";
+        boolean expected = true;
+        boolean response = service.isSubsequence(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：s = "abc", t = ""
+     * 输出：false
+     */
+    @Test
+    public void test_PositiveCase10() {
+        IsSubsequence service = new IsSubsequence();
+        String arg1 = "abc";
+        String arg2 = "";
+        boolean expected = false;
+        boolean response = service.isSubsequence(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：s = "abc", t = "a"
+     * 输出：false
+     */
+    @Test
+    public void test_PositiveCase11() {
+        IsSubsequence service = new IsSubsequence();
+        String arg1 = "abc";
+        String arg2 = "a";
+        boolean expected = false;
+        boolean response = service.isSubsequence(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：s = "", t = "ahbgdc"
+     * 输出：true
+     */
+    @Test
+    public void test_PositiveCase12() {
+        IsSubsequence service = new IsSubsequence();
+        String arg1 = "";
+        String arg2 = "ahbgdc";
+        boolean expected = true;
+        boolean response = service.isSubsequence(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
 }
