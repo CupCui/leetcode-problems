@@ -40,10 +40,64 @@ public class ValidPalindrome {
      */
 
     /**
+     * 思路：
+     * -[]
+     * 复杂度分析
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     * 相关标签:
+     * 测试:
+     * 结果:
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
      * @param s
      * @return
      */
     public boolean isPalindrome(String s) {
+
+        /**
+         * 大写字符转换为小写字符、并移除所有非字母数字字符之后
+         *
+         */
+        s = s.toLowerCase();
+        String newStr = "";
+        for (int i = 0; i < s.length(); i++) {
+            char currChar = s.charAt(i);
+            int currCharInt = s.charAt(i);
+            if ((97 <= currCharInt && currCharInt <= 122)
+                    || (48 <= currCharInt && currCharInt <= 57)
+                    || (65 <= currCharInt && currCharInt <= 90)) {
+                newStr += currChar;
+            }
+        }
+
+        int strLength = newStr.length();
+        if (strLength == 1 || strLength == 0) {
+            return true;
+        }
+        if (strLength % 2 == 0) {
+            StringBuilder reverseStr = new StringBuilder();
+            // 倒序遍历并输出
+            for (int i = strLength - 1; i >= strLength / 2; i--) {
+                reverseStr.append(newStr.charAt(i));
+            }
+            String prefixSubStr = newStr.substring(0, strLength / 2);
+            if (reverseStr.toString().equals(prefixSubStr)) {
+                return true;
+            }
+        } else {
+            StringBuilder reverseStr = new StringBuilder();
+            // 倒序遍历并输出
+            for (int i = strLength - 1; i >= strLength / 2 + 1; i--) {
+                reverseStr.append(newStr.charAt(i));
+            }
+            String prefixSubStr = newStr.substring(0, strLength / 2);
+            if (reverseStr.toString().equals(prefixSubStr)) {
+                return true;
+            }
+        }
 
         return false;
     }

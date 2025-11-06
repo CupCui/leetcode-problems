@@ -205,19 +205,9 @@ public class TextJustificationTest {
      * 当前行是最后一行：单词左对齐，且单词之间应只有一个空格，在行末填充剩余空格；
      * 当前行不是最后一行，且只有一个单词：该单词左对齐，在行末填充空格；
      * 当前行不是最后一行，且不只一个单词：设当前行单词数为 numWords，空格数为 numSpaces，我们需要将空格均匀分配在单词之间，则单词之间应至少有
-     * avgSpaces=⌊
-     * numWords−1
-     * numSpaces
-     * ​
-     * ⌋
-     * 个空格，对于多出来的
-     * extraSpaces=numSpacesmod(numWords−1)
-     * 个空格，应填在前 extraSpaces 个单词之间。因此，前 extraSpaces 个单词之间填充 avgSpaces+1 个空格，其余单词之间填充 avgSpaces 个空格。
+     * avgSpaces=⌊numWords − 1 numSpaces⌋ 个空格，对于多出来的
+     * extraSpaces=numSpacesmod(numWords−1) 个空格，应填在前 extraSpaces 个单词之间。因此，前 extraSpaces 个单词之间填充 avgSpaces+1 个空格，其余单词之间填充 avgSpaces 个空格。
      * <p>
-     * 作者：力扣官方题解
-     * 链接：https://leetcode.cn/problems/text-justification/solutions/986756/wen-ben-zuo-you-dui-qi-by-leetcode-solut-dyeg/
-     * 来源：力扣（LeetCode）
-     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
      */
     class Solution {
         public List<String> fullJustify(String[] words, int maxWidth) {

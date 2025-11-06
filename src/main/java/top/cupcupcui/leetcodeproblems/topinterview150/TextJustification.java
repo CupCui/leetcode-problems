@@ -69,6 +69,19 @@ public class TextJustification {
      */
 
     /**
+     *
+     * 思路：模拟
+     * -[]
+     * 复杂度分析
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 相关标签:
+     * 测试:
+     * 结果:
+     * 优化建议：
+     * 核心思路是：
+     * 空间优化：
+     *
      * @param words
      * @param maxWidth
      * @return
