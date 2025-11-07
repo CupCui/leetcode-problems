@@ -60,6 +60,7 @@ public class MinimumSizeSubarraySum {
                 sum += nums[j];
                 if (sum >= target) {
                     minSubArrayLen = Math.min(minSubArrayLen, j - i + 1);
+                    break;
                 }
             }
         }
@@ -89,6 +90,7 @@ public class MinimumSizeSubarraySum {
                 sum += nums[j];
                 if (sum >= target) {
                     minSubArrayLen = Math.min(minSubArrayLen, j - i + 1);
+                    break;
                 }
             }
         }
