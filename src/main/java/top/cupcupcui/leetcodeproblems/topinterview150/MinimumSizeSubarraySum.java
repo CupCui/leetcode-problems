@@ -5,14 +5,14 @@ import java.util.Arrays;
 /**
  * @author cuiguanghao
  * @date 2025/11/6 17:23
- * @description
+ * @description 209. 长度最小的子数组
  */
 public class MinimumSizeSubarraySum {
     /**
      * https://leetcode.cn/problems/minimum-size-subarray-sum/description/?envType=study-plan-v2&envId=top-interview-150
      * 209. 长度最小的子数组
      * 中等
-     * 给定一个含有 n 个正整数的数组和一个正整数 target 。
+     * 给定一个含有 n 个**正整数**的数组和一个正整数 target 。
      * 找出该数组中满足其**总和大于等于 target** 的**长度最小的** 子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
      * 子数组是指数组中连续的元素序列，必须保持原有顺序且位置连续。
      * 示例 1：
@@ -41,11 +41,11 @@ public class MinimumSizeSubarraySum {
      */
 
     /**
-     * 思路：
+     * 思路：利用有序性
      * -[]
-     * 时间复杂度：O()
-     * 空间复杂度：O()
-     * 结果:
+     * 时间复杂度：O(n2)
+     * 空间复杂度：O(n)
+     * 结果: 超出时间限制
      * 优化建议：
      *
      * @param target
@@ -53,17 +53,28 @@ public class MinimumSizeSubarraySum {
      * @return
      */
     public int minSubArrayLen(int target, int[] nums) {
+        /**
+         * 给定一个含有 n 个**正整数**的数组和一个正整数 target 。
+         * 找出该数组中满足 nums[m] - nums[n] >= target, 其中 m - n 最小的值，返回 m - n。
+         *
+         * 输入：target = 7, nums = [2,5,6,8,12,15]
+         * 输出：2
+         * 解释：子数组 [4,3] 是该条件下的长度最小的子数组。
+         */
+        int[] sumNums = new int[nums.length + 1];
+        sumNums[0] = 0;
+        for (int i = 1; i < sumNums.length; i++) {
+            sumNums[i] = sumNums[i - 1] + nums[i - 1];
+        }
         int minSubArrayLen = Integer.MAX_VALUE;
-        for (int i = 0; i < nums.length; i++) {
-            int sum = 0;
-            for (int j = i; j < nums.length; j++) {
-                sum += nums[j];
-                if (sum >= target) {
-                    minSubArrayLen = Math.min(minSubArrayLen, j - i + 1);
-                    break;
+        for (int i = 0; i < sumNums.length - 1; i++) {
+            for (int j = i + 1; j < sumNums.length; j++) {
+                if (sumNums[j] - sumNums[i] >= target) {
+                    minSubArrayLen = Math.min(minSubArrayLen, j - i);
                 }
             }
         }
+
         if (minSubArrayLen == Integer.MAX_VALUE) {
             return 0;
         }

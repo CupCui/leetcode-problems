@@ -200,7 +200,8 @@ public class MinimumSizeSubarraySumTest {
         int arg1 = 10;
         int[] arg2 = {9, 1, 3, 8};
         int expected = 2;
-        int response = service.minSubArrayLen(arg1, arg2);
+        int response = service.
+                minSubArrayLen(arg1, arg2);
 
         Assert.assertEquals(expected, response);
     }
