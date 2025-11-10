@@ -200,8 +200,67 @@ public class MinimumSizeSubarraySumTest {
         int arg1 = 10;
         int[] arg2 = {9, 1, 3, 8};
         int expected = 2;
-        int response = service.
-                minSubArrayLen(arg1, arg2);
+        int response = service.minSubArrayLen(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：target = 10, nums = [1]
+     * 输出：0
+     */
+    @Test
+    public void test_PositiveCase12() {
+        MinimumSizeSubarraySum service = new MinimumSizeSubarraySum();
+        int arg1 = 10;
+        int[] arg2 = {1};
+        int expected = 0;
+        int response = service.minSubArrayLen(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：target = 10, nums = [10]
+     * 输出：1
+     */
+    @Test
+    public void test_PositiveCase13() {
+        MinimumSizeSubarraySum service = new MinimumSizeSubarraySum();
+        int arg1 = 10;
+        int[] arg2 = {10};
+        int expected = 1;
+        int response = service.minSubArrayLen(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：target = 10, nums = [11]
+     * 输出：1
+     */
+    @Test
+    public void test_PositiveCase14() {
+        MinimumSizeSubarraySum service = new MinimumSizeSubarraySum();
+        int arg1 = 10;
+        int[] arg2 = {11};
+        int expected = 1;
+        int response = service.minSubArrayLen(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：target = 5, nums = [2,3,1,1,1,1,1]
+     * 输出：1
+     */
+    @Test
+    public void test_PositiveCase15() {
+        MinimumSizeSubarraySum service = new MinimumSizeSubarraySum();
+        int arg1 = 5;
+        int[] arg2 = {2, 3, 1, 1, 1, 1, 1};
+        int expected = 2;
+        int response = service.minSubArrayLen(arg1, arg2);
 
         Assert.assertEquals(expected, response);
     }

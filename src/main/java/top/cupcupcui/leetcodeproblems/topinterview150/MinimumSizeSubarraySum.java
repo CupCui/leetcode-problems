@@ -41,6 +41,93 @@ public class MinimumSizeSubarraySum {
      */
 
     /**
+     * 思路：二分查找
+     * -[]
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 结果: 答案错误
+     * 优化建议：
+     *
+     * @param target
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen(int target, int[] nums) {
+        /**
+         * 给定一个含有 n 个**正整数**的数组和一个正整数 target 。
+         * 找出该数组中满足 nums[m] - nums[n] >= target, 其中 m - n 最小的值，返回 m - n。
+         *
+         * 输入：target = 7, nums = [2,5,6,8,12,15]
+         * 输出：2
+         * 解释：子数组 [4,3] 是该条件下的长度最小的子数组。
+         */
+        if (nums.length == 1) {
+            if (nums[0] >= target) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
+        int[] sumNums = new int[nums.length + 1];
+        sumNums[0] = 0;
+        for (int i = 1; i < sumNums.length; i++) {
+            sumNums[i] = sumNums[i - 1] + nums[i - 1];
+        }
+        int minSubArrayLen = Integer.MAX_VALUE;
+        for (int i = 0; i < sumNums.length - 1; i++) {
+            int targetFor = target + sumNums[i];
+            int targetForIndex = search(sumNums, targetFor, i);
+            if (targetForIndex != -1) {
+                minSubArrayLen = Math.min(minSubArrayLen, targetForIndex - i);
+            }
+        }
+
+        if (minSubArrayLen == Integer.MAX_VALUE) {
+            return 0;
+        }
+        return minSubArrayLen;
+    }
+
+    /**
+     * 给定一个 n 个元素**有序（升序）**整型数组 nums 和一个目标值 target，写一个函数搜索 nums 中第一个大于等于 target。如果目标值存在，返回其下标；否则返回 -1。
+     *
+     * @param nums
+     * @param target
+     * @param left
+     * @return
+     */
+    public int search(int[] nums, int target, int left) {
+        /**
+         * 输入: nums = [1,2,3,4,5], target = 4 2
+         * 输出: 3
+         * 输入: nums = [1,2,3,4], target = 4 1
+         * 输出: 3
+         */
+        // int left = 0;
+        int right = nums.length - 1;
+        if (left == right) {
+            if (nums[left] >= target) {
+                return left;
+            }
+        }
+
+        while (left <= right) {
+            int middleIndex = (right - left) / 2 + left;
+            if (nums[middleIndex] >= target && nums[middleIndex - 1] <= target) {
+                return middleIndex;
+            }
+
+            if (nums[middleIndex] < target) {
+                left = middleIndex + 1;
+            } else {
+                right = middleIndex - 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * 思路：利用有序性
      * -[]
      * 时间复杂度：O(n2)
@@ -52,7 +139,7 @@ public class MinimumSizeSubarraySum {
      * @param nums
      * @return
      */
-    public int minSubArrayLen(int target, int[] nums) {
+    public int minSubArrayLen3(int target, int[] nums) {
         /**
          * 给定一个含有 n 个**正整数**的数组和一个正整数 target 。
          * 找出该数组中满足 nums[m] - nums[n] >= target, 其中 m - n 最小的值，返回 m - n。
