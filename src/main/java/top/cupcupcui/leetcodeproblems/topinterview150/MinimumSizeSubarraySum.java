@@ -60,29 +60,20 @@ public class MinimumSizeSubarraySum {
          */
         int left = 0;
         int right = 0;
-        int sum = nums[0];
+        int sum = 0;
         int minLength = Integer.MAX_VALUE;
-        if (nums.length == 1) {
-            if (nums[0] >= target) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
         /**
          * 输入：target = 7, nums = [2,3,1,2,4,3]
          * 输出：2
          */
-        while (left <= right && right < nums.length - 1) {
-            if (sum < target) {
-                right++;
-                sum = sum + nums[right];
-            }
+        while (right < nums.length) {
+            sum = sum + nums[right];
             while (sum >= target) {
                 minLength = Math.min(minLength, right - left + 1);
                 sum = sum - nums[left];
                 left++;
             }
+            right++;
         }
 
         if (minLength == Integer.MAX_VALUE) {
