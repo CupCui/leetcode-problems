@@ -43,9 +43,9 @@ public class MinimumSizeSubarraySum {
     /**
      * 思路：二分查找
      * -[]
-     * 时间复杂度：O()
-     * 空间复杂度：O()
-     * 结果: 答案错误
+     * 时间复杂度：O(nlogn)
+     * 空间复杂度：O(n)
+     * 结果: 通过
      * 优化建议：
      *
      * @param target
@@ -53,82 +53,53 @@ public class MinimumSizeSubarraySum {
      * @return
      */
     public int minSubArrayLen(int target, int[] nums) {
-        /**
-         * 给定一个含有 n 个**正整数**的数组和一个正整数 target 。
-         * 找出该数组中满足 nums[m] - nums[n] >= target, 其中 m - n 最小的值，返回 m - n。
-         *
-         * 输入：target = 7, nums = [2,5,6,8,12,15]
-         * 输出：2
-         * 解释：子数组 [4,3] 是该条件下的长度最小的子数组。
-         */
-        if (nums.length == 1) {
-            if (nums[0] >= target) {
-                return 1;
-            } else {
-                return 0;
-            }
+        int[] prefixSum = new int[nums.length + 1];
+        prefixSum[0] = 0;
+        for (int i = 1; i < prefixSum.length; i++) {
+            prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
         }
 
-        int[] sumNums = new int[nums.length + 1];
-        sumNums[0] = 0;
-        for (int i = 1; i < sumNums.length; i++) {
-            sumNums[i] = sumNums[i - 1] + nums[i - 1];
-        }
+        int minLength = Integer.MAX_VALUE;
 
-        System.out.println(Arrays.toString(sumNums));
-
-        int minSubArrayLen = Integer.MAX_VALUE;
-        for (int i = 0; i < sumNums.length - 1; i++) {
-            int targetFor = target + sumNums[i];
-            int targetForIndex = search(sumNums, targetFor, i);
+        for (int i = 0; i < prefixSum.length - 1; i++) {
+            int targetSum = target + prefixSum[i];
+            int targetForIndex = search(prefixSum, targetSum, i + 1);
             if (targetForIndex != -1) {
-                minSubArrayLen = Math.min(minSubArrayLen, targetForIndex - i);
+                minLength = Math.min(minLength, targetForIndex - i);
             }
         }
 
-        if (minSubArrayLen == Integer.MAX_VALUE) {
+        if (minLength == Integer.MAX_VALUE) {
             return 0;
         }
-        return minSubArrayLen;
+        return minLength;
     }
 
     /**
-     * 给定一个 n 个元素**有序（升序）**整型数组 nums 和一个目标值 target，写一个函数搜索 nums 中第一个大于等于 target。如果目标值存在，返回其下标；否则返回 -1。
+     * 给定一个 n 个元素的**有序（升序）**整型数组 nums 和一个目标值 target，写一个函数搜索 nums 中第一个大于等于 target 的元素。如果存在这样的元素，返回其下标；否则返回 -1。
      *
-     * @param nums
-     * @param target
-     * @param left
+     * @param nums   数组
+     * @param target 目标值
+     * @param left   左边界
      * @return
      */
     public int search(int[] nums, int target, int left) {
         int right = nums.length - 1;
-        if (left == right) {
-            // 只有一个元素
-            if (nums[left] >= target) {
-                // 并且第一个元素满足要求
-                return left;
-            }
+        if (left == right && nums[left] >= target) {
+            // 只有一个元素并且第一个元素满足要求
+            return left;
         }
 
-        /**
-         * 给定一个 n 个元素**有序（升序）**整型数组 nums 和一个目标值 target，写一个函数搜索 nums 中第一个大于等于 target。如果目标值存在，返回其下标；否则返回 -1。
-         * 输入：target = 2, nums = [2,3]
-         * 输出：0
-         */
         while (left <= right) {
             int middleIndex = (right - left) / 2 + left;
-            if ((nums[middleIndex] >= target && middleIndex == 0)
-                    || nums[middleIndex] >= target && nums[middleIndex - 1] < target) {
-                return middleIndex;
-            }
 
-            if (nums[middleIndex] < target) {
-                left = middleIndex + 1;
-            } else if (nums[middleIndex] >= target) {
-                if (nums[middleIndex - 1] < target) {
+            if (nums[middleIndex] >= target) {
+                if (middleIndex == 0 || nums[middleIndex - 1] < target) {
                     return middleIndex;
                 }
                 right = middleIndex - 1;
+            } else if (nums[middleIndex] < target) {
+                left = middleIndex + 1;
             }
         }
         return -1;
