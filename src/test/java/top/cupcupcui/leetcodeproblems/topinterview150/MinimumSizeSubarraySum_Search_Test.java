@@ -80,4 +80,51 @@ public class MinimumSizeSubarraySum_Search_Test {
         Assert.assertEquals(expected, response);
     }
 
+    /**
+     * 输入：target = 2, nums = [2,3]
+     * 输出：0
+     */
+    @Test
+    public void test_PositiveCase5() {
+        MinimumSizeSubarraySum service = new MinimumSizeSubarraySum();
+        int[] arg1 = {2, 3};
+        int arg2 = 2;
+        int expected = 0;
+        int response = service.search(arg1, arg2, 0);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：target = 3, nums = [2,3,4]
+     * 输出：1
+     */
+    @Test
+    public void test_PositiveCase6() {
+        MinimumSizeSubarraySum service = new MinimumSizeSubarraySum();
+        int[] arg1 = {2, 3, 4};
+        int arg2 = 3;
+        int expected = 1;
+        int response = service.search(arg1, arg2, 0);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：target = 5, nums = [0, 2, 5, 6, 7, 8, 9, 10]
+     * 输出：2
+     * 输入：target = 5, nums = [2,3,1,1,1,1,1]
+     * 输出：1
+     */
+    @Test
+    public void test_PositiveCase7() {
+        MinimumSizeSubarraySum service = new MinimumSizeSubarraySum();
+        int[] arg1 = {0, 2, 5, 6, 7, 8, 9, 10};
+        int arg2 = 5;
+        int expected = 2;
+        int response = service.search(arg1, arg2, 0);
+
+        Assert.assertEquals(expected, response);
+    }
+
 }

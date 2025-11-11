@@ -74,6 +74,9 @@ public class MinimumSizeSubarraySum {
         for (int i = 1; i < sumNums.length; i++) {
             sumNums[i] = sumNums[i - 1] + nums[i - 1];
         }
+
+        System.out.println(Arrays.toString(sumNums));
+
         int minSubArrayLen = Integer.MAX_VALUE;
         for (int i = 0; i < sumNums.length - 1; i++) {
             int targetFor = target + sumNums[i];
@@ -98,29 +101,33 @@ public class MinimumSizeSubarraySum {
      * @return
      */
     public int search(int[] nums, int target, int left) {
-        /**
-         * 输入: nums = [1,2,3,4,5], target = 4 2
-         * 输出: 3
-         * 输入: nums = [1,2,3,4], target = 4 1
-         * 输出: 3
-         */
-        // int left = 0;
         int right = nums.length - 1;
         if (left == right) {
+            // 只有一个元素
             if (nums[left] >= target) {
+                // 并且第一个元素满足要求
                 return left;
             }
         }
 
+        /**
+         * 给定一个 n 个元素**有序（升序）**整型数组 nums 和一个目标值 target，写一个函数搜索 nums 中第一个大于等于 target。如果目标值存在，返回其下标；否则返回 -1。
+         * 输入：target = 2, nums = [2,3]
+         * 输出：0
+         */
         while (left <= right) {
             int middleIndex = (right - left) / 2 + left;
-            if (nums[middleIndex] >= target && nums[middleIndex - 1] <= target) {
+            if ((nums[middleIndex] >= target && middleIndex == 0)
+                    || nums[middleIndex] >= target && nums[middleIndex - 1] < target) {
                 return middleIndex;
             }
 
             if (nums[middleIndex] < target) {
                 left = middleIndex + 1;
-            } else {
+            } else if (nums[middleIndex] >= target) {
+                if (nums[middleIndex - 1] < target) {
+                    return middleIndex;
+                }
                 right = middleIndex - 1;
             }
         }
