@@ -124,24 +124,17 @@ public class LongestSubstringWithoutRepeatingCharactersTest {
         Assert.assertEquals(expected, response);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
-     *
-     * 哈希表 字符串 滑动窗口
+     * 输入: s = "abba"
+     * 输出: 2
      */
+    @Test
+    public void test_PositiveCase9() {
+        LongestSubstringWithoutRepeatingCharacters service = new LongestSubstringWithoutRepeatingCharacters();
+        String arg1 = "abba";
+        int expected = 2;
+        int response = service.lengthOfLongestSubstring(arg1);
+        Assert.assertEquals(expected, response);
+    }
+
 }
