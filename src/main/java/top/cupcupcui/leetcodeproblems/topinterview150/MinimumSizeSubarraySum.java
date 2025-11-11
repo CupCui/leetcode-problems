@@ -41,6 +41,57 @@ public class MinimumSizeSubarraySum {
      */
 
     /**
+     * 思路：滑动窗口
+     * -[]
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     * 结果: 通过
+     * 优化建议：
+     *
+     * @param target
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen(int target, int[] nums) {
+        /**
+         * 滑动窗口，左边界、左边界，左右边界的总和
+         * 如果sum < target，right 右移
+         * 如果sum >= target，left 右移
+         */
+        int left = 0;
+        int right = 0;
+        int sum = nums[0];
+        int minLength = Integer.MAX_VALUE;
+        if (nums.length == 1) {
+            if (nums[0] >= target) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        /**
+         * 输入：target = 7, nums = [2,3,1,2,4,3]
+         * 输出：2
+         */
+        while (left <= right && right < nums.length - 1) {
+            if (sum < target) {
+                right++;
+                sum = sum + nums[right];
+            }
+            while (sum >= target) {
+                minLength = Math.min(minLength, right - left + 1);
+                sum = sum - nums[left];
+                left++;
+            }
+        }
+
+        if (minLength == Integer.MAX_VALUE) {
+            return 0;
+        }
+        return minLength;
+    }
+
+    /**
      * 思路：二分查找
      * -[]
      * 时间复杂度：O(nlogn)
@@ -52,7 +103,7 @@ public class MinimumSizeSubarraySum {
      * @param nums
      * @return
      */
-    public int minSubArrayLen(int target, int[] nums) {
+    public int minSubArrayLen4(int target, int[] nums) {
         int[] prefixSum = new int[nums.length + 1];
         prefixSum[0] = 0;
         for (int i = 1; i < prefixSum.length; i++) {
