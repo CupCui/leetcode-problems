@@ -10,7 +10,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * https://leetcode.cn/problems/longest-substring-without-repeating-characters/?envType=study-plan-v2&envId=top-interview-150
      * 3. 无重复字符的最长子串
      * 提示
-     * 给定一个字符串 s ，请你找出其中不含有重复字符的 最长 子串 的长度。
+     * 给定一个字符串 s ，请你找出其中**不含有重复字符**的 **最长** **子串** 的长度。
      *
      * 示例 1:
      * 输入: s = "abcabcbb"
@@ -48,7 +48,85 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @return
      */
     public int lengthOfLongestSubstring(String s) {
+        /*
+         *
+         * 思路三：Hash 表
+         **
+         * 思路一：暴力解法
+         * 遍历 n 次，
+         * 每次选第 i 个字符作为 start，
+         * 遍历 [i, n] 中每个字符，判断是否在 [i, n] 中重复
+         *
+         */
+        int start = 0;
+        int end = 0;
+        int maxLenght = 0;
+        // 遍历 s
+        while (end < s.length()) {
+            /**
+             * 输入: s = "abcdab"
+             * 输出: 3
+             */
+            for (int i = start; i < end; i++) {
+                if (s.charAt(i) == s.charAt(end)) {
+                    // 左边界往右滑动
+                    start = i + 1;
+                    break;
+                }
+            }
+            maxLenght = Math.max(maxLenght, end - start + 1);
 
-        return 0;
+            // 右边界往右滑动
+            end++;
+        }
+
+        return maxLenght;
     }
+
+    /**
+     * 思路：滑动窗口
+     * -[]
+     * 时间复杂度：O(n2)
+     * 空间复杂度：O(1)
+     * 结果:
+     * 优化建议：
+     *
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring1(String s) {
+        /*
+         * 思路二：滑动窗口
+         * 遍历 s，start、end 两个指针区间，
+         * 判断 end 的 next 字符，是否在 start-end 区间内，
+         * 如果 next 在 start-end 区间内，则 start 指向 start-end 区间内的 next 字符，
+         * 如果 next 不在 start-end 区间内，则 end + 1，
+         * 记录 start-end 区间长度 maxLength 和 maxSubString
+         */
+        int start = 0;
+        int end = 0;
+        int maxLenght = 0;
+        // 遍历 s
+        while (end < s.length()) {
+            /**
+             * 输入: s = "abcdab"
+             * 输出: 3
+             */
+            for (int i = start; i < end; i++) {
+                if (s.charAt(i) == s.charAt(end)) {
+                    // 左边界往右滑动
+                    start = i + 1;
+                    break;
+                }
+            }
+            maxLenght = Math.max(maxLenght, end - start + 1);
+
+            // 右边界往右滑动
+            end++;
+        }
+
+        return maxLenght;
+    }
+
+
 }
