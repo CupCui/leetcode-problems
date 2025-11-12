@@ -13,8 +13,8 @@ public class SubstringWithConcatenationOfAllWords {
      * 30. 串联所有单词的子串
      * 困难
      *
-     * 给定一个字符串 s 和一个字符串数组 words。 words 中所有字符串 长度相同。
-     *  s 中的 串联子串 是指一个包含  words 中所有字符串以任意顺序排列连接起来的子串。
+     * 给定一个字符串 s 和一个字符串数组 words。 words 中所有字符串 **长度相同**。
+     *  s 中的 串联子串 是指一个包含  words 中所有字符串以**任意顺序**排列连接起来的子串。
      * 例如，如果 words = ["ab","cd","ef"]， 那么 "abcdef"， "abefcd"，"cdabef"， "cdefab"，"efabcd"， 和 "efcdab" 都是串联子串。 "acdbef" 不是串联子串，因为他不是任何 words 排列的连接。
      * 返回所有串联子串在 s 中的开始索引。你可以以 任意顺序 返回答案。
      *
@@ -56,7 +56,7 @@ public class SubstringWithConcatenationOfAllWords {
      * -[]
      * 时间复杂度：O()
      * 空间复杂度：O()
-     * 结果: 错误
+     * 结果:
      * <p>
      * 优化建议：
      *
@@ -66,6 +66,33 @@ public class SubstringWithConcatenationOfAllWords {
      */
     public List<Integer> findSubstring(String s, String[] words) {
 
+        /**
+         * 输入：s = "foobarfoofoo", words = ["foo", "bar"]
+         * 输出：[0, 3]
+         * 输入：s = "foobarfoofoo", words = ["foo", "foo"]
+         * 输出：[6]
+         * 输入：s = "foobarfoofoo", words = ["foo", "foo", "bar"]
+         * 输出：[0, 3]
+         *
+         * 1. 获取 words 中所有串联子串
+         *      "foobar" "barfoo"
+         * 2. 遍历 words 中串联子串
+         * 3. 判断串联子串是否在 s 中
+         *      s = "foobarfoo"
+         * 4. 获取 s 中所有串联子串的索引
+         *
+         * 思路一：暴力解法
+         *
+         *
+         *
+         * 给定一个字符串 s 和一个字符串数组 words。 words 中所有字符串 **长度相同**。
+         *  s 中的 串联子串 是指一个包含  words 中所有字符串以**任意顺序**排列连接起来的子串。
+         * 例如，如果 words = ["ab","cd","ef"]， 那么 "abcdef"， "abefcd"，"cdabef"， "cdefab"，"efabcd"， 和 "efcdab" 都是串联子串。 "acdbef" 不是串联子串，因为他不是任何 words 排列的连接。
+         * 返回所有串联子串在 s 中的开始索引。你可以以 任意顺序 返回答案。
+         */
+
         return null;
     }
+
+
 }
