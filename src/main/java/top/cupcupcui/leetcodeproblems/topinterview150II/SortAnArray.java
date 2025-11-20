@@ -35,32 +35,66 @@ public class SortAnArray {
 
     /**
      * 思路：
-     * 时间复杂度：O()
-     * 空间复杂度：O()
-     * 结果:
+     * 时间复杂度：O(nlogn/n2)
+     * 空间复杂度：O(n)
+     * 结果: 超出时间限制
      * 优化建议：
      *
      * @param nums
      * @return
      */
     public int[] sortArray(int[] nums) {
-        int pivot = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] < nums[pivot]) {
-                int temp = nums[i];
-                nums[i] = nums[pivot];
-                nums[pivot] = temp;
-                pivot = i;
-            } else {
-                // nums[i] >= nums[pivot]
-                int temp = nums[i];
-                nums[i] = nums[pivot];
-                nums[pivot] = temp;
-                pivot = i;
-            }
-        }
+        /**
+         * 输入：nums = [5,1,1,2,0,0]
+         * 输入：nums = [1,1,2,0,0,5]
+         * 输入：nums = [0,0, 1, 1,2,   5]
+         * 输入：nums = [0,0, 1, 1,2,   5]
+         * 输出：[0,0,1,1,2,5]
+         */
+        // 左边界
+        int left = 0;
+        // 右边界
+        int right = nums.length - 1;
+
+        extracted(nums, left, right);
 
         return nums;
+    }
+
+    private static void extracted(int[] nums, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int pivot = left;
+
+        // 存放临时排序结果
+        int[] tempNums = new int[right - left + 1];
+        // 起点指针
+        int start = 0;
+        // 终点指针
+        int end = right - left;
+        // 遍历区间数组
+        for (int j = left + 1; j <= right; j++) {
+            // 和主元比较
+            if (nums[j] < nums[pivot]) {
+                tempNums[start] = nums[j];
+                start++;
+            } else {
+                tempNums[end] = nums[j];
+                end--;
+            }
+        }
+        tempNums[start] = nums[pivot];
+        for (int j = 0; j < tempNums.length; j++) {
+            nums[left + j] = tempNums[j];
+        }
+
+        // 计算新的分区点
+        int pivotIndex = left + start;
+
+        // 递归排序左右两部分
+        extracted(nums, left, pivotIndex - 1);
+        extracted(nums, pivotIndex + 1, right);
     }
 
 }
