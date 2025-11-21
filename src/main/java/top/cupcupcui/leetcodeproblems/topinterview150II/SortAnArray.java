@@ -39,17 +39,24 @@ public class SortAnArray {
      * 空间复杂度：O(n)
      * 结果: 超出时间限制
      * 优化建议：
+     * 1，主元随机获取；2.原地交换数据
      *
      * @param nums
      * @return
      */
     public int[] sortArray(int[] nums) {
         /**
+         * 小于等于的放到左边
+         * 输入：nums = [5,1,1,2,0,0] left = 0, right = 5
+         * 输入：nums = [1,1,2,0,0,5] left = 0, right = 5
+         * 输入：nums = [0,0,1,1] [2,5] left = 0, right = 3 left = 4, right = 5
+         * 输入：nums = [0,0] [1,1] [2] [5] left = 0, right = 1 left = 5, right = 5
+         *
+         *
          * 输入：nums = [5,1,1,2,0,0]
-         * 输入：nums = [1,1,2,0,0,5]
-         * 输入：nums = [0,0, 1, 1,2,   5]
-         * 输入：nums = [0,0, 1, 1,2,   5]
-         * 输出：[0,0,1,1,2,5]
+         * 输入：nums = [1,1,2,0,0] [5]
+         * 输入：nums = [0,0] [1,1,2] [5]
+         * 输入：nums = [0,0] [1,1] [2] [5]
          */
         // 左边界
         int left = 0;
@@ -61,36 +68,44 @@ public class SortAnArray {
         return nums;
     }
 
+    /**
+     * 递归
+     *
+     * @param nums  数组
+     * @param left  左边界
+     * @param right 右边界
+     */
     private static void extracted(int[] nums, int left, int right) {
         if (left >= right) {
             return;
         }
+        // 主元
         int pivot = left;
 
         // 存放临时排序结果
         int[] tempNums = new int[right - left + 1];
         // 起点指针
-        int start = 0;
+        int tempStart = 0;
         // 终点指针
-        int end = right - left;
+        int tempEnd = tempNums.length - 1;
         // 遍历区间数组
         for (int j = left + 1; j <= right; j++) {
             // 和主元比较
-            if (nums[j] < nums[pivot]) {
-                tempNums[start] = nums[j];
-                start++;
+            if (nums[j] <= nums[pivot]) {
+                tempNums[tempStart] = nums[j];
+                tempStart++;
             } else {
-                tempNums[end] = nums[j];
-                end--;
+                tempNums[tempEnd] = nums[j];
+                tempEnd--;
             }
         }
-        tempNums[start] = nums[pivot];
+        tempNums[tempStart] = nums[pivot];
         for (int j = 0; j < tempNums.length; j++) {
             nums[left + j] = tempNums[j];
         }
 
         // 计算新的分区点
-        int pivotIndex = left + start;
+        int pivotIndex = left + tempStart;
 
         // 递归排序左右两部分
         extracted(nums, left, pivotIndex - 1);
