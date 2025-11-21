@@ -79,8 +79,8 @@ public class SortAnArray {
         if (left >= right) {
             return;
         }
-        // 主元
-        int pivot = left;
+        // 主元：随机选择pivot避免最坏情况
+        int pivot = left + (int)(Math.random() * (right - left + 1));
 
         // 存放临时排序结果
         int[] tempNums = new int[right - left + 1];
@@ -89,7 +89,10 @@ public class SortAnArray {
         // 终点指针
         int tempEnd = tempNums.length - 1;
         // 遍历区间数组
-        for (int j = left + 1; j <= right; j++) {
+        for (int j = left; j <= right; j++) {
+            if (j == pivot) {
+                continue;
+            }
             // 和主元比较
             if (nums[j] <= nums[pivot]) {
                 tempNums[tempStart] = nums[j];
