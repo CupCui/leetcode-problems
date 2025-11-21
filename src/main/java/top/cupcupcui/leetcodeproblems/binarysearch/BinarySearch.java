@@ -48,13 +48,32 @@ public class BinarySearch {
      * @return
      */
     public int searchInsert(int[] nums, int target) {
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] >= target) {
-                return i;
-            }
-        }
+        int left = 0;
+        int right = nums.length - 1;
 
-        return nums.length;
+        return extracted(nums, target, left, right);
+    }
+
+    private static int extracted(int[] nums, int target, int left, int right) {
+        if (left >= right) {
+            return left;
+        }
+        int length = right - left + 1;
+        // [1, 0] [2, 1] [3, 1] [4, 2] 偏左
+        int middle = length / 2;
+        if (nums[middle] == target) {
+            return middle;
+        } else if (nums[middle] > target && nums[middle - 1] < target) {
+            return middle;
+        } else if (nums[middle] > target) {
+            // 如果 target 小于中间的值，遍历左数组
+            right = middle - 1;
+            return extracted(nums, target, left, right);
+        } else {
+            // 如果 target 大于中间的值，遍历右数组
+            left = middle + 1;
+            return extracted(nums, target, left, right);
+        }
     }
 
     /**
