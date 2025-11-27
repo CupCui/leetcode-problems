@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.binarysearch;
 
+import java.util.Arrays;
+
 /**
  * @author cuiguanghao
  * @date 2025/11/21 17:43
@@ -37,7 +39,7 @@ public class BinarySearch {
      */
 
     /**
-     * 思路：二分法（遍历数组，找到第一个大于等于target的元素，返回索引）
+     * 思路：lingma 建议：二分法，迭代版本简化
      * 时间复杂度：O(logn)
      * 空间复杂度：O(1)
      * 结果:
@@ -48,6 +50,36 @@ public class BinarySearch {
      * @return
      */
     public int searchInsert(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return left;
+    }
+
+    /**
+     * 思路：二分法（遍历数组，找到第一个大于等于target的元素，返回索引）
+     * 时间复杂度：O(logn)
+     * 空间复杂度：O(logn)
+     * 结果:
+     * 优化建议：
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int searchInsert2(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
 
