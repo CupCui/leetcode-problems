@@ -38,6 +38,36 @@ public class BinarySearch {
      * 数组 二分查找
      */
 
+
+    /**
+     * 思路：二分法，简化递归
+     * 时间复杂度：O(logn)
+     * 空间复杂度：O(logn)
+     * 结果:
+     * 优化建议：
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int searchInsert(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left <= right) {
+            int middle = left + (right - left) / 2;
+            if (nums[middle] == target) {
+                return middle;
+            } else if (nums[middle] < target) {
+                left = middle + 1;
+            } else if (nums[middle] > target) {
+                right = middle - 1;
+            }
+        }
+        return left;
+    }
+
+
     /**
      * 思路：lingma 建议：二分法，迭代版本简化
      * 时间复杂度：O(logn)
@@ -49,7 +79,7 @@ public class BinarySearch {
      * @param target
      * @return
      */
-    public int searchInsert(int[] nums, int target) {
+    public int searchInsert3(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
 
