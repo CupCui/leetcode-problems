@@ -42,7 +42,7 @@ public class BinarySearch {
     /**
      * 思路：二分法，简化递归
      * 时间复杂度：O(logn)
-     * 空间复杂度：O(logn)
+     * 空间复杂度：O(1)
      * 结果:
      * 优化建议：
      *
@@ -53,6 +53,39 @@ public class BinarySearch {
     public int searchInsert(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
+        /**
+         * 输入: nums = [1, 3, 5, 6], target = 5
+         *              l        r
+         * 输入: nums = [1, 3, 5, 6], target = 5
+         *              l     m  r
+         * 输入: nums = [1, 3, 5, 6], target = 5
+         *                    l  r
+         *                       m
+         * 输入: nums = [1, 3, 5, 6], target = 5
+         *                    l
+         *                    r
+         * 输出: 2
+         */
+
+        /**
+         * 输入: nums = [1, 3, 5, 6], target = 1
+         *              l        r
+         * 输入: nums = [1, 3, 5, 6], target = 1
+         *              l     m  r
+         * 输入: nums = [1, 3, 5, 6], target = 1
+         *              l     r
+         * 输入: nums = [1, 3, 5, 6], target = 1
+         *              l     r
+         *                 m
+         * 输入: nums = [1, 3, 5, 6], target = 1
+         *              l  r
+         *                 m
+         * 输入: nums = [1, 3, 5, 6], target = 1
+         *              l
+         *              r
+         *              m
+         * 输出: 0
+         */
 
         while (left <= right) {
             int middle = left + (right - left) / 2;
