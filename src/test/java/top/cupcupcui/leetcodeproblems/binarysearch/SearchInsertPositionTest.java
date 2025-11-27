@@ -3,7 +3,7 @@ package top.cupcupcui.leetcodeproblems.binarysearch;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class BinarySearchTest {
+public class SearchInsertPositionTest {
 
     /**
      * 输入: nums = [1,3,5,6], target = 5
@@ -11,7 +11,7 @@ public class BinarySearchTest {
      */
     @Test
     public void test_PositiveCase0() {
-        BinarySearch service = new BinarySearch();
+        SearchInsertPosition service = new SearchInsertPosition();
         int[] arg1 = {1, 3, 5, 6};
         int arg2 = 5;
         int expected = 2;
@@ -26,7 +26,7 @@ public class BinarySearchTest {
      */
     @Test
     public void test_PositiveCase1() {
-        BinarySearch service = new BinarySearch();
+        SearchInsertPosition service = new SearchInsertPosition();
         int[] arg1 = {1, 3, 5, 6};
         int arg2 = 2;
         int expected = 1;
@@ -41,7 +41,7 @@ public class BinarySearchTest {
      */
     @Test
     public void test_PositiveCase2() {
-        BinarySearch service = new BinarySearch();
+        SearchInsertPosition service = new SearchInsertPosition();
         int[] arg1 = {1, 3, 5, 6};
         int arg2 = 7;
         int expected = 4;
@@ -56,7 +56,7 @@ public class BinarySearchTest {
      */
     @Test
     public void test_PositiveCase3() {
-        BinarySearch service = new BinarySearch();
+        SearchInsertPosition service = new SearchInsertPosition();
         int[] arg1 = {1};
         int arg2 = 1;
         int expected = 0;
@@ -71,7 +71,7 @@ public class BinarySearchTest {
      */
     @Test
     public void test_PositiveCase4() {
-        BinarySearch service = new BinarySearch();
+        SearchInsertPosition service = new SearchInsertPosition();
         int[] arg1 = {1};
         int arg2 = 0;
         int expected = 0;
@@ -86,7 +86,7 @@ public class BinarySearchTest {
      */
     @Test
     public void test_PositiveCase5() {
-        BinarySearch service = new BinarySearch();
+        SearchInsertPosition service = new SearchInsertPosition();
         int[] arg1 = {1};
         int arg2 = 2;
         int expected = 1;
@@ -101,7 +101,7 @@ public class BinarySearchTest {
      */
     @Test
     public void test_PositiveCase6() {
-        BinarySearch service = new BinarySearch();
+        SearchInsertPosition service = new SearchInsertPosition();
         int[] arg1 = {1, 3};
         int arg2 = 4;
         int expected = 2;

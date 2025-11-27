@@ -1,15 +1,13 @@
 package top.cupcupcui.leetcodeproblems.binarysearch;
 
-import java.util.Arrays;
-
 /**
  * @author cuiguanghao
  * @date 2025/11/21 17:43
  * @description 35. 搜索插入位置
  */
-public class BinarySearch {
+public class SearchInsertPosition {
     /**
-     * https://leetcode.cn/problems/binary-search/description/?envType=study-plan-v2&envId=binary-search
+     * https://leetcode.cn/problems/search-insert-position/?envType=study-plan-v2&envId=binary-search
      * 35. 搜索插入位置
      * 简单
      * 给定一个**排序数组**和一个目标值，在数组中找到目标值，并返回其**索引**。如果目标值不存在于数组中，返回它将会被**按顺序插入**的位置。
