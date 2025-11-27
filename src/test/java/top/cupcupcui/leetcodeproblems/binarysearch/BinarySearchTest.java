@@ -3,8 +3,6 @@ package top.cupcupcui.leetcodeproblems.binarysearch;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class BinarySearchTest {
 
     /**
@@ -92,6 +90,21 @@ public class BinarySearchTest {
         int[] arg1 = {1};
         int arg2 = 2;
         int expected = 1;
+        int response = service.searchInsert(arg1, arg2);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入: nums = [1,3], target = 4
+     * 输出: 2
+     */
+    @Test
+    public void test_PositiveCase6() {
+        BinarySearch service = new BinarySearch();
+        int[] arg1 = {1, 3};
+        int arg2 = 4;
+        int expected = 2;
         int response = service.searchInsert(arg1, arg2);
 
         Assert.assertEquals(expected, response);

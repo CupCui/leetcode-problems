@@ -38,8 +38,8 @@ public class BinarySearch {
 
     /**
      * 思路：二分法（遍历数组，找到第一个大于等于target的元素，返回索引）
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(logn)
+     * 空间复杂度：O(1)
      * 结果:
      * 优化建议：
      *
@@ -56,23 +56,24 @@ public class BinarySearch {
 
     private static int extracted(int[] nums, int target, int left, int right) {
         if (left >= right) {
-            return left;
+            if (nums[right] < target) {
+                return right + 1;
+            } else {
+                return right;
+            }
         }
         int length = right - left + 1;
-        // [1, 0] [2, 1] [3, 1] [4, 2] 偏左
-        int middle = length / 2;
+
+        int middle = left + length / 2;
         if (nums[middle] == target) {
-            return middle;
-        } else if (nums[middle] > target && nums[middle - 1] < target) {
+            // 如果 target 等于中间的值，返回索引
             return middle;
         } else if (nums[middle] > target) {
             // 如果 target 小于中间的值，遍历左数组
-            right = middle - 1;
-            return extracted(nums, target, left, right);
+            return extracted(nums, target, left, middle - 1);
         } else {
             // 如果 target 大于中间的值，遍历右数组
-            left = middle + 1;
-            return extracted(nums, target, left, right);
+            return extracted(nums, target, middle + 1, right);
         }
     }
 
