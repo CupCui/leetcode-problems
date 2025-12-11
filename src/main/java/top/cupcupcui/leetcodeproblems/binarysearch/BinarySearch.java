@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.binarysearch;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 /**
  * @author cuiguanghao
  * @date 2025/11/27 16:57
@@ -36,8 +38,8 @@ public class BinarySearch {
 
     /**
      * 思路：二分法
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(logn)
+     * 空间复杂度：O(1)
      * 结果:
      * 优化建议：
      *
@@ -46,6 +48,27 @@ public class BinarySearch {
      * @return
      */
     public int search(int[] nums, int target) {
+        /**
+         *
+         * 输入: nums = [0,1,2,3], target = 9
+         * 输出: 2
+         * left right mid
+         * 0    3     2
+         * left right mid
+         * 3    3     3
+         */
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left + 1) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
 
         return -1;
     }
