@@ -132,4 +132,22 @@ public class FindSmallestLetterGreaterThanTargetTest {
         Assert.assertEquals("expected: " + (char) expected + ", response: " + (char) response, (char) expected, (char) response);
     }
 
+    /**
+     * 输入
+     * letters = ['e','e','e','e','e','e','n','n','n','n']
+     * target = "e"
+     * 输出 "e"
+     * 预期结果 "n"
+     */
+    @Test
+    public void test_PositiveCase8() {
+        FindSmallestLetterGreaterThanTarget service = new FindSmallestLetterGreaterThanTarget();
+        char[] arg1 = {'e', 'e', 'e', 'e', 'e', 'e', 'n', 'n', 'n', 'n'};
+        char arg2 = 'e';
+        char expected = 'n';
+        int response = service.nextGreatestLetter(arg1, arg2);
+
+        Assert.assertEquals("expected: " + (char) expected + ", response: " + (char) response, (char) expected, (char) response);
+    }
+
 }

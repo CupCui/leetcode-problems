@@ -44,7 +44,7 @@ public class FindSmallestLetterGreaterThanTarget {
      * 思路：二分法
      * 时间复杂度：O(logn)
      * 空间复杂度：O(1)
-     * 结果:
+     * 结果: 提交通过
      * 优化建议：
      *
      * @param letters
@@ -52,9 +52,49 @@ public class FindSmallestLetterGreaterThanTarget {
      * @return
      */
     public char nextGreatestLetter(char[] letters, char target) {
+        int left = 0;
+        int right = letters.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (mid - 1 >= 0 && letters[mid - 1] <= target && letters[mid] > target) {
+                return letters[mid];
+            } else if (mid + 1 <= letters.length - 1 && letters[mid] <= target && letters[mid + 1] > target) {
+                return letters[mid + 1];
+            } else if (letters[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return letters[0];
+    }
+
+    /**
+     * 思路：二分法
+     * 时间复杂度：O(logn)
+     * 空间复杂度：O(1)
+     * 结果: 提交未通过
+     * 优化建议：
+     *
+     * @param letters
+     * @param target
+     * @return
+     */
+    public char nextGreatestLetterV1(char[] letters, char target) {
         /**
          * 输入: letters = ['a','b','c','d'], target = 'z'
          * 输出: 'x'
+         *
+         * letters = ["c","f","j"]
+         * target = "d"
+         * left right mid
+         * 0    2     1
+         *
+         * left right mid
+         * 0    0     0
+         *
+         *
          */
         int left = 0;
         int right = letters.length - 1;
