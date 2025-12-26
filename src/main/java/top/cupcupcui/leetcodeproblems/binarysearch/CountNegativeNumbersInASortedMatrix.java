@@ -61,8 +61,61 @@ public class CountNegativeNumbersInASortedMatrix {
         // 行数
         for (int i = 0; i < grid.length; i++) {
             // 列数
-            for (int j = 0; j < grid[i].length; j++) {
+            // 二分法，查找 grid[i] 中第一个小于 0 的元素
+            int left = 0;
+            int right = grid[i].length - 1;
 
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+            }
+        }
+
+        return ans;
+    }
+
+    /**
+     * 思路：二分法；二分法优化，每一次遍历范围缩小；
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 结果: 提交未通过
+     * 优化建议：
+     *
+     * @param grid
+     * @return
+     */
+    public int countNegatives3(int[][] grid) {
+        /**
+         * 遍历二位数组，每一列使用二分法找到<b>第一个小于0</b>的元素
+         * 时间复杂度：O(nlogn)
+         * 空间复杂度：O(1)
+         */
+
+        /**
+         * 给你一个 m * n 的矩阵 grid，矩阵中的元素无论是按行还是按列，都以<b>非严格递减顺序</b>排列。 请你统计并返回 grid 中 <b>负数</b> 的数目。
+         */
+        int ans = 0;
+        // 行数
+        for (int i = 0; i < grid.length; i++) {
+            // 列数
+            // 二分法，查找 grid[i] 中第一个小于 0 的元素
+            int left = 0;
+            int right = grid[i].length - 1;
+
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (mid + 1 < grid[i].length && grid[i][mid] > 0 && grid[i][mid + 1] < 0) {
+                    int firstLittleThanIndex = mid + 1;
+                    ans = ans + (grid[i].length - firstLittleThanIndex);
+                    break;
+                } else if (mid - 1 >= 0 && grid[i][mid - 1] > 0 && grid[i][mid] < 0) {
+                    int firstLittleThanIndex = mid;
+                    ans = ans + (grid[i].length - firstLittleThanIndex);
+                    break;
+                } else if (grid[i][mid] > 0) {
+                    left = mid + 1;
+                } else if (grid[i][mid] < 0) {
+                    right = mid - 1;
+                }
             }
         }
 
