@@ -38,7 +38,7 @@ public class CountNegativeNumbersInASortedMatrix {
      */
 
     /**
-     * 思路：二分法；二分法优化，每一次遍历范围缩小；二分法优化，分别查找行和列中第一个小于0的元素，转为一维数组
+     * 思路：TODO: 二分法优化，每一次遍历范围缩小；二分法优化，分别查找行和列中第一个小于0的元素，转为一维数组
      * 时间复杂度：O()
      * 空间复杂度：O()
      * 结果:
@@ -49,28 +49,84 @@ public class CountNegativeNumbersInASortedMatrix {
      */
     public int countNegatives(int[][] grid) {
         /**
-         * 遍历二位数组，每一列使用二分法找到<b>第一个小于0</b>的元素
-         * 时间复杂度：O(nlogn)
-         * 空间复杂度：O(1)
+         *  给你一个 m * n 的矩阵 grid，矩阵中的元素无论是按行还是按列，都以<b>非严格递减顺序</b>排列。 请你统计并返回 grid 中 <b>负数</b> 的数目。
+         *
+         * 示例 1：
+         * 输入：grid = [[4,3,2,-1],
+         *              [3,2,1,-1],
+         *              [1,1,-1,-2],
+         *              [-1,-1,-2,-3]]
+         * 输出：8
+         * 解释：矩阵中共有 8 个负数。
+         *
          */
-
         /**
-         * 给你一个 m * n 的矩阵 grid，矩阵中的元素无论是按行还是按列，都以<b>非严格递减顺序</b>排列。 请你统计并返回 grid 中 <b>负数</b> 的数目。
+         * 查找：对于 grid[0]，使用二分法，查找第一个小于0的元素，并返回下标;
+         * 计算：计算负数的数目：grid[0].length - firstNegativeIndex
+         * 退出条件：目标值和 0 对比
          */
-        int ans = 0;
-        // 行数
+
+        int negativeSum = 0;
         for (int i = 0; i < grid.length; i++) {
-            // 列数
-            // 二分法，查找 grid[i] 中第一个小于 0 的元素
-            int left = 0;
-            int right = grid[i].length - 1;
-
-            while (left <= right) {
-                int mid = left + (right - left) / 2;
+            int[] rowNums = grid[i];
+            int low = 0;
+            int high = rowNums.length - 1;
+            int eachNegativeNum = 0;
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+                if (rowNums[mid] == 0) {
+                    low = mid + 1;
+                } else if (rowNums[mid] > 0) {
+                    low = mid + 1;
+                } else if (rowNums[mid] < 0) {
+                    eachNegativeNum = rowNums.length - mid;
+                    high = mid - 1;
+                }
             }
-        }
 
-        return ans;
+            negativeSum += eachNegativeNum;
+        }
+        return negativeSum;
+    }
+
+    /**
+     * 思路：二分法
+     * 时间复杂度：O(mlogn)
+     * 空间复杂度：O(1)
+     * 结果: 提交未通过
+     * 优化建议：
+     *
+     * @param grid
+     * @return
+     */
+    public int countnegatives4(int[][] grid) {
+        /**
+         * 查找：对于 grid[0]，使用二分法，查找第一个小于0的元素，并返回下标;
+         * 计算：计算负数的数目：grid[0].length - firstnegativeindex
+         * 退出条件：目标值和 0 对比
+         */
+
+        int negativesum = 0;
+        for (int i = 0; i < grid.length; i++) {
+            int[] rownums = grid[i];
+            int low = 0;
+            int high = rownums.length - 1;
+            int eachnegativenum = 0;
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+                if (rownums[mid] == 0) {
+                    low = mid + 1;
+                } else if (rownums[mid] > 0) {
+                    low = mid + 1;
+                } else if (rownums[mid] < 0) {
+                    eachnegativenum = rownums.length - mid;
+                    high = mid - 1;
+                }
+            }
+
+            negativesum += eachnegativenum;
+        }
+        return negativesum;
     }
 
     /**
