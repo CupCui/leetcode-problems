@@ -41,9 +41,9 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      */
 
     /**
-     * 思路：
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 思路：二分法，1.查找 target 在目标数组中的下标，2.查找小于等于 target 的最大值，3.查找大于等于 target 的最小值，
+     * 时间复杂度：O(logn)
+     * 空间复杂度：O(1)
      * 结果:
      * 优化建议：
      *
@@ -54,7 +54,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
     public int[] searchRange(int[] nums, int target) {
 
         /**
-         * 1.查找 target 在目标数组中的下标，2.查找小于 target 的最大值，3.查找大于 target 的最小值，
+         * 1.查找 target 在目标数组中的下标，2.查找小于等于 target 的最大值，3.查找大于等于 target 的最小值，
          * 考虑边界，如果是第一位，如果是最后一位
          *
          * 给你一个按照**非递减**顺序排列的**整数**数组 nums，
@@ -75,8 +75,6 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
             int mid = l + (h - l) / 2;
             if (nums[mid] == target) {
                 exists = true;
-                hAns = mid;
-                lAns = mid;
                 break;
             } else if (nums[mid] < target) {
                 l = mid + 1;
@@ -91,7 +89,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
 
         l = 0;
         h = nums.length - 1;
-        // 2.查找小于 target 的最大值（第一个小于 target 的值）
+        // 2.查找小于等于 target 的最大值（第一个小于等于 target 的值）
         while (l <= h) {
             int mid = l + (h - l) / 2;
             if (nums[mid] == target) {
@@ -106,7 +104,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
 
         l = 0;
         h = nums.length - 1;
-        // 3.查找大于 target 的最小值（第一个大于 target 的值）
+        // 3.查找大于等于 target 的最小值（第一个大于等于 target 的值）
         while (l <= h) {
             int mid = l + (h - l) / 2;
             if (nums[mid] == target) {
@@ -119,6 +117,6 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         }
         hAns = l;
 
-        return new int[]{lAns, hAns};
+        return new int[]{lAns + 1, hAns - 1};
     }
 }
