@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class FindRightIntervalTest {
+public class FindRightInterval2Test {
 
     /**
      * 输入：intervals = [[1,2]]
@@ -29,7 +29,7 @@ public class FindRightIntervalTest {
     public void test_PositiveCase1() {
         FindRightInterval service = new FindRightInterval();
         int[][] arg1 = {{3, 4}, {2, 3}, {1, 2}};
-        int[] expected = {-1, 0, 1};
+        int[] expected = {-1};
         int[] response = service.findRightInterval(arg1);
 
         Assert.assertArrayEquals(expected, response);
@@ -43,7 +43,7 @@ public class FindRightIntervalTest {
     public void test_PositiveCase2() {
         FindRightInterval service = new FindRightInterval();
         int[][] arg1 = {{1, 4}, {2, 3}, {3, 4}};
-        int[] expected = {-1, 2, -1};
+        int[] expected = {-1};
         int[] response = service.findRightInterval(arg1);
 
         Assert.assertArrayEquals(expected, response);
@@ -57,7 +57,7 @@ public class FindRightIntervalTest {
     public void test_PositiveCase3() {
         FindRightInterval service = new FindRightInterval();
         int[][] arg1 = {{1, 2}, {2, 3}, {3, 4}};
-        int[] expected = {1, 2, -1};
+        int[] expected = {1};
         int[] response = service.findRightInterval(arg1);
 
         Assert.assertArrayEquals(expected, response);

@@ -1,5 +1,8 @@
 package top.cupcupcui.leetcodeproblems.binarysearch;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author cuiguanghao
  * @date 2026/1/19 17:12
@@ -11,9 +14,9 @@ public class FindRightInterval {
      * 436. 寻找右区间
      * 中等
      *
-     * 给你一个区间数组 intervals ，其中 intervals[i] = [starti, endi] ，且每个 starti 都 不同 。
+     * 给你一个区间数组 intervals ，其中 intervals[i] = [starti, endi] ，**且每个 starti 都 不同** 。
      * 区间 i 的 右侧区间 是满足 startj >= endi，且 startj 最小 的区间 j。注意 i 可能等于 j 。
-     * 返回一个由每个区间 i 对应的 右侧区间 下标组成的数组。如果某个区间 i 不存在对应的 右侧区间 ，则下标 i 处的值设为 -1 。
+     * 返回一个由每个区间 i 对应的 **右侧区间 下标**组成的数组。如果某个区间 i 不存在对应的 右侧区间 ，则下标 i 处的值设为 -1 。
      *
      * 示例 1：
      * 输入：intervals = [[1,2]]
@@ -43,7 +46,7 @@ public class FindRightInterval {
 
 
     /**
-     * 思路：
+     * 思路：二分法：遍历 intervals，对于每一个 intervals[i] 中的 endi，找到第一个大于等于 endi 的 startj
      * 时间复杂度：O()
      * 空间复杂度：O()
      * 结果:
@@ -53,7 +56,67 @@ public class FindRightInterval {
      * @return
      */
     public int[] findRightInterval(int[][] intervals) {
+        /**
+         * 给你一个区间数组 intervals ，其中 intervals[i] = [starti, endi] ，**且每个 starti 都 不同** 。
+         * 区间 i 的 右侧区间 是满足 startj >= endi，且 startj 最小 的区间 j。注意 i 可能等于 j 。
+         * 返回一个由每个区间 i 对应的 **右侧区间 下标**组成的数组。如果某个区间 i 不存在对应的 右侧区间 ，则下标 i 处的值设为 -1 。
+         *
+         * 输入：intervals = [[3,4],[2,3],[1,2]]
+         * 输出：[-1,0,1]
+         * 解释：对于 [3,4] ，没有满足条件的“右侧”区间。
+         * 对于 [2,3] ，区间[3,4]具有最小的“右”起点;
+         * 对于 [1,2] ，区间[2,3]具有最小的“右”起点。
+         */
 
         return new int[]{};
     }
+
+    /**
+     * 思路：暴力解法：遍历 intervals，对于每一个 intervals[i] 中的 endi，找到第一个大于等于 endi 的 startj
+     * 时间复杂度：O(n2)
+     * 空间复杂度：O(n)
+     * 结果:
+     * 优化建议：
+     *
+     * @param intervals
+     * @return
+     */
+    public int[] findRightIntervalV1(int[][] intervals) {
+        /**
+         * 给你一个区间数组 intervals ，其中 intervals[i] = [starti, endi] ，**且每个 starti 都 不同** 。
+         * 区间 i 的 右侧区间 是满足 startj >= endi，且 startj 最小 的区间 j。注意 i 可能等于 j 。
+         * 返回一个由每个区间 i 对应的 **右侧区间 下标**组成的数组。如果某个区间 i 不存在对应的 右侧区间 ，则下标 i 处的值设为 -1 。
+         *
+         * 输入：intervals = [[3,4],[2,3],[1,2]]
+         * 输出：[-1,0,1]
+         * 解释：对于 [3,4] ，没有满足条件的“右侧”区间。
+         * 对于 [2,3] ，区间[3,4]具有最小的“右”起点;
+         * 对于 [1,2] ，区间[2,3]具有最小的“右”起点。
+         */
+
+        int arrayLength = intervals.length;
+        int intervalsLength = intervals[0].length;
+        List<Integer> ansList = new ArrayList<>();
+
+        for (int[] interval : intervals) {
+            int endi = interval[intervalsLength - 1];
+            // 遍历 intervals，对于每一个 intervals[i] 中的 endi，找到第一个大于等于 endi 的 startj
+            int ans = Integer.MAX_VALUE;
+            int ansIndex = -1;
+            for (int i = 0; i < arrayLength; i++) {
+                int startj = intervals[i][0];
+                if (startj >= endi) {
+                    if (startj <= ans) {
+                        ans = startj;
+                        ansIndex = i;
+                    }
+                }
+            }
+
+            ansList.add(ansIndex);
+        }
+        return ansList.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+
 }
