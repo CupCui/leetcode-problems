@@ -73,43 +73,40 @@ public class FindRightInterval {
 
         // 遍历 intervals，对于每一个 intervals[i] 中的 endi，找到第一个大于等于 endi 的 startj
         // 构造一个 startj 组成的单调非递减的数组，
-        List<Integer> startList = Arrays.stream(intervals).map(e -> e[0]).sorted(Comparator.naturalOrder()).collect(Collectors.toList());
         // 构造一个 <startj，index> 组成的 map
-        Map<Integer, Integer> startIndexMap = new HashMap<>();
+        int[][] startToEndMap = new int[intervals.length][2];
         for (int i = 0; i < intervals.length; i++) {
-            startIndexMap.put(intervals[i][0], i);
+            startToEndMap[i][0] = intervals[i][0];
+            startToEndMap[i][1] = i;
         }
+        Arrays.sort(startToEndMap, Comparator.comparingInt(a -> a[0]));
 
-        List<Integer> ansList = new ArrayList<>();
+        int[] ansList = new int[intervals.length];
         for (int m = 0; m < intervals.length; m++) {
             int intervalsLength = intervals[m].length;
             int endi = intervals[m][intervalsLength - 1];
             int target = endi;
+            int ansIndex = -1;
 
             // 在 startjarray 中二分法查找第一个大于等于 endi 的 startj
             int l = 0;
-            int h = startList.size() - 1;
+            int h = startToEndMap.length - 1;
             while (l <= h) {
                 int mid = l + (h - l) / 2;
-                if (startList.get(mid) == target) {
+                if (startToEndMap[mid][0] == target) {
+                    ansIndex = startToEndMap[mid][1];
                     h = mid - 1;
-                } else if (startList.get(mid) > target) {
+                } else if (startToEndMap[mid][0] > target) {
+                    ansIndex = startToEndMap[mid][1];
                     h = mid - 1;
                 } else {
                     l = mid + 1;
                 }
             }
 
-            Integer firstStartjRealIndex = -1;
-            int firstStartjIndex = h + 1;
-            if (firstStartjIndex <= startList.size() - 1) {
-                Integer firstStartjValue = startList.get(firstStartjIndex);
-                // 在 startjMap 中找到 startj 所在位置的下标
-                firstStartjRealIndex = startIndexMap.get(firstStartjValue);
-            }
-            ansList.add(firstStartjRealIndex);
+            ansList[m] = ansIndex;
         }
-        return ansList.stream().mapToInt(Integer::intValue).toArray();
+        return ansList;
     }
 
 
