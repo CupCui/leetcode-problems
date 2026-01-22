@@ -1,8 +1,6 @@
 package top.cupcupcui.leetcodeproblems.binarysearch;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -55,16 +53,15 @@ public class TimeBasedKeyValueStore {
 
 /**
  * 思路：
- * // *      存储：Map<timestamp, Map<key, value>>
- * // *      查询：查询第一个小于等于 timestamp 的 timestamp，
- * // *          在小于 timestamp 的 map 中，查找 key 对应的 value
  * 存储：Map<key, Map<timestamp, value>>
  * 查询：根据 key 查询 Map<timestamp, value>
  * 查询第一个小于等于 timestamp 的 value，
  * 时间复杂度：O()
  * 空间复杂度：O()
- * 结果:
+ * 结果: 超出时间限制
  * 优化建议：
+ * 每次get操作都进行排序 - 这是性能瓶颈
+ * 由于提示中说明set操作中的时间戳都是严格递增的，所以不需要每次都排序
  */
 class TimeMap {
 
@@ -106,8 +103,10 @@ class TimeMap {
         }
         // Map<timestamp, value>
         Map<Integer, String> timestampToValueMap = keyToTimeMap.get(key);
+        Set<Integer> keySet = timestampToValueMap.keySet();
+        List<Integer> timestampList = keySet.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());
         // timestamp array
-        Integer[] timestamps = timestampToValueMap.keySet().toArray(new Integer[]{});
+        Integer[] timestamps = timestampList.toArray(new Integer[]{});
 
         int target = timestamp;
         int l = 0;
