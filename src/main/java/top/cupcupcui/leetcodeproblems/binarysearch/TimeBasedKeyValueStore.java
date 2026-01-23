@@ -1,5 +1,8 @@
 package top.cupcupcui.leetcodeproblems.binarysearch;
 
+
+import org.springframework.util.CollectionUtils;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,7 +56,7 @@ public class TimeBasedKeyValueStore {
 
 /**
  * 思路：
- * 存储：Map<key, Map<timestamp, value>>
+ * 存储：Map<key, Map<timestamp, value>>、Map<key, List<timestamp>>
  * 查询：根据 key 查询 Map<timestamp, value>
  * 查询第一个小于等于 timestamp 的 value，
  * 时间复杂度：O()
@@ -67,8 +70,119 @@ class TimeMap {
 
     // Map<key, Map<timestamp, value>>
     private Map<String, Map<Integer, String>> keyToTimeMap = new HashMap<>();
+    // Map<key, List<timestamp>>
+    private Map<String, List<Integer>> keyToTimestampListMap = new HashMap<>();
 
     public TimeMap() {
+
+    }
+
+    /**
+     * 解释：
+     * timeMap.set("foo", "bar", 1);  // 存储键 "foo" 和值 "bar" ，时间戳 timestamp = 1
+     *
+     * @param key
+     * @param value
+     * @param timestamp
+     */
+    public void set(String key, String value, int timestamp) {
+        /**
+         * ["foo", "bar1", 1]
+         * ["foo", "bar2", 2]
+         * ["foo", "bar22", 2]
+         * ["foo", "bar222", 2]
+         * ["foo", "bar3", 3]
+         * ["foo", 2] ---> bar222
+         */
+        // Map<timestamp, value>
+        Map<Integer, String> timestampToValueMap = keyToTimeMap.get(key);
+        if (timestampToValueMap == null) {
+            timestampToValueMap = new HashMap<>();
+        }
+        timestampToValueMap.put(timestamp, value);
+        keyToTimeMap.put(key, timestampToValueMap);
+
+        List<Integer> timestampList = keyToTimestampListMap.get(key);
+        if (timestampList == null || timestampList.isEmpty()) {
+            timestampList = new ArrayList<>();
+        }
+        timestampList.add(timestamp);
+        keyToTimestampListMap.put(key, timestampList);
+    }
+
+    /**
+     * timeMap.get("foo", 1);         // 返回 "bar"
+     *
+     * @param key
+     * @param timestamp
+     * @return
+     */
+    public String get(String key, int timestamp) {
+        /**
+         * ["foo", "bar1", 1]
+         * ["foo", "bar2", 2]
+         * ["foo", "bar22", 2]
+         * ["foo", "bar222", 2]
+         * ["foo", "bar3", 3]
+         * ["foo", 2] ---> bar222
+         */
+        if (!keyToTimeMap.containsKey(key)) {
+            return "";
+        }
+        List<Integer> timestampList = keyToTimestampListMap.get(key);
+
+        // timestamp array
+        Integer[] timestamps = timestampList.toArray(new Integer[]{});
+
+        int target = timestamp;
+        int l = 0;
+        int h = timestamps.length - 1;
+        int ans = -1;
+        // 查询第一个小于等于 timestamp 的 value
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+            if (timestamps[mid] == target) {
+                l = mid + 1;
+                ans = timestamps[mid];
+            } else if (timestamps[mid] < target) {
+                l = mid + 1;
+                ans = timestamps[mid];
+            } else {
+                h = mid - 1;
+            }
+        }
+
+        // Map<timestamp, value>
+        Map<Integer, String> timestampToValueMap = keyToTimeMap.get(key);
+        return timestampToValueMap.getOrDefault(ans, "");
+    }
+}
+
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap obj = new TimeMap();
+ * obj.set(key,value,timestamp);
+ * String param_2 = obj.get(key,timestamp);
+ */
+
+/**
+ * 思路：
+ * 存储：Map<key, Map<timestamp, value>>
+ * 查询：根据 key 查询 Map<timestamp, value>
+ * 查询第一个小于等于 timestamp 的 value，
+ * 时间复杂度：O()
+ * 空间复杂度：O()
+ * 结果: 超出时间限制
+ * 优化建议：
+ * 每次get操作都进行排序 - 这是性能瓶颈
+ * 由于提示中说明set操作中的时间戳都是严格递增的，所以不需要每次都排序
+ */
+class TimeMapV1 {
+
+    // Map<key, Map<timestamp, value>>
+    private Map<String, Map<Integer, String>> keyToTimeMap = new HashMap<>();
+
+    public TimeMapV1() {
 
     }
 
