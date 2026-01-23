@@ -1,7 +1,7 @@
 package top.cupcupcui.leetcodeproblems.binarysearch;
 
 
-import org.springframework.util.CollectionUtils;
+import org.springframework.data.util.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -68,12 +68,108 @@ public class TimeBasedKeyValueStore {
  */
 class TimeMap {
 
+    // Map<key, List<Pair<timestamp,value>>>
+    private final Map<String, List<Pair<Integer, String>>> keyToTimestampListMap = new HashMap<>();
+
+    public TimeMap() {
+
+    }
+
+    /**
+     * 解释：
+     * timeMap.set("foo", "bar", 1);  // 存储键 "foo" 和值 "bar" ，时间戳 timestamp = 1
+     *
+     * @param key
+     * @param value
+     * @param timestamp
+     */
+    public void set(String key, String value, int timestamp) {
+        /**
+         * ["foo", "bar1", 1]
+         * ["foo", "bar2", 2]
+         * ["foo", "bar22", 2]
+         * ["foo", "bar222", 2]
+         * ["foo", "bar3", 3]
+         * ["foo", 2] ---> bar222
+         */
+        List<Pair<Integer, String>> timestampList = keyToTimestampListMap.get(key);
+        if (timestampList == null || timestampList.isEmpty()) {
+            timestampList = new ArrayList<>();
+        }
+        timestampList.add(Pair.of(timestamp, value));
+        keyToTimestampListMap.put(key, timestampList);
+    }
+
+    /**
+     * timeMap.get("foo", 1);         // 返回 "bar"
+     *
+     * @param key
+     * @param timestamp
+     * @return
+     */
+    public String get(String key, int timestamp) {
+        /**
+         * ["foo", "bar1", 1]
+         * ["foo", "bar2", 2]
+         * ["foo", "bar22", 2]
+         * ["foo", "bar222", 2]
+         * ["foo", "bar3", 3]
+         * ["foo", 2] ---> bar222
+         */
+
+        // Map<key, List<Pair<timestamp,value>>>
+        if (!keyToTimestampListMap.containsKey(key)) {
+            return "";
+        }
+        List<Pair<Integer, String>> timestampList = keyToTimestampListMap.get(key);
+
+        // timestamp array
+        Integer[] timestamps = timestampList.stream().map(Pair::getFirst).collect(Collectors.toList()).toArray(new Integer[]{});
+
+        int target = timestamp;
+        int l = 0;
+        int h = timestamps.length - 1;
+        int ans = -1;
+        // 查询第一个小于等于 timestamp 的 value
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+            if (timestamps[mid] == target) {
+                l = mid + 1;
+                ans = mid;
+            } else if (timestamps[mid] < target) {
+                l = mid + 1;
+                ans = mid;
+            } else {
+                h = mid - 1;
+            }
+        }
+
+        if (ans != -1) {
+            return keyToTimestampListMap.get(key).get(ans).getSecond();
+        } else {
+            return "";
+        }
+    }
+}
+
+/**
+ * 思路：
+ * 存储：Map<key, Map<timestamp, value>>、Map<key, List<timestamp>>
+ * 查询：根据 key 查询 Map<timestamp, value>
+ * 查询第一个小于等于 timestamp 的 value，
+ * 时间复杂度：O(logn)
+ * 空间复杂度：O(n*m)
+ * 结果: 提交通过
+ * 优化建议：
+ */
+class TimeMapV2 {
+
     // Map<key, Map<timestamp, value>>
     private Map<String, Map<Integer, String>> keyToTimeMap = new HashMap<>();
     // Map<key, List<timestamp>>
     private Map<String, List<Integer>> keyToTimestampListMap = new HashMap<>();
 
-    public TimeMap() {
+    public TimeMapV2() {
 
     }
 
