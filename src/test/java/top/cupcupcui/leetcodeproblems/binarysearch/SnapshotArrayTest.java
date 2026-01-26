@@ -89,4 +89,62 @@ public class SnapshotArrayTest {
         Assert.assertEquals(1, response3);
     }
 
+    /**
+     * 输入
+     * ["SnapshotArray","snap","snap","get","set","snap","set"]
+     * [[4],[],[],[3,1],[2,4],[],[1,4]]
+     * 输出
+     * [null,0,1,-1,null,2,null]
+     * 预期结果
+     * [null,0,1,0,null,2,null]
+     */
+    @Test
+    public void test_PositiveCase5() {
+        SnapshotArray snapshotArr = new SnapshotArray(4);
+        int response1 = snapshotArr.snap();
+        int response2 = snapshotArr.snap();
+        int response3 = snapshotArr.get(3, 1);
+        snapshotArr.set(2, 4);
+        int response4 = snapshotArr.snap();
+        snapshotArr.set(1, 4);
+
+        Assert.assertEquals(0, response1);
+        Assert.assertEquals(1, response2);
+        Assert.assertEquals(0, response3);
+        Assert.assertEquals(2, response4);
+    }
+
+
+    /**
+     * 输入
+     * ["SnapshotArray","set","snap","snap","snap","get","snap","snap","get"]
+     * [[1],[0,15],[],[],[],[0,2],[],[],[0,0]]
+     * <p>
+     * 添加到测试用例
+     * 输出
+     * [null,null,0,1,2,-1,3,4,15]
+     * 预期结果
+     * [null,null,0,1,2,15,3,4,15]
+     */
+    @Test
+    public void test_PositiveCase6() {
+        SnapshotArray snapshotArr = new SnapshotArray(1);
+        snapshotArr.set(0, 15);
+        int response1 = snapshotArr.snap();
+        int response2 = snapshotArr.snap();
+        int response3 = snapshotArr.snap();
+        int response4 = snapshotArr.get(0, 2);
+        int response5 = snapshotArr.snap();
+        int response6 = snapshotArr.snap();
+        int response7 = snapshotArr.get(0, 0);
+
+        Assert.assertEquals(0, response1);
+        Assert.assertEquals(1, response2);
+        Assert.assertEquals(2, response3);
+        Assert.assertEquals(15, response4);
+        Assert.assertEquals(3, response5);
+        Assert.assertEquals(4, response6);
+        Assert.assertEquals(15, response7);
+    }
+
 }

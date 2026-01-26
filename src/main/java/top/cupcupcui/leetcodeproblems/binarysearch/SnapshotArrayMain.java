@@ -1,9 +1,6 @@
 package top.cupcupcui.leetcodeproblems.binarysearch;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -56,9 +53,9 @@ public class SnapshotArrayMain {
  */
 class SnapshotArray {
 
-    // Map<index, List<Pair<snapId, snap_value>>>
-    // Map<索引, List<Pair<快照编号, 值>>> 一个索引处，有多个快照值
-    private final Map<Integer, List<Pair>> snapIdToArrayMap = new HashMap<>();
+    // Map<index, Map<snapId, snap_value>>
+    // Map<索引, Map<快照编号, 值>> 一个索引处，有多个快照值
+    private final Map<Integer, Map<Integer, Integer>> snapIdToArrayMap = new HashMap<>();
     // 快照编号
     private int snapId = 0;
 
@@ -71,14 +68,13 @@ class SnapshotArray {
 
     public void set(int index, int val) {
         // 索引处的快照值集合
-        List<Pair> pairList = snapIdToArrayMap.get(index);
-        if (pairList == null || pairList.isEmpty()) {
-            pairList = new ArrayList<>();
+        Map<Integer, Integer> snapIdToValueMap = snapIdToArrayMap.get(index);
+        if (snapIdToValueMap == null) {
+            snapIdToValueMap = new HashMap<>();
         }
-        // 添加快照值
-        pairList.add(new Pair(snapId, val));
-        // 更新索引处的快照值集合
-        snapIdToArrayMap.put(index, pairList);
+        // 添加/更新快照值
+        snapIdToValueMap.put(snapId, val);
+        snapIdToArrayMap.put(index, snapIdToValueMap);
     }
 
     public int snap() {
@@ -89,9 +85,12 @@ class SnapshotArray {
         // Map<索引, List<Pair<快照编号, 值>>> 一个索引处，有多个快照值
 
         // 索引处的快照值集合
-        List<Pair> pairList = snapIdToArrayMap.get(index);
-        List<Integer> snapIdList = pairList.stream().map(Pair::getSnapId).collect(Collectors.toList());
-        Integer[] snapIdArray = snapIdList.toArray(new Integer[]{});
+        Map<Integer, Integer> snapIdToValueMap = snapIdToArrayMap.get(index);
+        if (snapIdToValueMap == null) {
+            return 0;
+        }
+        Set<Integer> snapIdSet = snapIdToValueMap.keySet();
+        Integer[] snapIdArray = snapIdSet.toArray(new Integer[]{});
 
         int l = 0;
         int h = snapIdArray.length - 1;
@@ -111,36 +110,9 @@ class SnapshotArray {
         if (ans == -1) {
             return -1;
         } else {
-            return pairList.get(ans).getVal();
+            return snapIdToValueMap.get(ans);
         }
     }
-
-    public class Pair {
-        private Integer snapId;
-        private Integer val;
-
-        public Pair(Integer snapId, Integer val) {
-            this.snapId = snapId;
-            this.val = val;
-        }
-
-        public Integer getSnapId() {
-            return snapId;
-        }
-
-        public void setSnapId(Integer snapId) {
-            this.snapId = snapId;
-        }
-
-        public Integer getVal() {
-            return val;
-        }
-
-        public void setVal(Integer val) {
-            this.val = val;
-        }
-    }
-
 }
 
 /**
