@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author cuiguanghao
@@ -46,7 +47,8 @@ public class SnapshotArrayMain {
 }
 
 /**
- * 思路：Map<snapId, List<snap_value>>
+ * 思路：Map<index, List<Pair<snapId, snap_value>>>
+ * 因为 snapId 是单调递增的，所以可以使用二分法查询小于等于 target_snapId 的最大的 snapId
  * 时间复杂度：O()
  * 空间复杂度：O()
  * 结果:
@@ -54,30 +56,91 @@ public class SnapshotArrayMain {
  */
 class SnapshotArray {
 
-    Map<Integer, List<Integer>> snapIdToArrayMap = new HashMap<>();
-
-    private List<Integer> snapshotArray = new ArrayList<>();
-    private int snapId = -1;
+    // Map<index, List<Pair<snapId, snap_value>>>
+    // Map<索引, List<Pair<快照编号, 值>>> 一个索引处，有多个快照值
+    private final Map<Integer, List<Pair>> snapIdToArrayMap = new HashMap<>();
+    // 快照编号
+    private int snapId = 0;
 
     public SnapshotArray(int length) {
         for (int i = 0; i < length; i++) {
-            snapshotArray.add(0);
+            // 初始化
+            snapIdToArrayMap.put(i, null);
         }
     }
 
     public void set(int index, int val) {
-        snapshotArray.set(index, val);
+        // 索引处的快照值集合
+        List<Pair> pairList = snapIdToArrayMap.get(index);
+        if (pairList == null || pairList.isEmpty()) {
+            pairList = new ArrayList<>();
+        }
+        // 添加快照值
+        pairList.add(new Pair(snapId, val));
+        // 更新索引处的快照值集合
+        snapIdToArrayMap.put(index, pairList);
     }
 
     public int snap() {
-        snapId = snapId + 1;
-        snapIdToArrayMap.put(snapId, new ArrayList<>(snapshotArray));
-        return snapId;
+        return snapId++;
     }
 
     public int get(int index, int snap_id) {
-        return snapIdToArrayMap.get(snap_id).get(index);
+        // Map<索引, List<Pair<快照编号, 值>>> 一个索引处，有多个快照值
+
+        // 索引处的快照值集合
+        List<Pair> pairList = snapIdToArrayMap.get(index);
+        List<Integer> snapIdList = pairList.stream().map(Pair::getSnapId).collect(Collectors.toList());
+        Integer[] snapIdArray = snapIdList.toArray(new Integer[]{});
+
+        int l = 0;
+        int h = snapIdArray.length - 1;
+        int target = snap_id;
+        int ans = -1;
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+            if (snapIdArray[mid] == target) {
+                ans = mid;
+                h = mid - 1;
+            } else if (snapIdArray[mid] > target) {
+                h = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        if (ans == -1) {
+            return -1;
+        } else {
+            return pairList.get(ans).getVal();
+        }
     }
+
+    public class Pair {
+        private Integer snapId;
+        private Integer val;
+
+        public Pair(Integer snapId, Integer val) {
+            this.snapId = snapId;
+            this.val = val;
+        }
+
+        public Integer getSnapId() {
+            return snapId;
+        }
+
+        public void setSnapId(Integer snapId) {
+            this.snapId = snapId;
+        }
+
+        public Integer getVal() {
+            return val;
+        }
+
+        public void setVal(Integer val) {
+            this.val = val;
+        }
+    }
+
 }
 
 /**
@@ -89,9 +152,10 @@ class SnapshotArray {
  */
 class SnapshotArrayV1 {
 
-    Map<Integer, List<Integer>> snapIdToArrayMap = new HashMap<>();
+    private final Map<Integer, List<Integer>> snapIdToArrayMap = new HashMap<>();
 
-    private List<Integer> snapshotArray = new ArrayList<>();
+    private final List<Integer> snapshotArray = new ArrayList<>();
+
     private int snapId = -1;
 
     public SnapshotArrayV1(int length) {
