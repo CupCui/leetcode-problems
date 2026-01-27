@@ -1,7 +1,6 @@
 package top.cupcupcui.leetcodeproblems.binarysearch;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author cuiguanghao
@@ -46,12 +45,91 @@ public class SnapshotArrayMain {
 /**
  * 思路：Map<index, Map<snapId, snap_value>>
  * 因为 snapId 是单调递增的，所以可以使用二分法查询小于等于 target_snapId 的最大的 snapId
- * 时间复杂度：O()
- * 空间复杂度：O()
- * 结果: 解答错误
+ * 时间复杂度：O(logn)
+ * 空间复杂度：O(n*s) O(索引n*快照s)
+ * 结果: 提交通过
  * 优化建议：
  */
 class SnapshotArray {
+
+    // Map<index, Map<snapId, snap_value>>
+    // Map<索引, Map<快照编号, 值>> 一个索引处，有多个快照值
+    private final Map<Integer, Map<Integer, Integer>> indexToSnapIdValueMap = new HashMap<>();
+    private final Map<Integer, List<Integer>> indexToSnapIdsMap = new HashMap<>();
+    // 快照编号
+    private int snapId = -1;
+
+    public SnapshotArray(int length) {
+        for (int i = 0; i < length; i++) {
+            Map<Integer, Integer> snapIdToValueMap = new HashMap<>();
+            snapIdToValueMap.put(snapId, 0);
+            // 初始化
+            indexToSnapIdValueMap.put(i, snapIdToValueMap);
+
+            List<Integer> snapIds = new ArrayList<>();
+            snapIds.add(snapId);
+            indexToSnapIdsMap.put(i, snapIds);
+        }
+    }
+
+    public void set(int index, int val) {
+        // 索引处的快照值集合
+        Map<Integer, Integer> snapIdToValueMap = indexToSnapIdValueMap.get(index);
+        // 添加/更新快照值
+        snapIdToValueMap.put(snapId, val);
+        indexToSnapIdValueMap.put(index, snapIdToValueMap);
+
+        List<Integer> snapIds = indexToSnapIdsMap.get(index);
+        snapIds.add(snapId);
+        indexToSnapIdsMap.put(index, snapIds);
+    }
+
+    public int snap() {
+        snapId = snapId + 1;
+        return snapId;
+    }
+
+    public int get(int index, int snap_id) {
+        List<Integer> snapIdList = indexToSnapIdsMap.get(index);
+        Integer[] snapIdArray = snapIdList.toArray(new Integer[]{});
+
+        /**
+         * 思路：Map<index, Map<snapId, snap_value>>
+         * 因为 snapId 是单调递增的，所以可以使用二分法查询小于 target_snapId 的最大的 snapId
+         */
+        int l = 0;
+        int h = snapIdArray.length - 1;
+        int target = snap_id;
+        int ans = -1;
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+            if (snapIdArray[mid] == target) {
+                h = mid - 1;
+            } else if (snapIdArray[mid] > target) {
+                h = mid - 1;
+            } else {
+                ans = snapIdArray[mid];
+                l = mid + 1;
+            }
+        }
+
+        // Map<索引, Map<快照编号, 值>> 一个索引处，有多个快照值
+        // 索引处的快照值集合
+        Map<Integer, Integer> snapIdToValueMap = indexToSnapIdValueMap.get(index);
+        return snapIdToValueMap.get(ans);
+    }
+}
+
+
+/**
+ * 思路：Map<index, Map<snapId, snap_value>>
+ * 因为 snapId 是单调递增的，所以可以使用二分法查询小于等于 target_snapId 的最大的 snapId
+ * 时间复杂度：O(logn)
+ * 空间复杂度：O(n*s)
+ * 结果: 解答错误
+ * 优化建议：
+ */
+class SnapshotArrayV2 {
 
     // Map<index, Map<snapId, snap_value>>
     // Map<索引, Map<快照编号, 值>> 一个索引处，有多个快照值
@@ -59,7 +137,7 @@ class SnapshotArray {
     // 快照编号
     private int snapId = 0;
 
-    public SnapshotArray(int length) {
+    public SnapshotArrayV2(int length) {
         for (int i = 0; i < length; i++) {
             // 初始化
             snapIdToArrayMap.put(i, null);

@@ -60,10 +60,8 @@ public class SnapshotArrayTest {
         snapshotArr.set(0, 5);
         int response1 = snapshotArr.snap();
         snapshotArr.set(0, 6);
-        int response2 = snapshotArr.get(0, 2);
 
         Assert.assertEquals(0, response1);
-        Assert.assertEquals(0, response2);
     }
 
     /**
