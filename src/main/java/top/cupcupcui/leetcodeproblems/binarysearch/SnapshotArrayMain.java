@@ -44,11 +44,11 @@ public class SnapshotArrayMain {
 }
 
 /**
- * 思路：Map<index, List<Pair<snapId, snap_value>>>
+ * 思路：Map<index, Map<snapId, snap_value>>
  * 因为 snapId 是单调递增的，所以可以使用二分法查询小于等于 target_snapId 的最大的 snapId
  * 时间复杂度：O()
  * 空间复杂度：O()
- * 结果:
+ * 结果: 解答错误
  * 优化建议：
  */
 class SnapshotArray {
@@ -82,7 +82,7 @@ class SnapshotArray {
     }
 
     public int get(int index, int snap_id) {
-        // Map<索引, List<Pair<快照编号, 值>>> 一个索引处，有多个快照值
+        // Map<索引, Map<快照编号, 值>> 一个索引处，有多个快照值
 
         // 索引处的快照值集合
         Map<Integer, Integer> snapIdToValueMap = snapIdToArrayMap.get(index);
@@ -92,6 +92,10 @@ class SnapshotArray {
         Set<Integer> snapIdSet = snapIdToValueMap.keySet();
         Integer[] snapIdArray = snapIdSet.toArray(new Integer[]{});
 
+        /**
+         * 思路：Map<index, Map<snapId, snap_value>>
+         * 因为 snapId 是单调递增的，所以可以使用二分法查询小于等于 target_snapId 的最大的 snapId
+         */
         int l = 0;
         int h = snapIdArray.length - 1;
         int target = snap_id;
@@ -99,16 +103,17 @@ class SnapshotArray {
         while (l <= h) {
             int mid = l + (h - l) / 2;
             if (snapIdArray[mid] == target) {
-                ans = mid;
-                h = mid - 1;
-            } else if (snapIdArray[mid] > target) {
-                h = mid - 1;
-            } else {
+                ans = snapIdArray[mid];
+                break;
+            } else if (snapIdArray[mid] < target) {
+                ans = snapIdArray[mid];
                 l = mid + 1;
+            } else {
+                h = mid - 1;
             }
         }
         if (ans == -1) {
-            return -1;
+            return 0;
         } else {
             return snapIdToValueMap.get(ans);
         }
