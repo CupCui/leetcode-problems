@@ -113,6 +113,25 @@ public class ThreeSumTest {
     }
 
     /**
+     * 输入
+     * nums = [0,0,0,0]
+     * <p>
+     * 输出 [[0,0,0],[0,0,0]]
+     * 预期结果 [[0,0,0]]
+     */
+    @Test
+    public void test_PositiveCase7() {
+        ThreeSum service = new ThreeSum();
+        int[] arg1 = {0, 0, 0, 0};
+        List<List<Integer>> expected = Arrays.asList(Arrays.asList(0, 0, 0));
+        List<List<Integer>> response = service.threeSum(arg1);
+        Assert.assertEquals(expected.size(), response.size());
+        for (int i = 0; i < expected.size(); i++) {
+            Assert.assertArrayEquals(expected.get(i).toArray(), response.get(i).toArray());
+        }
+    }
+
+    /**
      * 官方题解
      */
     class Solution {

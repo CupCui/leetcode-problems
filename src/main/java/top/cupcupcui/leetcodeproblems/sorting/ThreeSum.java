@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.sorting;
 
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +61,20 @@ public class ThreeSum {
      */
     public List<List<Integer>> threeSum(int[] nums) {
         /**
+         * 排序：nums = [-4,-1,-1,-1,0,1,2]
+         *
          * 排序：nums = [-4,-1,-1,0,1,2]
+         * 遍历 nums，当前作为基准位置，
+         * 在左区间遍历，获取 nums[l] 值
+         * 在右区间遍历，获取 nums[r] 值
+         * 如果 nums[l] + nums[r] > nums[pivot]
+         *      l--
+         * 如果 nums[l] + nums[r] < nums[pivot]
+         *      r++
+         * 如果 nums[l] + nums[r] == nums[pivot]
+         *      pivot++
+         *      ans
+         *
          * i    l     r    ans
          * -4   -4    2    l=-1
          *
@@ -74,13 +89,37 @@ public class ThreeSum {
          */
 
         // 使用快排，对数组进行排序
-        // 基准选择：确定一个 pivot 元素作为比较标准
-        int l = 0;
-        int h = nums.length - 1;
+        partition(nums, 0, nums.length - 1);
 
-        partition(nums, l, h);
+        List<List<Integer>> ansList = new ArrayList<>();
+        for (int i = 1; i < nums.length; i++) {
+            // 基准选择：确定一个 pivot 元素作为比较标准
+            int pivot = i;
 
-        return Collections.singletonList(Arrays.stream(nums).boxed().collect(Collectors.toList()));
+            int l = pivot - 1;
+            int r = pivot + 1;
+            int[] ans = new int[3];
+            boolean isMatch = false;
+            while (l >= 0 && r <= nums.length - 1) {
+                if (nums[i] + nums[l] + nums[r] == 0) {
+                    ans[0] = nums[l];
+                    ans[1] = nums[i];
+                    ans[2] = nums[r];
+                    isMatch = true;
+                    break;
+                } else if (nums[i] + nums[l] + nums[r] < 0) {
+                    r++;
+                } else {
+                    l--;
+                }
+            }
+            if (isMatch) {
+                ansList.add(Arrays.stream(ans).boxed().collect(Collectors.toList()));
+            }
+        }
+
+        // return Collections.singletonList(Arrays.stream(nums).boxed().collect(Collectors.toList()));
+        return ansList;
     }
 
     /**
