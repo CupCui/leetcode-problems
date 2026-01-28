@@ -83,7 +83,20 @@ public class ThreeSum {
         return Collections.singletonList(Arrays.stream(nums).boxed().collect(Collectors.toList()));
     }
 
+    /**
+     * 二分法排序
+     *
+     * @param nums
+     * @param l
+     * @param h
+     */
     private static void partition(int[] nums, int l, int h) {
+        // 退出递归的条件
+        // 关键点1：递归终止：使用 l >= h 而不是 i == l || l >= h
+        if (l >= h) {
+            return;
+        }
+
         int pivot = h;
         int i = l;
         for (int j = l; j <= h; j++) {
@@ -92,16 +105,14 @@ public class ThreeSum {
                 i++;
             }
         }
+
         swap(nums, i, pivot);
-        // 退出递归的条件
-        if (i == h) {
-            return;
-        }
         // partition left
         partition(nums, l, i - 1);
-        // partition right
-        partition(nums, i, h);
 
+        // 关键点2：在 i 位置已经放置了基准元素，应该对 i+1 到 h 的范围进行分区
+        // partition right
+        partition(nums, i + 1, h);
     }
 
     private static void swap(int[] nums, int source, int target) {
