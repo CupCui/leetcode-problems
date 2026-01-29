@@ -16,7 +16,7 @@ public class ThreeSumTest {
      */
     @Test
     public void test_PositiveCase0() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {-1, 0, 1, 2, -1, -4};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(-1, -1, 2), Arrays.asList(-1, 0, 1));
         List<List<Integer>> response = service.threeSum(arg1);
@@ -31,7 +31,7 @@ public class ThreeSumTest {
      */
     @Test
     public void test_PositiveCase1() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {0, 1, 1};
         List<List<Integer>> response = service.threeSum(arg1);
         Assert.assertTrue(CollectionUtils.isEmpty(response));
@@ -43,7 +43,7 @@ public class ThreeSumTest {
      */
     @Test
     public void test_PositiveCase2() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {0, 0, 0};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(0, 0, 0));
         List<List<Integer>> response = service.threeSum(arg1);
@@ -58,7 +58,7 @@ public class ThreeSumTest {
      */
     @Test
     public void test_PositiveCase3() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {-1, 0, 1};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(-1, 0, 1));
         List<List<Integer>> response = service.threeSum(arg1);
@@ -73,7 +73,7 @@ public class ThreeSumTest {
      */
     @Test
     public void test_PositiveCase4() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {-2, 1, 1};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(-2, 1, 1));
         List<List<Integer>> response = service.threeSum(arg1);
@@ -88,7 +88,7 @@ public class ThreeSumTest {
      */
     @Test
     public void test_PositiveCase5() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {-2, 1, 1, 2};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(-2, 1, 1));
         List<List<Integer>> response = service.threeSum(arg1);
@@ -103,7 +103,7 @@ public class ThreeSumTest {
      */
     @Test
     public void test_PositiveCase6() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {-2, 0, 1, 2};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(-2, 0, 2));
         List<List<Integer>> response = service.threeSum(arg1);
@@ -121,7 +121,7 @@ public class ThreeSumTest {
      */
     @Test
     public void test_PositiveCase7() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {0, 0, 0, 0};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(0, 0, 0));
         List<List<Integer>> response = service.threeSum(arg1);
@@ -142,7 +142,7 @@ public class ThreeSumTest {
      */
     @Test
     public void test_PositiveCase8() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {-100, -70, -60, 110, 120, 130, 160};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(-100, -60, 160), Arrays.asList(-70, -60, 130));
         List<List<Integer>> response = service.threeSum(arg1);

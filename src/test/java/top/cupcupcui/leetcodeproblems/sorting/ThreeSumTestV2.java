@@ -12,7 +12,7 @@ public class ThreeSumTestV2 {
 
     @Test
     public void test_PositiveCase0() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {-1, 0, 1, 2, -1, 1};
         // int[] arg1 = {-1, 0, -1, 1, 1, 2};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(-1, 0, -1, 1, 1, 2));
@@ -24,7 +24,7 @@ public class ThreeSumTestV2 {
 
     @Test
     public void test_PositiveCase1() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {-1, 0, 3, 4, -1, -4, 2};
         // int[] arg1 = {-1, 0, -1, -4, 2, 4, 3};
         List<List<Integer>> expected = Arrays.asList(Arrays.asList(-1, 0, -1, -4, 2, 4, 3));
@@ -36,7 +36,7 @@ public class ThreeSumTestV2 {
 
 /*     @Test
     public void test_PositiveCase1() {
-        ThreeSum service = new ThreeSum();
+        ThreeSumV2 service = new ThreeSumV2();
         int[] arg1 = {-1, 0, 3, 4, -1, -4, 2};
         // int[] arg1 = {-1, 0, -1, -4, 2, 4, 3};
         int[] arg1 = {-1, 0, -1, -4};
