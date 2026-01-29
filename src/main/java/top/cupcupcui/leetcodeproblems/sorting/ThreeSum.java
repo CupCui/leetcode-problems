@@ -56,12 +56,87 @@ public class ThreeSum {
      * 思路：双指针 排序
      * 时间复杂度：O()
      * 空间复杂度：O()
-     * 结果: 结果错误
-     *  - [ ] 结果去重
-     *  - [ ] 指针移动错误问题
+     * 结果:
+     * - [ ] 结果去重
+     * - [ ] 指针移动错误问题
      * 优化建议：
      */
     public List<List<Integer>> threeSum(int[] nums) {
+        /**
+         * 排序：nums = [-4,-1,-1,-1,0,1,2,3]
+         *
+         * 排序：nums = [-4,-1,-1,0,1,2]
+         * 遍历 nums，当前作为基准位置，
+         * 在左区间遍历，获取 nums[l] 值
+         * 在右区间遍历，获取 nums[r] 值
+         * 如果 nums[l] + nums[r] > nums[pivot]
+         *      l--
+         * 如果 nums[l] + nums[r] < nums[pivot]
+         *      r++
+         * 如果 nums[l] + nums[r] == nums[pivot]
+         *      pivot++
+         *      ans
+         *
+         * i    l     r    ans
+         * -4   -4    2    l=-1
+         *
+         * i    l     r    ans
+         * -1   -4    2    r=1
+         *
+         * i    l     r    ans
+         * -1   -4    1    r=1
+         *
+         *
+         * 输出：[[-1,-1,2],[-1,0,1]]
+         */
+
+        // 使用快排，对数组进行排序
+        partition(nums, 0, nums.length - 1);
+
+        List<List<Integer>> ansList = new ArrayList<>();
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0) {
+                if (nums[i] == nums[i - 1]) {
+                    continue;
+                }
+            }
+            int l = i + 1;
+            int h = nums.length - 1;
+
+            while (l < h) {
+                int sum = nums[i] + nums[l] + nums[h];
+                if (sum == 0) {
+                    ansList.add(Arrays.asList(nums[i], nums[l], nums[h]));
+
+                    // 跳过重复的left和right元素
+                    while (l < h && nums[l] == nums[l + 1]) l++;
+                    while (l < h && nums[h] == nums[h - 1]) h--;
+
+                    // 移动指针寻找下一个可能的解
+                    l++;
+                    h--;
+                } else if (sum < 0) {
+                    l++;
+                } else {
+                    h--;
+                }
+            }
+        }
+
+        return ansList;
+    }
+
+    /**
+     * 思路：双指针 排序
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 结果: 结果错误
+     * - [ ] 结果去重
+     * - [ ] 指针移动错误问题
+     * 优化建议：
+     */
+    public List<List<Integer>> threeSumV2(int[] nums) {
         /**
          * 排序：nums = [-4,-1,-1,-1,0,1,2,3]
          *
