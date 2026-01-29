@@ -56,12 +56,14 @@ public class ThreeSum {
      * 思路：双指针 排序
      * 时间复杂度：O()
      * 空间复杂度：O()
-     * 结果:
+     * 结果: 结果错误
+     *  - [ ] 结果去重
+     *  - [ ] 指针移动错误问题
      * 优化建议：
      */
     public List<List<Integer>> threeSum(int[] nums) {
         /**
-         * 排序：nums = [-4,-1,-1,-1,0,1,2]
+         * 排序：nums = [-4,-1,-1,-1,0,1,2,3]
          *
          * 排序：nums = [-4,-1,-1,0,1,2]
          * 遍历 nums，当前作为基准位置，
@@ -119,6 +121,7 @@ public class ThreeSum {
         }
 
         // return Collections.singletonList(Arrays.stream(nums).boxed().collect(Collectors.toList()));
+
         return ansList;
     }
 

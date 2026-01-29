@@ -132,6 +132,27 @@ public class ThreeSumTest {
     }
 
     /**
+     * 输入
+     * nums =
+     * [-100,-70,-60,110,120,130,160]
+     * 输出
+     * [[-70,-60,130]]
+     * 预期结果
+     * [[-100,-60,160],[-70,-60,130]]
+     */
+    @Test
+    public void test_PositiveCase8() {
+        ThreeSum service = new ThreeSum();
+        int[] arg1 = {-100, -70, -60, 110, 120, 130, 160};
+        List<List<Integer>> expected = Arrays.asList(Arrays.asList(-100, -60, 160), Arrays.asList(-70, -60, 130));
+        List<List<Integer>> response = service.threeSum(arg1);
+        Assert.assertEquals(expected.size(), response.size());
+        for (int i = 0; i < expected.size(); i++) {
+            Assert.assertArrayEquals(expected.get(i).toArray(), response.get(i).toArray());
+        }
+    }
+
+    /**
      * 官方题解
      */
     class Solution {
