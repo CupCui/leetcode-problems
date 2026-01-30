@@ -66,12 +66,21 @@ public class ThreeSumV2 {
          *
          * 排序：nums = [-4,-1,-1,0,1,2]
          * 输出：[[-1,-1,2],[-1,0,1]]
-         * 遍历 nums 中每一个元素 i
-         * 遍历 nums 中每一个元素，找到两个数 nums[j] + nums[k] = nums[i]
+         * nums = [0,0,0,0]
+         *
+         * 输入
+         * nums =
+         * [-100,-70,-60,110,120,130,160]
+         * 输出
+         * [[-70,-60,130]]
+         * 预期结果
+         * [[-100,-60,160],[-70,-60,130]]
          */
         List<List<Integer>> ansList = new ArrayList<>();
 
+        // 遍历 nums 中每一个元素 i
         for (int i = 0; i < nums.length - 1; i++) {
+            // 遍历 nums 中每一个元素，找到两个数 nums[j] + nums[k] + nums[i] == 0
             if (i > 0 && nums[i] == nums[i - 1]) {
                 i++;
                 continue;
@@ -86,6 +95,14 @@ public class ThreeSumV2 {
                     continue;
                 }
                 if (h == i) {
+                    h--;
+                    continue;
+                }
+                if (l > i + 1 && nums[l] == nums[l - 1]) {
+                    l++;
+                    continue;
+                }
+                if (h < nums.length - 1 && nums[h] == nums[h + 1]) {
                     h--;
                     continue;
                 }
