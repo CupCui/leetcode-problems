@@ -185,10 +185,11 @@ public class ThreeSumTest {
     @Test
     public void test_PositiveCase10() {
         ThreeSumV2 service = new ThreeSumV2();
-        int[] arg1 = {-1, -1, 2, 2, -4};
+        int[] arg1 = {3, -1, -1, 1, 2, 2, -4};
         List<List<Integer>> expected = Arrays.asList(
                 Arrays.asList(-1, -1, 2),
-                Arrays.asList(2, 2, -4)
+                Arrays.asList(-4, 1, 3),
+                Arrays.asList(-4, 2, 2)
         );
         List<List<Integer>> response = service.threeSum(arg1);
         Assert.assertEquals(expected.size(), response.size());

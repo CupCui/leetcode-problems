@@ -51,8 +51,8 @@ public class ThreeSumV2 {
 
     /**
      * 思路：双指针 排序
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(nlogn)
+     * 空间复杂度：O(n)
      * 结果:
      * 优化建议：
      */
@@ -82,7 +82,8 @@ public class ThreeSumV2 {
         for (int i = 0; i < nums.length - 1; i++) {
             // 遍历 nums 中每一个元素，找到两个数 nums[j] + nums[k] + nums[i] == 0
             if (i > 0 && nums[i] == nums[i - 1]) {
-                i++;
+                // 在for循环中再次执行i++会导致双重递增
+                // i++;
                 continue;
             }
             int l = i + 1;
@@ -127,14 +128,12 @@ public class ThreeSumV2 {
 
     /**
      * 思路：双指针 排序
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(nlogn)
+     * 空间复杂度：O(n)
      * 结果:
      * 优化建议：
      */
     private static void partition(int[] nums, int l, int h) {
-
-
         // 退出条件
         if (l >= h) {
             return;
