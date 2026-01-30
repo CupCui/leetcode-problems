@@ -89,7 +89,7 @@ public class ThreeSumV2 {
             int h = nums.length - 1;
             int[] ans = new int[3];
 
-            while (l <= h) {
+            while (l < h) {
                 if (l == i) {
                     l++;
                     continue;
@@ -114,7 +114,7 @@ public class ThreeSumV2 {
                     // 继续
                     l++;
                     h--;
-                } else if (nums[l] + nums[h] < nums[i]) {
+                } else if (nums[l] + nums[h] + nums[i] < 0) {
                     l++;
                 } else {
                     h--;

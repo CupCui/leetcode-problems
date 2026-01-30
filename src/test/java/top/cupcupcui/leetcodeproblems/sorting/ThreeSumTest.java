@@ -153,6 +153,51 @@ public class ThreeSumTest {
     }
 
     /**
+     * 输入
+     * nums =
+     * [2,-3,0,-2,-5,-5,-4,1,2,-2,2,0,2,-4,5,5,-10]
+     * <p>
+     * 添加到测试用例
+     * 输出
+     * [[-10,5,5],[-5,0,5],[-2,0,2]]
+     * 预期结果
+     * [[-10,5,5],[-5,0,5],[-4,2,2],[-3,-2,5],[-3,1,2],[-2,0,2]]
+     */
+    @Test
+    public void test_PositiveCase9() {
+        ThreeSumV2 service = new ThreeSumV2();
+        int[] arg1 = {2, -3, 0, -2, -5, -5, -4, 1, 2, -2, 2, 0, 2, -4, 5, 5, -10};
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(-10, 5, 5),
+                Arrays.asList(-5, 0, 5),
+                Arrays.asList(-4, 2, 2),
+                Arrays.asList(-3, -2, 5),
+                Arrays.asList(-3, 1, 2),
+                Arrays.asList(-2, 0, 2)
+        );
+        List<List<Integer>> response = service.threeSum(arg1);
+        Assert.assertEquals(expected.size(), response.size());
+        for (int i = 0; i < expected.size(); i++) {
+            Assert.assertArrayEquals(expected.get(i).toArray(), response.get(i).toArray());
+        }
+    }
+
+    @Test
+    public void test_PositiveCase10() {
+        ThreeSumV2 service = new ThreeSumV2();
+        int[] arg1 = {-1, -1, 2, 2, -4};
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(-1, -1, 2),
+                Arrays.asList(2, 2, -4)
+        );
+        List<List<Integer>> response = service.threeSum(arg1);
+        Assert.assertEquals(expected.size(), response.size());
+        for (int i = 0; i < expected.size(); i++) {
+            Assert.assertArrayEquals(expected.get(i).toArray(), response.get(i).toArray());
+        }
+    }
+
+    /**
      * 官方题解
      */
     class Solution {
