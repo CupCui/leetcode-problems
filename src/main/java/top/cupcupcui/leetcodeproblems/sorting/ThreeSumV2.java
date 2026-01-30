@@ -59,14 +59,6 @@ public class ThreeSumV2 {
      * 优化建议：
      */
     public List<List<Integer>> threeSum(int[] nums) {
-        /**
-         *
-         * 示例 1：
-         * 输入：nums = [-1,0,1,2,-1,-4]
-         * 排序：nums = [-4,-1,-1,0,1,2]
-         * 输出：[[-1,-1,2],[-1,0,1]]
-         */
-
 
         // 快排（分治）
 
@@ -86,16 +78,25 @@ public class ThreeSumV2 {
      * 优化建议：
      */
     private static void partition(int[] nums, int l, int h) {
+
+        /**
+         *
+         * 示例 1：
+         * 输入：nums = [-1,0,1,2,-1,-4]
+         * 排序：nums = [-4,-1,-1,0,1,2]
+         * 输出：[[-1,-1,2],[-1,0,1]]
+         */
+
+        // 退出条件
         if (l >= h) {
             return;
         }
-        // 基准值
-        int pivotValue = nums[h];
+        // 基准索引
         int pivotIndex = l;
         // 把小于基准值的元素放到左边，把大于基准值的元素放到右边，基准值归位
         // 遍历 nums 中每一个元素，如果 nums[i] 小于 pivot，把 nums[i] 和 pivotIndex 交换
         for (int i = l; i < h; i++) {
-            if (nums[i] < pivotValue) {
+            if (nums[i] < nums[h]) {
                 swap(nums, i, pivotIndex);
                 pivotIndex++;
             }
