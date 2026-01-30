@@ -1,9 +1,7 @@
 package top.cupcupcui.leetcodeproblems.sorting;
 
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -61,13 +59,53 @@ public class ThreeSumV2 {
     public List<List<Integer>> threeSum(int[] nums) {
 
         // 快排（分治）
+        partition(nums, 0, nums.length - 1);
 
-        int l = 0;
-        int h = nums.length - 1;
-        partition(nums, l, h);
+        /**
+         * 输入：nums = [-1,0,1,2,-1,-4]
+         *
+         * 排序：nums = [-4,-1,-1,0,1,2]
+         * 输出：[[-1,-1,2],[-1,0,1]]
+         * 遍历 nums 中每一个元素 i
+         * 遍历 nums 中每一个元素，找到两个数 nums[j] + nums[k] = nums[i]
+         */
+        List<List<Integer>> ansList = new ArrayList<>();
 
-        return Collections.singletonList(Arrays.stream(nums).boxed().collect(Collectors.toList()));
-        // return null;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                i++;
+                continue;
+            }
+            int l = i + 1;
+            int h = nums.length - 1;
+            int[] ans = new int[3];
+
+            while (l <= h) {
+                if (l == i) {
+                    l++;
+                    continue;
+                }
+                if (h == i) {
+                    h--;
+                    continue;
+                }
+                if (nums[l] + nums[h] + nums[i] == 0) {
+                    ans[0] = nums[l];
+                    ans[1] = nums[i];
+                    ans[2] = nums[h];
+                    ansList.add(Arrays.stream(ans).boxed().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
+                    // 继续
+                    l++;
+                    h--;
+                } else if (nums[l] + nums[h] < nums[i]) {
+                    l++;
+                } else {
+                    h--;
+                }
+            }
+        }
+
+        return ansList;
     }
 
     /**
@@ -79,13 +117,6 @@ public class ThreeSumV2 {
      */
     private static void partition(int[] nums, int l, int h) {
 
-        /**
-         *
-         * 示例 1：
-         * 输入：nums = [-1,0,1,2,-1,-4]
-         * 排序：nums = [-4,-1,-1,0,1,2]
-         * 输出：[[-1,-1,2],[-1,0,1]]
-         */
 
         // 退出条件
         if (l >= h) {
