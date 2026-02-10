@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author cuiguanghao
  * @date 2026/2/9 14:26
- * @description 148. 排序链表
+ * @description 148. 排序链表 【已放弃】
  */
 public class SortList {
     /**
@@ -57,16 +57,27 @@ public class SortList {
          * 暴力解法：
          *  新建一个 head newHead，
          *  遍历 nodes，固定一个 node，遍历 new nodes，把 node 放到合适的位置
+         * 冒泡排序：
+         *  遍历 nodes，固定一个 node，如果 node 大于 pivot，则交换
+         *  遍历 nodes-1，固定一个 node，如果 node 大于 pivot，则交换
+         *
          */
 
         List<Integer> values = new ArrayList<>();
         do {
-            values.add(head.val);
-            head = head.next;
+            ListNode pivot = head;
+            do {
+                if (head.val > pivot.val) {
+                    ListNode temp = head;
+                    head = pivot;
+                    pivot = temp;
+                }
+                head = head.next;
+            } while (head.next != null);
         } while (head.next != null);
         values.add(head.val);
-        System.out.println(values);
 
+        System.out.println(values);
         return null;
     }
 
