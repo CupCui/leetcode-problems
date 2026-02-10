@@ -1,5 +1,8 @@
 package top.cupcupcui.leetcodeproblems.sorting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author cuiguanghao
  * @date 2026/2/9 14:26
@@ -45,11 +48,29 @@ public class SortList {
      * @return
      */
     public ListNode sortList(ListNode head) {
+        /**
+         * 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+         * 输入：head = [4,2,1,3]
+         * 输出：[1,2,3,4]
+         */
+        /**
+         * 暴力解法：
+         *  新建一个 head newHead，
+         *  遍历 nodes，固定一个 node，遍历 new nodes，把 node 放到合适的位置
+         */
+
+        List<Integer> values = new ArrayList<>();
+        do {
+            values.add(head.val);
+            head = head.next;
+        } while (head.next != null);
+        values.add(head.val);
+        System.out.println(values);
 
         return null;
     }
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 
