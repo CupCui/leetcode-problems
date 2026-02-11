@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.array;
 
+import java.util.Arrays;
+
 /**
  * @author cuiguanghao
  * @date 2026/2/10 17:46
@@ -52,16 +54,101 @@ public class TwoSum {
      * @return
      */
     public int[] twoSum(int[] nums, int target) {
-        int l = 0;
-        int h = nums.length - 1;
-
+        /**
+         * 排序、双指针
+         */
+        // 冒泡排序
         // 快排，分治思维
-        for (int i = l; i < h; i++) {
+        /**
+         * 输入：nums = [2,7,11,15], target = 9
+         * 输出：[0,1]
+         * 输入：nums = [2,7,11,15]
+         * 输入：nums = [3,1,2,0,2]
+         *
+         * 输入：nums = [0,1,2,2,3]
+         */
+        int[] numsCopy = Arrays.copyOf(nums, nums.length);
+        bubbleSort(numsCopy);
 
+        // partition(numsCopy, 0, numsCopy.length - 1);
+
+        int l = 0;
+        int h = numsCopy.length - 1;
+        while (l < h) {
+            int sum = numsCopy[l] + numsCopy[h];
+            if (sum == target) {
+                break;
+            } else if (sum < target) {
+                l++;
+            } else {
+                h--;
+            }
+        }
+        int newL = -1;
+        int newH = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == numsCopy[l]) {
+                if (newL == -1 && newH != i) {
+                    newL = i;
+                }
+            }
+            if (nums[i] == numsCopy[h]) {
+                if (newH == -1 && newL != i) {
+                    newH = i;
+                }
+            }
         }
 
+        return new int[]{newL, newH};
+    }
 
-        return null;
+    /**
+     * 思路：冒泡排序
+     * 时间复杂度：O(n2)
+     * 空间复杂度：O(1)
+     *
+     * @param numsCopy
+     */
+    private static void bubbleSort(int[] numsCopy) {
+        for (int i = numsCopy.length - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (numsCopy[j] > numsCopy[j + 1]) {
+                    swap(numsCopy, j, j + 1);
+                }
+            }
+        }
+    }
+
+    /**
+     * 思路：快排，分治
+     * 时间复杂度：O(nlogn)
+     * 空间复杂度：O(logn)
+     *
+     * @param nums
+     * @param l
+     * @param h
+     */
+    private static void partition(int[] nums, int l, int h) {
+        if (l >= h) {
+            return;
+        }
+        int pivot = h;
+        int currPoint = l;
+        for (int i = l; i <= h; i++) {
+            if (nums[i] < nums[pivot]) {
+                swap(nums, i, currPoint);
+                currPoint++;
+            }
+        }
+        swap(nums, currPoint, pivot);
+        partition(nums, l, currPoint - 1);
+        partition(nums, currPoint + 1, h);
+    }
+
+    private static void swap(int[] nums, int i, int currPoint) {
+        int temp = nums[i];
+        nums[i] = nums[currPoint];
+        nums[currPoint] = temp;
     }
 
 }

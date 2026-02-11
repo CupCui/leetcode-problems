@@ -19,7 +19,7 @@ public class TwoSumTest {
         int arg2 = 9;
         int[] expected = {0, 1};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertEquals(expected, response);
+        Assert.assertArrayEquals(expected, response);
     }
 
     /**
@@ -33,7 +33,7 @@ public class TwoSumTest {
         int arg2 = 6;
         int[] expected = {1, 2};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertEquals(expected, response);
+        Assert.assertArrayEquals(expected, response);
     }
 
     /**
@@ -47,7 +47,7 @@ public class TwoSumTest {
         int arg2 = 6;
         int[] expected = {0, 1};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertEquals(expected, response);
+        Assert.assertArrayEquals(expected, response);
     }
 
     /**
@@ -61,7 +61,7 @@ public class TwoSumTest {
         int arg2 = 0;
         int[] expected = {0, 1};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertEquals(expected, response);
+        Assert.assertArrayEquals(expected, response);
     }
 
     /**
@@ -75,7 +75,7 @@ public class TwoSumTest {
         int arg2 = 0;
         int[] expected = {0, 2};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertEquals(expected, response);
+        Assert.assertArrayEquals(expected, response);
     }
 
 }
