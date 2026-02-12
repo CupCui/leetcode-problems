@@ -1,6 +1,8 @@
 package top.cupcupcui.leetcodeproblems.array;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author cuiguanghao
@@ -54,6 +56,79 @@ public class TwoSum {
      * @return
      */
     public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> hashtable = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (hashtable.containsKey(target - nums[i])) {
+                return new int[]{hashtable.get(target - nums[i]), i};
+            }
+            hashtable.put(nums[i], i);
+        }
+        return new int[0];
+    }
+
+    /**
+     * 力扣官方题解
+     */
+    class Solution {
+        public int[] twoSum(int[] nums, int target) {
+            Map<Integer, Integer> hashtable = new HashMap<Integer, Integer>();
+            for (int i = 0; i < nums.length; ++i) {
+                if (hashtable.containsKey(target - nums[i])) {
+                    return new int[]{hashtable.get(target - nums[i]), i};
+                }
+                hashtable.put(nums[i], i);
+            }
+            return new int[0];
+        }
+    }
+
+    /**
+     * 思路：
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     * 结果:
+     * 优化建议：
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSumV2(int[] nums, int target) {
+        /**
+         * 排序、双指针
+         * hash
+         */
+        Map<Integer, Integer> numToIndexMap = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (numToIndexMap.containsKey(nums[i])) {
+                if (nums[i] * 2 == target) {
+                    return new int[]{numToIndexMap.get(nums[i]), i};
+                }
+            }
+            numToIndexMap.put(nums[i], i);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int newTarget = target - nums[i];
+            if (numToIndexMap.containsKey(newTarget) && numToIndexMap.get(newTarget) != i) {
+                return new int[]{numToIndexMap.get(newTarget), i};
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 思路：
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 结果:
+     * 优化建议：
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSumV1(int[] nums, int target) {
         /**
          * 排序、双指针
          */

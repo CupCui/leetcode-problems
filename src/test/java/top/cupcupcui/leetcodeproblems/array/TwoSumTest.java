@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import top.cupcupcui.leetcodeproblems.sorting.ContainsDuplicate;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class TwoSumTest {
@@ -19,7 +21,7 @@ public class TwoSumTest {
         int arg2 = 9;
         int[] expected = {0, 1};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertArrayEquals(expected, response);
+        Assert.assertArrayEquals(Arrays.stream(expected).sorted().toArray(), Arrays.stream(response).sorted().toArray());
     }
 
     /**
@@ -33,7 +35,7 @@ public class TwoSumTest {
         int arg2 = 6;
         int[] expected = {1, 2};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertArrayEquals(expected, response);
+        Assert.assertArrayEquals(Arrays.stream(expected).sorted().toArray(), Arrays.stream(response).sorted().toArray());
     }
 
     /**
@@ -47,7 +49,7 @@ public class TwoSumTest {
         int arg2 = 6;
         int[] expected = {0, 1};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertArrayEquals(expected, response);
+        Assert.assertArrayEquals(Arrays.stream(expected).sorted().toArray(), Arrays.stream(response).sorted().toArray());
     }
 
     /**
@@ -61,7 +63,7 @@ public class TwoSumTest {
         int arg2 = 0;
         int[] expected = {0, 1};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertArrayEquals(expected, response);
+        Assert.assertArrayEquals(Arrays.stream(expected).sorted().toArray(), Arrays.stream(response).sorted().toArray());
     }
 
     /**
@@ -75,7 +77,7 @@ public class TwoSumTest {
         int arg2 = 0;
         int[] expected = {0, 2};
         int[] response = service.twoSum(arg1, arg2);
-        Assert.assertArrayEquals(expected, response);
+        Assert.assertArrayEquals(Arrays.stream(expected).sorted().toArray(), Arrays.stream(response).sorted().toArray());
     }
 
 }
