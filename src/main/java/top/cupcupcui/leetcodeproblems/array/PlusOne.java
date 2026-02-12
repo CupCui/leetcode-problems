@@ -49,6 +49,57 @@ public class PlusOne {
 
     /**
      * 思路：
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 结果:
+     * 优化建议：
+     *
+     * @param digits
+     * @return
+     */
+    public int[] plusOne(int[] digits) {
+        int n = digits.length;
+        for (int i = n - 1; i >= 0; i--) {
+            if (digits[i] != 9) {
+                ++digits[i];
+                for (int j = i + 1; j < n; j++) {
+                    digits[j] = 0;
+                }
+                return digits;
+            }
+        }
+
+        // digits 中所有的元素均为 9
+        int[] ans = new int[n + 1];
+        ans[0] = 1;
+        return ans;
+    }
+
+    /**
+     * 力扣官方题解
+     */
+    class Solution {
+        public int[] plusOne(int[] digits) {
+            int n = digits.length;
+            for (int i = n - 1; i >= 0; --i) {
+                if (digits[i] != 9) {
+                    ++digits[i];
+                    for (int j = i + 1; j < n; ++j) {
+                        digits[j] = 0;
+                    }
+                    return digits;
+                }
+            }
+
+            // digits 中所有的元素均为 9
+            int[] ans = new int[n + 1];
+            ans[0] = 1;
+            return ans;
+        }
+    }
+
+    /**
+     * 思路：
      * 思路1：digits 数组转为 Long，Long 再+1，Long 再转为数组
      * 思路2：digits 数组倒序遍历，当前位+1，如果大于9，则当前位置0，
      * digits-1 数组倒序遍历，当前位+1，如果大于9，则当前位置0，
@@ -60,7 +111,7 @@ public class PlusOne {
      * @param digits
      * @return
      */
-    public int[] plusOne(int[] digits) {
+    public int[] plusOneV1(int[] digits) {
         /**
          * 输入：digits = [9,9,9]
          * 输出：[1,0,0,0]
