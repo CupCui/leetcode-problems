@@ -1,5 +1,8 @@
 package top.cupcupcui.leetcodeproblems.geminiinterview20;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 20. 有效的括号
  *
@@ -46,7 +49,7 @@ public class ValidParentheses {
      */
 
     /**
-     * 思路：
+     * 思路：栈，先进先出 FIFO
      * 时间复杂度：O()
      * 空间复杂度：O()
      * 结果:
@@ -56,6 +59,25 @@ public class ValidParentheses {
      * @return
      */
     public boolean isValid(String s) {
+        List<Character> fifoStack = new ArrayList<>();
+        fifoStack.add(s.charAt(0));
+
+        int top = 0;
+        for (int i = 1; i < s.length(); i++) {
+            // 补充 == 匹配的字典
+            if (!fifoStack.isEmpty() && fifoStack.get(top) == s.charAt(i)) {
+                fifoStack.remove(top);
+                if (top > 0) {
+                    top--;
+                }
+            } else {
+                fifoStack.add(s.charAt(i));
+                top++;
+            }
+        }
+        if (fifoStack.isEmpty()) {
+            return true;
+        }
 
         return false;
     }
