@@ -65,9 +65,16 @@ public class ValidParentheses {
         int top = 0;
         for (int i = 1; i < s.length(); i++) {
             // 补充 == 匹配的字典
-            if (!fifoStack.isEmpty() && fifoStack.get(top) == s.charAt(i)) {
+
+            if (fifoStack.isEmpty()) {
+                fifoStack.add(s.charAt(i));
+                top++;
+                continue;
+            }
+
+            if (isMatch(fifoStack.get(top), s.charAt(i))) {
                 fifoStack.remove(top);
-                if (top > 0) {
+                if (top >= 0) {
                     top--;
                 }
             } else {
@@ -79,6 +86,17 @@ public class ValidParentheses {
             return true;
         }
 
+        return false;
+    }
+
+    private boolean isMatch(char left, char right) {
+        if (left == '(' && right == ')') {
+            return true;
+        } else if (left == '{' && right == '}') {
+            return true;
+        } else if (left == '[' && right == ']') {
+            return true;
+        }
         return false;
     }
 
