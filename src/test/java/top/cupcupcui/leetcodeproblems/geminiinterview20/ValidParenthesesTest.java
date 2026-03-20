@@ -77,4 +77,18 @@ public class ValidParenthesesTest {
         boolean response = service.isValid(arg1);
         Assert.assertEquals(expected, response);
     }
+
+    /**
+     * 示例 6：
+     * 输入：s = "("
+     * 输出：false
+     */
+    @Test
+    public void test_PositiveCase5() {
+        ValidParentheses service = new ValidParentheses();
+        String arg1 = "(";
+        boolean expected = false;
+        boolean response = service.isValid(arg1);
+        Assert.assertEquals(expected, response);
+    }
 }

@@ -50,8 +50,8 @@ public class ValidParentheses {
 
     /**
      * 思路：栈，先进先出 FIFO
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
      * 结果:
      * 优化建议：
      *
@@ -64,8 +64,6 @@ public class ValidParentheses {
 
         int top = 0;
         for (int i = 1; i < s.length(); i++) {
-            // 补充 == 匹配的字典
-
             if (fifoStack.isEmpty()) {
                 fifoStack.add(s.charAt(i));
                 top++;
@@ -74,9 +72,7 @@ public class ValidParentheses {
 
             if (isMatch(fifoStack.get(top), s.charAt(i))) {
                 fifoStack.remove(top);
-                if (top >= 0) {
-                    top--;
-                }
+                top--;
             } else {
                 fifoStack.add(s.charAt(i));
                 top++;
