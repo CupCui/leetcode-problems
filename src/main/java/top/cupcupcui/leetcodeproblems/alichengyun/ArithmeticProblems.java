@@ -30,6 +30,43 @@ public class ArithmeticProblems {
      */
 
     /**
+     * 思路：TODO: 生成所有可行的结果，随机选择100个
+     * 时间复杂度：O()
+     * 空间复杂度：O()
+     * 结果:
+     * 优化建议：
+     *
+     * @return
+     */
+    public Set<Node> arithmeticProblems() {
+
+        /**
+         * 2、生成100道加减法算术题，
+         * 正例：
+         * 1+2
+         * 99+1
+         * 0+100
+         * (1+2, 2+1)
+         * (1+2, 1+3)
+         *
+         * 反例：
+         * 100+1
+         * 1+0
+         * (1+1, 1+1)
+         * (1+2, 1+2)
+         *
+         * 加法题和不超过100，加数不能为0，
+         * 随机生成加减法题，**不能重复**，题目和题目**带结果**的答案分别写入两个文件；
+         * 难度：简单
+         */
+        // 被加数：[0-99]
+        // 加数：[1-100]
+
+
+        return null;
+    }
+
+    /**
      * 思路：随机生成一个被加数，再对应随机生成一个加数
      * 时间复杂度：O(n)
      * 空间复杂度：O(n)
@@ -38,7 +75,7 @@ public class ArithmeticProblems {
      *
      * @return
      */
-    public Set<Node> arithmeticProblems() {
+    public Set<Node> arithmeticProblems1() {
 
         /**
          * 2、生成100道加减法算术题，
