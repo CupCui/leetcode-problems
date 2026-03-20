@@ -3,10 +3,7 @@ package top.cupcupcui.leetcodeproblems.alichengyun;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
@@ -47,5 +44,17 @@ public class ArithmeticProblemsTest {
         }
         Collections.shuffle(allPairs);
         Set<int[]> collect = allPairs.stream().limit(100).collect(Collectors.toSet());
+    }
+
+    @Test
+    public void cursorTest() {
+        List<ArithmeticProblems.Node> all = new ArrayList<>();
+        for (int left = 0; left <= 99; left++) {
+            for (int right = 1; right <= 100 - left; right++) { // right != 0, left+right <= 100
+                all.add(new ArithmeticProblems.Node(left, right));
+            }
+        }
+        Collections.shuffle(all);
+        HashSet<ArithmeticProblems.Node> nodes = new HashSet<>(all.subList(0, 100));
     }
 }

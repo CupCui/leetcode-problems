@@ -89,7 +89,7 @@ public class ArithmeticProblems {
         return new int[]{left, right};
     }
 
-    public class Node {
+    public static class Node {
         int left;
         int right;
 
