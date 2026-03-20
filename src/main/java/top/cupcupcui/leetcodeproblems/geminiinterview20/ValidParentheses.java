@@ -63,20 +63,16 @@ public class ValidParentheses {
         Stack<Character> fifoStack = new Stack<>();
         fifoStack.push(s.charAt(0));
 
-        int top = 0;
         for (int i = 1; i < s.length(); i++) {
             if (fifoStack.isEmpty()) {
                 fifoStack.push(s.charAt(i));
-                top++;
                 continue;
             }
 
             if (isMatch(fifoStack.peek(), s.charAt(i))) {
                 fifoStack.pop();
-                top--;
             } else {
                 fifoStack.push(s.charAt(i));
-                top++;
             }
         }
         if (fifoStack.isEmpty()) {
