@@ -78,19 +78,13 @@ public class ArithmeticProblems {
     }
 
     private int[] getAddArithmetic() {
-        Random random = new Random();
-        int left = random.nextInt(100);
+        // 使用 ThreadLocalRandom，避免在高频调用时反复 new Random
+        // left: [0, 99]
+        int left = java.util.concurrent.ThreadLocalRandom.current().nextInt(100);
 
-        int right;
-        int rightBound = 100 - left;
-        if (rightBound == 1) {
-            // rightBound 为 1时，right 只能取 1
-            right = rightBound;
-        } else {
-            do {
-                right = random.nextInt(rightBound);
-            } while (right == 0);
-        }
+        // right: [1, 100 - left]，保证 left + right <= 100 且 right != 0
+        int rightBound = 100 - left; // 永远 >= 1，因为 left <= 99
+        int right = java.util.concurrent.ThreadLocalRandom.current().nextInt(rightBound) + 1;
 
         return new int[]{left, right};
     }
