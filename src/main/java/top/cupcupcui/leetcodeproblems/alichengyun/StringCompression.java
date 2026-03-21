@@ -2,11 +2,6 @@ package top.cupcupcui.leetcodeproblems.alichengyun;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author cuiguanghao
@@ -33,13 +28,49 @@ public class StringCompression {
      */
 
     /**
-     * 思路：遍历 s，统计相邻的元素个数，并记录
+     * 思路：遍历 s，一个指针记录当前元素，计数器计数，结果写入到 string 中(线性扫描 + 当前字符与连续个数)
      * 时间复杂度：O(n)
      * 空间复杂度：O(n)
      * 结果:
      * 优化建议：
      */
     public String stringCompression(String s) {
+        if (s.isEmpty()) {
+            return s;
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        char prev = s.charAt(0);
+        int count = 1;
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == prev) {
+                count++;
+            } else {
+                stringBuilder.append(prev);
+                stringBuilder.append(count);
+                prev = s.charAt(i);
+                count = 1;
+            }
+        }
+
+        stringBuilder.append(prev);
+        stringBuilder.append(count);
+
+        if (s.length() <= stringBuilder.length()) {
+            return s;
+        }
+
+        return stringBuilder.toString();
+    }
+
+    /**
+     * 思路：遍历 s，统计相邻的元素个数，并记录
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     * 结果:
+     * 优化建议：
+     */
+    public String stringCompressionV1(String s) {
         if (s.isEmpty()) {
             return s;
         }
