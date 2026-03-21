@@ -78,7 +78,7 @@ public class ArithmeticProblems {
         return addArithmetics;
     }
 
-    private static void echoToFile(List<int[]> addArithmetics) throws IOException {
+    private void echoToFile(List<int[]> addArithmetics) throws IOException {
         File file = new File("/Users/gavin/home/012Workspace/IdeaProject/Gary/leetcode-problems/addArithmetic.txt");
         String path = file.getAbsolutePath();
         if (!file.exists()) {
@@ -105,7 +105,7 @@ public class ArithmeticProblems {
         }
     }
 
-    private static List<int[]> getAddArithmetics() {
+    private List<int[]> getAddArithmetics() {
         ArrayList<int[]> arithmeticList = new ArrayList<>();
         for (int left = 0; left < 100; left++) {
             // 被加数：[0-99]
