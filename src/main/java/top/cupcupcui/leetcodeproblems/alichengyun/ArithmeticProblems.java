@@ -71,28 +71,24 @@ public class ArithmeticProblems {
         try {
             echoToFile(addArithmetics);
         } catch (IOException e) {
-            logIoFailure("echo to file", e);
-            // 题目列表已生成；写文件失败不吞原因，由上层决定是否改为 throw
+            // 仅依赖标准输出；堆栈也打到 stdout
+            System.out.println("[IO] " + "echo to file" + " failed: " + e.getMessage());
+            e.printStackTrace(System.out);
         }
         return addArithmetics;
     }
 
-    /** 仅依赖标准输出；堆栈也打到 stdout */
-    private static void logIoFailure(String stage, IOException e) {
-        System.out.println("[IO] " + stage + " failed: " + e.getMessage());
-        e.printStackTrace(System.out);
-    }
-
     private static void echoToFile(List<int[]> addArithmetics) throws IOException {
         File file = new File("/Users/gavin/home/012Workspace/IdeaProject/Gary/leetcode-problems/addArithmetic.txt");
+        String path = file.getAbsolutePath();
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
-                    System.out.println("[IO] file created: " + file.getAbsolutePath());
+                    System.out.println("[IO] file created: " + path);
                 }
             } catch (IOException e) {
-                logIoFailure("create file", e);
-                throw e;
+                // 不在此处打日志：避免与上层 catch 重复记录同一次失败；用 cause 链保留原始异常
+                throw new IOException("failed to create output file: " + path, e);
             }
         }
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
@@ -105,8 +101,7 @@ public class ArithmeticProblems {
                 fileOutputStream.write(line.getBytes(StandardCharsets.UTF_8));
             }
         } catch (IOException e) {
-            logIoFailure("write file", e);
-            throw e;
+            throw new IOException("failed to write output file: " + path, e);
         }
     }
 
