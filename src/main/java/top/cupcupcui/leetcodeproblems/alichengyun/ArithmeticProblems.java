@@ -1,5 +1,9 @@
 package top.cupcupcui.leetcodeproblems.alichengyun;
 
+import lombok.NonNull;
+
+import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -30,7 +34,7 @@ public class ArithmeticProblems {
      */
 
     /**
-     * 思路：TODO: 生成所有可行的结果，随机选择100个
+     * 思路：生成所有可行的结果，随机选择100个
      * 时间复杂度：O()
      * 空间复杂度：O()
      * 结果:
@@ -61,6 +65,43 @@ public class ArithmeticProblems {
          */
         // 被加数：[0-99]
         // 加数：[1-100]
+        // 生成加法运算题
+        List<int[]> addArithmetics = getAddArithmetics();
+        // 输出结果到文件
+        echoToFile(addArithmetics);
+        return addArithmetics;
+    }
+
+    private static void echoToFile(List<int[]> addArithmetics) {
+        File file = new File("/Users/gavin/home/012Workspace/IdeaProject/Gary/leetcode-problems/addArithmetic.txt");
+        if (!file.exists()) {
+            try {
+                boolean newFile = file.createNewFile();
+                if (newFile) {
+                    System.out.println("file created");
+                } else {
+                    System.out.println("file already exists");
+                }
+            } catch (IOException e) {
+                System.out.println("file create fail");
+            }
+        }
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            for (int[] addArithmetic : addArithmetics) {
+                int left = addArithmetic[0];
+                int right = addArithmetic[1];
+                int result = addArithmetic[0] + addArithmetic[1];
+
+                fileOutputStream.write((left + " + " + right + " = " + result + "\n").getBytes());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("file not found");
+        } catch (IOException e) {
+            System.out.println("write file fail");
+        }
+    }
+
+    private static List<int[]> getAddArithmetics() {
         ArrayList<int[]> arithmeticList = new ArrayList<>();
         for (int left = 0; left < 100; left++) {
             // 被加数：[0-99]
