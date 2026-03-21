@@ -93,14 +93,28 @@ public class StringCompressionTest {
     }
 
     /**
-     * 输入："aaaaaaaa"
+     * 输入："aaaaaaaaaaaaaaaa"
      * 输出："a8"
      */
     @Test
     public void test_PositiveCase6() {
         StringCompression service = new StringCompression();
-        String arg1 = "aaaaaaaa";
-        String expected = "a8";
+        String arg1 = "aaaaaaaaaaaaaaaa";
+        String expected = "a16";
+        String response = service.stringCompression(arg1);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入："aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbb"
+     * 输出："a8"
+     */
+    @Test
+    public void test_PositiveCase7() {
+        StringCompression service = new StringCompression();
+        String arg1 = "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbb";
+        String expected = "a16b16";
         String response = service.stringCompression(arg1);
 
         Assert.assertEquals(expected, response);

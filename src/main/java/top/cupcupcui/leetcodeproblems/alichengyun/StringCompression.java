@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.alichengyun;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -32,8 +34,8 @@ public class StringCompression {
 
     /**
      * 思路：遍历 s，统计相邻的元素个数，并记录
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
      * 结果:
      * 优化建议：
      */
@@ -42,7 +44,7 @@ public class StringCompression {
             return s;
         }
 
-        LinkedBlockingDeque<Character> charDeque = new LinkedBlockingDeque<>();
+        Deque<Character> charDeque = new ArrayDeque<>();
         charDeque.addLast(s.charAt(0));
         int currCharCount = 1;
         for (int i = 1; i < s.length(); i++) {
@@ -52,13 +54,17 @@ public class StringCompression {
                 currCharCount++;
             } else {
                 // 新元素，把上一个元素计数器 push 到堆栈
-                charDeque.addLast(String.valueOf(currCharCount).charAt(0));
+                for (char c : String.valueOf(currCharCount).toCharArray()) {
+                    charDeque.addLast(c);
+                }
                 charDeque.addLast(currChar);
                 // 计数器置为 1
                 currCharCount = 1;
             }
         }
-        charDeque.addLast(String.valueOf(currCharCount).charAt(0));
+        for (char c : String.valueOf(currCharCount).toCharArray()) {
+            charDeque.addLast(c);
+        }
 
         if (s.length() <= charDeque.size()) {
             return s;
