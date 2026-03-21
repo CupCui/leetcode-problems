@@ -1,10 +1,9 @@
 package top.cupcupcui.leetcodeproblems.alichengyun;
 
-import com.sun.xml.internal.fastinfoset.Encoder;
-import lombok.NonNull;
-
-import java.io.*;
-import java.nio.file.Path;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -72,23 +71,28 @@ public class ArithmeticProblems {
         try {
             echoToFile(addArithmetics);
         } catch (IOException e) {
-            System.out.println("echo to file fail");
+            logIoFailure("echo to file", e);
+            // 题目列表已生成；写文件失败不吞原因，由上层决定是否改为 throw
         }
         return addArithmetics;
+    }
+
+    /** 仅依赖标准输出；堆栈也打到 stdout */
+    private static void logIoFailure(String stage, IOException e) {
+        System.out.println("[IO] " + stage + " failed: " + e.getMessage());
+        e.printStackTrace(System.out);
     }
 
     private static void echoToFile(List<int[]> addArithmetics) throws IOException {
         File file = new File("/Users/gavin/home/012Workspace/IdeaProject/Gary/leetcode-problems/addArithmetic.txt");
         if (!file.exists()) {
             try {
-                boolean newFile = file.createNewFile();
-                if (newFile) {
-                    System.out.println("file created");
-                } else {
-                    System.out.println("file already exists");
+                if (file.createNewFile()) {
+                    System.out.println("[IO] file created: " + file.getAbsolutePath());
                 }
             } catch (IOException e) {
-                System.out.println("file create fail");
+                logIoFailure("create file", e);
+                throw e;
             }
         }
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
@@ -97,13 +101,11 @@ public class ArithmeticProblems {
                 int right = addArithmetic[1];
                 int result = addArithmetic[0] + addArithmetic[1];
 
-                fileOutputStream.write((left + " + " + right + " = " + result + "\n").getBytes());
+                String line = left + " + " + right + " = " + result + "\n";
+                fileOutputStream.write(line.getBytes(StandardCharsets.UTF_8));
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("file not found");
-            throw e;
         } catch (IOException e) {
-            System.out.println("write file fail");
+            logIoFailure("write file", e);
             throw e;
         }
     }
@@ -119,7 +121,8 @@ public class ArithmeticProblems {
             }
         }
         Collections.shuffle(arithmeticList);
-        return arithmeticList.subList(0, 100);
+        // 拷贝前 100 条，避免 subList 持有整表导致无法释放约 5050 道题的 backing list
+        return new ArrayList<>(arithmeticList.subList(0, 100));
     }
 
     /**
