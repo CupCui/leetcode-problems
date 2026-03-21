@@ -1,5 +1,6 @@
 package top.cupcupcui.leetcodeproblems.alichengyun;
 
+import com.sun.xml.internal.fastinfoset.Encoder;
 import lombok.NonNull;
 
 import java.io.*;
@@ -68,11 +69,15 @@ public class ArithmeticProblems {
         // 生成加法运算题
         List<int[]> addArithmetics = getAddArithmetics();
         // 输出结果到文件
-        echoToFile(addArithmetics);
+        try {
+            echoToFile(addArithmetics);
+        } catch (IOException e) {
+            System.out.println("echo to file fail");
+        }
         return addArithmetics;
     }
 
-    private static void echoToFile(List<int[]> addArithmetics) {
+    private static void echoToFile(List<int[]> addArithmetics) throws IOException {
         File file = new File("/Users/gavin/home/012Workspace/IdeaProject/Gary/leetcode-problems/addArithmetic.txt");
         if (!file.exists()) {
             try {
@@ -96,8 +101,10 @@ public class ArithmeticProblems {
             }
         } catch (FileNotFoundException e) {
             System.out.println("file not found");
+            throw e;
         } catch (IOException e) {
             System.out.println("write file fail");
+            throw e;
         }
     }
 
