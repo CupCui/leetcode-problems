@@ -38,7 +38,7 @@ public class ArithmeticProblems {
      *
      * @return
      */
-    public Set<Node> arithmeticProblems() {
+    public List<int[]> arithmeticProblems() {
 
         /**
          * 2、生成100道加减法算术题，
@@ -61,9 +61,17 @@ public class ArithmeticProblems {
          */
         // 被加数：[0-99]
         // 加数：[1-100]
-
-
-        return null;
+        ArrayList<int[]> arithmeticList = new ArrayList<>();
+        for (int left = 0; left < 100; left++) {
+            // 被加数：[0-99]
+            for (int right = 1; right <= 100 - left; right++) {
+                // 加数：[1-100]
+                int[] arithmetic = {left, right};
+                arithmeticList.add(arithmetic);
+            }
+        }
+        Collections.shuffle(arithmeticList);
+        return arithmeticList.subList(0, 100);
     }
 
     /**

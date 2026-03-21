@@ -18,10 +18,10 @@ public class ArithmeticProblemsTest {
     @Test
     public void test_PositiveCase0() {
         ArithmeticProblems service = new ArithmeticProblems();
-        Set<ArithmeticProblems.Node> responseList = service.arithmeticProblems();
-        for (ArithmeticProblems.Node node : responseList) {
-            int left = node.getLeft();
-            int right = node.getRight();
+        List<int[]> responseList = service.arithmeticProblems();
+        for (int[] node : responseList) {
+            int left = node[0];
+            int right = node[1];
             int addResult = left + right;
             System.out.println(left + " + " + right + " = " + addResult);
 
