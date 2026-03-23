@@ -43,57 +43,73 @@ public class TheKthLargestElement {
 
     /**
      * 思路：
-     * 时间复杂度：O()
-     * 空间复杂度：O()
-     * 结果:
-     * 优化建议：
+     * 1) 先使用快速排序（QuickSort）将数组按升序排好。
+     * 2) 第 k 大元素在升序数组中的下标是 nums.length - k。
+     * <p>
+     * 快排核心：partition（分区）
+     * - 选定一个 pivot（这里固定使用右端元素 nums[right]）
+     * - 一次扫描后把数组分成两部分：
+     * [left, pivotIndex - 1] 全部 < pivot
+     * [pivotIndex + 1, right] 全部 >= pivot
+     * - pivot 放到 pivotIndex 后，这个位置就是 pivot 的最终有序位置
+     * <p>
+     * 递归含义：
+     * - 左边继续排：partition(nums, left, pivotIndex - 1)
+     * - 右边继续排：partition(nums, pivotIndex + 1, right)
+     * - 当 left >= right 时，子区间长度 <= 1，天然有序，递归结束
+     * <p>
+     * 时间复杂度：平均 O(n log n)，最坏 O(n^2)
+     * 空间复杂度：平均 O(log n)（递归栈），最坏 O(n)
+     * <p>
+     * 说明：
+     * - 这版是“完整快排后取第 k 大”，逻辑直观；
+     * - 若追求这道题最优平均复杂度，可改为 QuickSelect（平均 O(n)）。
      *
      * @return
      */
     public int theKthLargestElement(int[] nums, int k) {
-        // 快排
-        /**
-         * 输入：nums = [6,5,4,3,2,1], k = 2
-         * left   mid   right
-         * 0      3(3)     5
-         * 输入：nums = [2,1,3  ,4,  6,5], k = 2
-         *
-         * left   mid   right
-         * 0      1(1)     2
-         * 输入：nums = [1,2,3  ,4,  6,5], k = 2
-         *
-         * 输出：5
-         */
+        // 完整快排：将 nums 整体排成升序。
         int left = 0;
         int right = nums.length - 1;
         partition(nums, left, right);
 
+        // 第 k 大 -> 升序下标 nums.length - k
         return nums[nums.length - k];
     }
 
     private void partition(int[] nums, int left, int right) {
+        // 防御式边界判断：越界时直接返回，避免非法访问。
         if (left < 0 || right > nums.length - 1) {
             return;
         }
+        // 递归终止：区间长度为 0 或 1 时，已经有序。
         if (left >= right) {
             return;
         }
+
+        // pivotIndex 指向“下一个应放置 < pivot 元素的位置”。
         int pivotIndex = left;
+        // 这里 pivot 固定取 nums[right]。
+        // 循环不变量（每轮开始时）：
+        // [left, pivotIndex - 1] 都是 < pivot 的元素
+        // [pivotIndex, i - 1] 都是 >= pivot 的元素
         for (int i = left; i <= right; i++) {
-            // 交换 pivotIndex 和 i
+            // 发现 < pivot 的元素，就交换到左侧区间并扩展左区间边界。
             if (nums[i] < nums[right]) {
                 swap(nums, i, pivotIndex);
                 pivotIndex++;
             }
         }
-        // 将 mid 放到位置上
+        // 扫描结束后，将 pivot 放到最终有序位置 pivotIndex。
         swap(nums, pivotIndex, right);
 
+        // 递归处理 pivot 左右两侧未排序区间。
         partition(nums, left, pivotIndex - 1);
         partition(nums, pivotIndex + 1, right);
     }
 
     private void swap(int[] nums, int source, int target) {
+        // 交换数组中两个位置的值。
         int temp = nums[source];
         nums[source] = nums[target];
         nums[target] = temp;
