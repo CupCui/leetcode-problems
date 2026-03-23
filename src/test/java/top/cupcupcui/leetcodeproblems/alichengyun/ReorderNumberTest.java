@@ -104,4 +104,32 @@ public class ReorderNumberTest {
 
         Assert.assertEquals(expected, response);
     }
+
+    /**
+     * 输入：nums = [0,0]
+     * 输出："0"
+     */
+    @Test
+    public void test_PositiveCase7() {
+        ReorderNumber service = new ReorderNumber();
+        int[] arg1 = {0, 0};
+        String expected = "0";
+        String response = service.reorderNumber(arg1);
+
+        Assert.assertEquals(expected, response);
+    }
+
+    /**
+     * 输入：nums = [0,1]
+     * 输出："10"
+     */
+    @Test
+    public void test_PositiveCase8() {
+        ReorderNumber service = new ReorderNumber();
+        int[] arg1 = {0, 1};
+        String expected = "10";
+        String response = service.reorderNumber(arg1);
+
+        Assert.assertEquals(expected, response);
+    }
 }

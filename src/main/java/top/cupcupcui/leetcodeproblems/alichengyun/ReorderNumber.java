@@ -12,7 +12,7 @@ public class ReorderNumber {
     /**
      * ５、给定一组**非负**整数 nums，
      * 重新排列每个数的顺序（每个数**不可拆分**）
-     * 使之组成一个**最大**的整数。
+     * 使之组成一个**最大**的**整数**。
      *
      * 注意：
      * 1. 输出结果可能非常大，所以你需要返回一个字符串而不是整数。
@@ -48,7 +48,7 @@ public class ReorderNumber {
      * 1. 步骤一：依次比较各个位的数值数，如果不足则用最大正整数补齐位数
      * 2. 步骤一：按照最高位排序；步骤二：比较相邻两个元素
      * 3. 列出 nums 的所有组合，从组合中筛选出最大的 O(n2)
-     * 时间复杂度：O(n2)
+     * 时间复杂度：O(logn)
      * 空间复杂度：O(n)
      * 结果:
      * 优化建议：
@@ -73,6 +73,10 @@ public class ReorderNumber {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < numsStr.length; i++) {
             stringBuilder.append(numsStr[i]);
+        }
+
+        if (stringBuilder.toString().replaceAll("0", "").isEmpty()) {
+            return "0";
         }
 
         return stringBuilder.toString();
