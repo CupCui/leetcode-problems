@@ -33,7 +33,6 @@ public class ProblemList {
      * 输入:str1="ABCABC"，str2="ABC"输出:"ABC"
      * 示例2:
      * 输入:Str1="ABABAB"，Str2 ="ABAB"输出:"AB"
-     * 辗转相除法
      * 难度：中等
      *
      * ５、给定一组非负整数 nums，重新排列每个数的顺序（每个数不可拆分）使之组成一个最大的整数。

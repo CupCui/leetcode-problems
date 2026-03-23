@@ -115,4 +115,68 @@ public class TheKthLargestElement {
         nums[target] = temp;
     }
 
+    public class TheKthLargestElementV2 {
+
+        public int theKthLargestElement(int[] nums, int k) {
+            if (nums == null || nums.length == 0) {
+                throw new IllegalArgumentException("nums 不能为空");
+            }
+            if (k < 1 || k > nums.length) {
+                throw new IllegalArgumentException("k 超出范围");
+            }
+
+            // 1) 先把数组整体排成升序
+            quickSort(nums, 0, nums.length - 1);
+            // 2) 第 k 大在升序数组中的下标为 n-k
+            return nums[nums.length - k];
+        }
+
+        /**
+         * 快排模板（与当前思路一致）：
+         * - 取右端元素作为 pivot
+         * - 分区后 pivot 落到最终有序位置
+         * - 递归处理左右区间
+         */
+        private void quickSort(int[] nums, int left, int right) {
+            if (left >= right) {
+                return;
+            }
+
+            int pivotIndex = partition(nums, left, right);
+            quickSort(nums, left, pivotIndex - 1);
+            quickSort(nums, pivotIndex + 1, right);
+        }
+
+        /**
+         * 分区不变量（循环过程中始终成立）：
+         * - [left, storeIndex - 1] < pivot
+         * - [storeIndex, i - 1] >= pivot
+         */
+        private int partition(int[] nums, int left, int right) {
+            int pivotValue = nums[right];
+            int storeIndex = left;
+
+            // i < right：right 是 pivot 所在位置，不参与比较
+            for (int i = left; i < right; i++) {
+                if (nums[i] < pivotValue) {
+                    swap(nums, i, storeIndex);
+                    storeIndex++;
+                }
+            }
+
+            // 将 pivot 放到最终位置 storeIndex
+            swap(nums, storeIndex, right);
+            return storeIndex;
+        }
+
+        private void swap(int[] nums, int source, int target) {
+            if (source == target) {
+                return;
+            }
+            int temp = nums[source];
+            nums[source] = nums[target];
+            nums[target] = temp;
+        }
+    }
+
 }
