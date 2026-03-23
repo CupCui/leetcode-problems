@@ -31,6 +31,10 @@ public class ReorderNumber {
      * 输出："330"
      * 输入：nums = [9,89]
      * 输出："989"
+     * 输入：nums = [31,32,3,2,1]
+     * 输出："3323121"
+     * 输入：nums = [321,32,31,3,2,1]
+     * 输出："32 321 31 3 2 1"
      *
      * 提示：
      * 1 〈= nums.length 〈= 100
@@ -39,17 +43,45 @@ public class ReorderNumber {
 
     /**
      * 思路：
-     *  1. 列出 nums 的所有组合，从组合中筛选出最大的 O(n2)
-     * 时间复杂度：O()
-     * 空间复杂度：O()
+     * 1. 步骤一：依次比较各个位的数值数，如果不足则用最大正整数补齐位数
+     * 2. 步骤一：按照最高位排序；步骤二：比较相邻两个元素
+     * 3. 列出 nums 的所有组合，从组合中筛选出最大的 O(n2)
+     * 时间复杂度：O(n2)
+     * 空间复杂度：O(n)
      * 结果:
      * 优化建议：
      *
      * @return
      */
     public String reorderNumber(int[] nums) {
+        // 冒泡排序
+        /**
+         * 输入：nums = [1,4,2,3]
+         * 输入：nums = [1,3,2,4]
+         * 输入：nums = [1,2,3,4]
+         */
+        // 需要遍历的次数
+        for (int i = 0; i < nums.length - 1; i++) {
+            // 遍历未排序的元素
+            int maxValueIndex = 0;
+            for (int j = 1; j < nums.length - i; j++) {
+                String s1 = "" + nums[j] + nums[maxValueIndex];
+                String s2 = "" + nums[maxValueIndex] + nums[j];
+                // 字符串比较大小
+                if (s1.compareTo(s2) > 0) {
+                    maxValueIndex = j;
+                }
+            }
+            int temp = nums[nums.length - i - 1];
+            nums[nums.length - i - 1] = nums[maxValueIndex];
+            nums[maxValueIndex] = temp;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = nums.length - 1; i >= 0; i--) {
+            stringBuilder.append(nums[i]);
+        }
 
-        return null;
+        return stringBuilder.toString();
     }
 
 }
