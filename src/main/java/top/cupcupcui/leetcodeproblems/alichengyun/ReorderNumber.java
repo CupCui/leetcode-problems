@@ -56,7 +56,6 @@ public class ReorderNumber {
      * @return
      */
     public String reorderNumber(int[] nums) {
-        // 冒泡排序
         /**
          * 输入：nums = [1,4,2,3]
          * 输入：nums = [1,3,2,4]
@@ -79,6 +78,38 @@ public class ReorderNumber {
             return "0";
         }
 
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Cursor 标准解法（自定义排序）：
+     * 1. 将数字转成字符串；
+     * 2. 按照 (b + a) 与 (a + b) 的字典序降序排序；
+     * 3. 顺序拼接为最终结果；
+     * 4. 若排序后首元素为 "0"，说明全部为 0，直接返回 "0"。
+     * <p>
+     * 时间复杂度：O(n log n * k)，k 为平均字符串长度
+     * 空间复杂度：O(n * k)
+     */
+    public String reorderNumberV2(int[] nums) {
+        String[] numsStr = new String[nums.length];
+        int totalLen = 0;
+        for (int i = 0; i < nums.length; i++) {
+            numsStr[i] = String.valueOf(nums[i]);
+            totalLen += numsStr[i].length();
+        }
+
+        Arrays.sort(numsStr, (a, b) -> (b + a).compareTo(a + b));
+
+        // 排序后最大值是 0，则所有值都是 0
+        if ("0".equals(numsStr[0])) {
+            return "0";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder(totalLen);
+        for (String s : numsStr) {
+            stringBuilder.append(s);
+        }
         return stringBuilder.toString();
     }
 
