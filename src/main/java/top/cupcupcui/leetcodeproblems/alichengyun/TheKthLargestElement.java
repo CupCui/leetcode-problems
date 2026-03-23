@@ -68,7 +68,7 @@ public class TheKthLargestElement {
         int right = nums.length - 1;
         partition(nums, left, right);
 
-        return nums[k];
+        return nums[nums.length - k];
     }
 
     private void partition(int[] nums, int left, int right) {
@@ -78,21 +78,19 @@ public class TheKthLargestElement {
         if (left >= right) {
             return;
         }
-        int mid = left + (right - left) / 2;
-        int pivotNum = nums[mid];
-        int currIndex = left;
+        int pivotIndex = left;
         for (int i = left; i <= right; i++) {
-            // 交换 currIndex 和 i
-            if (nums[i] < pivotNum) {
-                swap(nums, i, currIndex);
-                currIndex++;
+            // 交换 pivotIndex 和 i
+            if (nums[i] < nums[right]) {
+                swap(nums, i, pivotIndex);
+                pivotIndex++;
             }
         }
         // 将 mid 放到位置上
-        swap(nums, currIndex, mid);
+        swap(nums, pivotIndex, right);
 
-        partition(nums, left, currIndex - 1);
-        partition(nums, currIndex + 1, right);
+        partition(nums, left, pivotIndex - 1);
+        partition(nums, pivotIndex + 1, right);
     }
 
     private void swap(int[] nums, int source, int target) {
