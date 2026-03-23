@@ -1,5 +1,7 @@
 package top.cupcupcui.leetcodeproblems.alichengyun;
 
+import java.util.Arrays;
+
 /**
  * Reorder the sequence of each number
  *
@@ -54,6 +56,41 @@ public class ReorderNumber {
      * @return
      */
     public String reorderNumber(int[] nums) {
+        // 冒泡排序
+        /**
+         * 输入：nums = [1,4,2,3]
+         * 输入：nums = [1,3,2,4]
+         * 输入：nums = [1,2,3,4]
+         */
+
+        String[] numsStr = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            numsStr[i] = String.valueOf(nums[i]);
+        }
+
+        Arrays.sort(numsStr, (a, b) -> (b + a).compareTo(a + b));
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < numsStr.length; i++) {
+            stringBuilder.append(numsStr[i]);
+        }
+
+        return stringBuilder.toString();
+    }
+
+    /**
+     * 思路：
+     * 1. 步骤一：依次比较各个位的数值数，如果不足则用最大正整数补齐位数
+     * 2. 步骤一：按照最高位排序；步骤二：比较相邻两个元素
+     * 3. 列出 nums 的所有组合，从组合中筛选出最大的 O(n2)
+     * 时间复杂度：O(n2)
+     * 空间复杂度：O(n)
+     * 结果:
+     * 优化建议：
+     *
+     * @return
+     */
+    public String reorderNumberV1(int[] nums) {
         // 冒泡排序
         /**
          * 输入：nums = [1,4,2,3]
