@@ -34,8 +34,8 @@ public class MergeTwoSortedLists {
     /**
      * 考点：递归、链表
      * 思路：遍历 list1、list2，比较大小，结果放到一个新 node 中。
-     * 时间复杂度：O(n)
-     * 空间复杂度：O(n)
+     * 时间复杂度：O(n + m)
+     * 空间复杂度：O(1)
      * 结果:
      * 优化建议：
      *
@@ -52,38 +52,31 @@ public class MergeTwoSortedLists {
         }
         ListNode ansNode = null;
         if (list1.val <= list2.val) {
-            ansNode = new ListNode(list1.val, null);
+            ansNode = list1;
             list1 = list1.next;
         } else {
-            ansNode = new ListNode(list2.val, null);
+            ansNode = list2;
             list2 = list2.next;
 
         }
 
         ListNode currNode = ansNode;
-        while (list1 != null || list2 != null) {
-            if (list1 == null) {
-                currNode.next = new ListNode(list2.val, null);
-                list2 = list2.next;
-                currNode = currNode.next;
-                continue;
-            }
-            if (list2 == null) {
-                currNode.next = new ListNode(list1.val, null);
-                list1 = list1.next;
-                currNode = currNode.next;
-                continue;
-            }
-
+        while (list1 != null && list2 != null) {
             if (list1.val <= list2.val) {
-                currNode.next = new ListNode(list1.val, null);
+                currNode.next = list1;
                 list1 = list1.next;
                 currNode = currNode.next;
             } else {
-                currNode.next = new ListNode(list2.val, null);
+                currNode.next = list2;
                 list2 = list2.next;
                 currNode = currNode.next;
             }
+        }
+        if (list1 == null) {
+            currNode.next = list2;
+        }
+        if (list2 == null) {
+            currNode.next = list1;
         }
 
         return ansNode;
